@@ -8,7 +8,8 @@ import SavedMovies from './SavedMovies';
 import Profile from './Profile';
 import Footer from './Footer';
 import Login from './Login';
-import Register from './Register';import './App.css';
+import Register from './Register';
+import './App.css';
 
 function App() {
   return (
