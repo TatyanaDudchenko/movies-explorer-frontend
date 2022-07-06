@@ -1,14 +1,14 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import Main from './Main';
-import Navigation from './Navigation';
-import Header from './Header';
-import Movies from './Movies';
-import SavedMovies from './SavedMovies';
-import Profile from './Profile';
-import Footer from './Footer';
-import Login from './Login';
-import Register from './Register';
+import Main from '../Main/Main';
+import Navigation from '../Navigation/Navigation';
+import Header from '../Header/Header';
+import Movies from '../Movies/Movies';
+import SavedMovies from '../SavedMovies/SavedMovies';
+import Profile from '../Profile/Profile';
+import Footer from '../Footer/Footer';
+import Login from '../Login/Login';
+import Register from '../Register/Register';
 import './App.css';
 
 function App() {
