@@ -9,11 +9,12 @@ import Profile from '../Profile/Profile';
 import Footer from '../Footer/Footer';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
+import '../../vendor/normalize.css';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
+    <div className="page">
       <Header />
       <Navigation />
       <Switch>
