@@ -1,9 +1,6 @@
 import headerLogo from '../../images/logo.svg';
 import './Header.css';
 import React from 'react';
-import { Switch } from 'react-router-dom';
-import { NavLink } from 'react-router-dom';
-import { Route } from 'react-router-dom';
 
 function Header() {
     return (
