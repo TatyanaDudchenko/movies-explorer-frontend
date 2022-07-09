@@ -1,8 +1,13 @@
 import './Main.css';
+import Promo from '../Promo/Promo';
 
 function Main() {
     return (
-        <h1 className='test-title'>Привет, Мир!</h1>
+        <div className='content'>
+            <section class="lead">
+                <Promo />
+            </section>
+        </div>
     )
 }
 

@@ -1,0 +1,7 @@
+.promo__title {
+    text-align: center;
+    margin: 0 auto; /*сброшены заданные браузером внешние отступы и отцентровано по горизонтали*/
+    font-size: 50px;
+    line-height: 58px;
+    font-weight: 400;
+}
