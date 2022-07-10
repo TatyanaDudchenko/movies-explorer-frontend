@@ -13,29 +13,33 @@
     margin-right: -30px;
 }
   
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1279px) {
     .content {
         padding-left: 30px;
         padding-right: 30px;
     }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1279px) {
     .lead {
         padding-top: 350px;
+        margin-left: -10px;
+        margin-right: -10px;
     }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 767px) {
     .content {
-        padding-left: 18px;
-        padding-right: 18px;
+        padding-left: 14px;
+        padding-right: 14px;
     }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 767px) {
     .lead {
         padding-top: 220px;
+        margin-left: 0;
+        margin-right: 0;
     }
 }
   

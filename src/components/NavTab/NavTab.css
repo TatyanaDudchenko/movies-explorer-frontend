@@ -25,3 +25,26 @@
 .nav-tab__link:first-child {
     margin-left: 0;
 }
+
+@media screen and (max-width: 1279px) {
+    .nav-tab {
+        padding-top: 314px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .nav-tab {
+        padding-top: 212px;
+        padding-bottom: 17px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .nav-tab__link {
+        font-size: 10px;
+        margin-left: 6px;
+        min-width: 82px;
+        height: 26px;
+        border-radius: 6px;  
+    }
+}
