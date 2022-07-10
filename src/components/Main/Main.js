@@ -5,7 +5,7 @@ import NavTab from '../NavTab/NavTab';
 function Main() {
     return (
         <div className='content'>
-            <section class="lead">
+            <section className='lead'>
                 <Promo />
                 <NavTab />
             </section>
