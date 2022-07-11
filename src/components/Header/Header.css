@@ -23,10 +23,6 @@
     padding: 0; /* сбросить стандартные отступы */
 }
 
-/* .header__navbar_item:last-child {
-    margin-right: 30px;
-} */
-
 .header__navbar_item-register {
     background-color: unset;
 }
@@ -39,24 +35,23 @@
     color: #000;
 }
   
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1279px) {
     .header {
         padding-left: 30px;
         padding-right: 30px;
     }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 767px) {
     .header {
         padding-left: 14px;
         padding-right: 14px;
     }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 767px) {
     .header__navbar_item {
         margin-left: 14px;
-
     }
 }
 
