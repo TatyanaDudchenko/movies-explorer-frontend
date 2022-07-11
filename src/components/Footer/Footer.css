@@ -45,16 +45,58 @@
     padding: 0; /* сбросить стандартные отступы */
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1279px) {
     .footer {
         padding-left: 30px;
         padding-right: 30px;
     }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 767px) {
     .footer {
         padding-left: 10px;
         padding-right: 10px;
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .footer__copyright_info {
+        margin-bottom: 21px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .footer__content {
+        flex-direction: column-reverse;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .footer__social {
+        display: flex;
+        flex-flow: column;
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .footer__social_link {
+        padding-top: 12px;
+        margin-left: 0px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .footer__social_link:first-child {
+        padding-top: 0;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .footer__date {
+        margin-top: 0;
+        margin-bottom: 10;
     }
 }
