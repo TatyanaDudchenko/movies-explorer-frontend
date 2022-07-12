@@ -1,6 +1,7 @@
 import './Main.css';
 import Promo from '../Promo/Promo';
 import NavTab from '../NavTab/NavTab';
+import AboutProject from '../AboutProject/AboutProject';
 
 function Main() {
     return (
@@ -8,6 +9,9 @@ function Main() {
             <section className='lead'>
                 <Promo />
                 <NavTab />
+            </section>
+            <section className='about'>
+                <AboutProject />
             </section>
         </div>
     )

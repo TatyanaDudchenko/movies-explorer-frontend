@@ -1,0 +1,38 @@
+.about-project__description {
+    display: flex;
+    justify-content: space-between;
+}
+
+.about-project__description-column {
+    max-width: 550px;
+}
+
+.about-project__presentation {
+    display: flex;
+    width: 100%;
+    text-align: center;
+}
+
+.about-project__presentation-column_left {
+    flex-basis: 228px;;
+}
+
+.about-project__presentation-column_right {
+    flex-basis: 912px;
+}
+
+.about-project__presentation_vertical-align {
+    display: flex;
+    align-items: center;
+    height: 36px;
+    justify-content: center;
+}
+
+.about-project__presentation_title-left {
+    background-color: #3DDC84;
+}
+
+.about-project__presentation_title-right {
+    background-color: #303030;
+}
+   
