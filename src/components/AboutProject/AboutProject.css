@@ -21,18 +21,18 @@
     flex-basis: 912px;
 }
 
-.about-project__presentation_vertical-align {
+.about-project__presentation-column-item {
     display: flex;
     align-items: center;
     height: 36px;
     justify-content: center;
 }
 
-.about-project__presentation_title-left {
+.about-project__presentation-column-item_title-color-left {
     background-color: #3DDC84;
 }
 
-.about-project__presentation_title-right {
+.about-project__presentation-column-item_title-color-right {
     background-color: #303030;
 }
    
