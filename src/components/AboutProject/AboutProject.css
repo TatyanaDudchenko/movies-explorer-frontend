@@ -3,12 +3,12 @@
     padding-bottom: 110px;
 }
 
-.about-project__title-container {
+.title-container {
     padding-bottom: 23px;
-    border-bottom: 1px solid #424242;
+    border-bottom: 1px solid #DADADA;
 }
 
-.about-project__title {
+.title-container__title {
     font-size: 22px;
     font-weight: 400;
     letter-spacing: -1.4px;
