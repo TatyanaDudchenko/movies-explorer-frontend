@@ -16,9 +16,10 @@
 .techs {
     background-color: #272727;
     padding: 100px 70px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: -70px;
+    margin-right: -70px;
 }
+
   
 @media screen and (max-width: 1279px) {
     .content {
@@ -34,6 +35,13 @@
         margin-right: -10px;
     }
 }
+@media screen and (max-width: 1279px) {
+    .techs {
+        padding: 90px 50px;
+        margin-left: -50px;
+        margin-right: -50px;
+    }
+}
 
 @media screen and (max-width: 767px) {
     .content {
@@ -45,6 +53,15 @@
 @media screen and (max-width: 767px) {
     .lead {
         padding-top: 220px;
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .techs {
+        background-color: #202020;
+        padding: 60px 14px 70px;
         margin-left: 0;
         margin-right: 0;
     }

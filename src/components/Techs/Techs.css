@@ -1,0 +1,111 @@
+.techs-content {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+.techs-content__title {
+    font-size: 50px;
+    line-height: 58px;
+    font-weight: 400;
+    letter-spacing: -0.4px;
+    margin-top: 90px;
+    margin-bottom: 0; /*сбросить стандартный отступ*/
+}
+
+.techs-content__paragraph {
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+    letter-spacing: -0.4px;
+    max-width: 470px;
+    text-align: center;
+    margin-top: 26px;
+    margin-bottom: 0; /*сбросить стандартный отступ*/
+}
+
+.techs-content__list {
+    width: 690px;
+    margin: 100px auto 0;
+    display: flex;
+    justify-content: space-between;
+    list-style-type: none; /*убрать маркеры списка*/
+    padding-left: 0; /*сбросить стандартный отступ*/
+}
+
+.techs-content__item {
+    width: 90px;
+    height: 60px;
+    border-radius: 10px;
+    background-color: #303030;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    letter-spacing: -0.4px;
+    font-weight: 400;
+}
+
+@media screen and (max-width: 1279px) {
+    .techs-content__title {
+        margin-top: 80px;
+    }
+}
+
+@media screen and (max-width: 1279px) {
+    .techs-content__paragraph {
+        font-size: 12px;
+        line-height: 18px;
+        max-width: 460px;
+        margin-top: 22px;
+    }
+}
+
+@media screen and (max-width: 1279px) {
+    .techs-content__list {
+        width: 648px;
+        margin-top: 83px;
+    }
+}
+
+@media screen and (max-width: 1279px) {
+    .techs-content__item {
+        width: 84px;
+        height: 57px;
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .techs-content__title {
+        margin-top: 60px;
+        font-size: 30px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .techs-content__paragraph {
+        font-size: 11px;
+        line-height: 16px;
+        max-width: 292px;
+        margin-top: 24px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .techs-content__list {
+        width: 178px;
+        margin-top: 50px;
+        flex-wrap: wrap;
+        min-height: 258px;
+        align-content: space-between;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .techs-content__item {
+        width: 84px;
+        height: 57px;
+        font-size: 12px;
+    }
+}
