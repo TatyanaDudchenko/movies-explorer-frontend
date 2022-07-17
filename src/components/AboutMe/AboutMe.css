@@ -1,0 +1,49 @@
+.about-me-content {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 66px;
+}
+
+.about-me-content__photo-author {
+    max-width: 270px;
+    height: 327px;
+}
+
+.about-me-content__description {
+    max-width: 600px;
+}
+
+.about-me-content__description-title {
+    margin-top: 0; /*сбросить стандартный отступ*/
+    margin-bottom: 18px;
+}
+
+.about-me-content__description-paragraph {
+    margin-top: 0; /*сбросить стандартный отступ*/
+}
+
+.about-me-content__description-paragraph_job {
+    margin-bottom: 26px;
+}
+
+.about-me-content__description-paragraph_about {
+    margin-bottom: 0; /*сбросить стандартный отступ*/
+}
+
+.about-me-content__list {
+    margin: 99px auto 0;
+    display: flex;
+    /* justify-content: space-between; */
+    list-style-type: none; /*убрать маркеры списка*/
+    padding-left: 0; /*сбросить стандартный отступ*/
+}
+
+.about-me-content__item {
+    font-size: 14px;
+    font-weight: 500;
+    margin-left: 20px;
+}
+
+.about-me-content__item:first-child {
+    margin-left: 0;
+}
