@@ -24,6 +24,10 @@
     padding: 110px 70px 100px;
 }
 
+.portfolio {
+    padding-bottom: 125px;
+}
+
   
 @media screen and (max-width: 1279px) {
     .content {

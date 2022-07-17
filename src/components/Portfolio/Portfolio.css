@@ -1,0 +1,44 @@
+.portfolio-container__title {
+    font-size: 18px;
+    line-height: 20px;
+    font-weight: 400;
+    color: #8B8B8B;
+    margin-top: 0; /*сбросить стандартный отступ*/
+    margin-bottom: 50px;
+}
+
+.portfolio-content__list {
+    padding-left: 0; /*сбросить стандартный отступ*/
+}
+
+.portfolio-content__item {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 20px;
+    padding-bottom: 19px;
+    font-size: 30px;
+    font-weight: 400;
+    border-bottom: 1px solid #424242;
+}
+
+.portfolio-content__item:first-child {
+    padding-top: 0;
+}
+
+.portfolio-content__item:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.portfolio-content__paragraph {
+    margin-top: 0; /*сбросить стандартный отступ*/
+    margin-bottom: 0; /*сбросить стандартный отступ*/
+}
+
+.portfolio-content__paragraph_item-name {
+    line-height: 50px;
+}
+
+.portfolio-content__paragraph_item-simbol {
+    line-height: 60px;
+}
