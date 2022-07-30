@@ -21,7 +21,8 @@
 }
 
 .about-me {
-    padding: 110px 70px 100px;
+    padding-top: 110px;
+    padding-bottom: 100px;
 }
 
 .portfolio {
@@ -51,6 +52,13 @@
     }
 }
 
+@media screen and (max-width: 1279px) {
+    .about-me {
+        padding-top: 90px;
+        padding-bottom: 90px;
+    }
+}
+
 @media screen and (max-width: 767px) {
     .content {
         padding-left: 14px;
@@ -72,6 +80,13 @@
         padding: 60px 14px 70px;
         margin-left: 0;
         margin-right: 0;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .about-me {
+        padding-top: 70px;
+        padding-bottom: 70px;
     }
 }
   

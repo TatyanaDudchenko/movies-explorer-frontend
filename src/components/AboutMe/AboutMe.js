@@ -14,8 +14,8 @@ function AboutMe() {
                     <p className='about-me-content__description-paragraph about-me-content__description-paragraph_about'>Я родилась и живу в Екатеринбурге, закончила факультет менеджмента УрФ РГУТиС и факкультет финансов ВШЭ УрФУ. У меня есть муж
                         и сын. Я люблю слушать музыку, а ещё увлекаюсь ландшафтным и интерьерным дизайном. Недавно начала кодить. С 2010 по 2020 годы работала в индустрии гостеприимства. После того, как поняла, что исчерпала себя в сфере по основной специальности, поставила цель сменить профессиональную деятельность и увлеклась веб-разработкой. На пути к цели ушла с постоянной работы и прошла курс по веб-разработке в Яндекс.Практикум.</p>
                     <ul className='about-me-content__list'>
-                        <li className='about-me-content__item'>Facebook</li>
-                        <li className='about-me-content__item'>Github</li>
+                        <li className='about-me-content__list-item'>Facebook</li>
+                        <li className='about-me-content__list-item'>Github</li>
                     </ul>
                 </div>
                 <div className='about-me-content__image'>
