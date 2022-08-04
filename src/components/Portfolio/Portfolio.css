@@ -21,6 +21,25 @@
     border-bottom: 1px solid #424242;
 }
 
+@media screen and (max-width: 1279px) {
+    .portfolio-content__item {
+        font-size: 28px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .portfolio-content__item {
+        font-size: 18px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .portfolio-container__title {
+        font-size: 14px;
+        margin-bottom: 40px;
+    }
+}
+
 .portfolio-content__item:first-child {
     padding-top: 0;
 }
@@ -41,4 +60,16 @@
 
 .portfolio-content__paragraph_item-simbol {
     line-height: 60px;
+}
+
+@media screen and (max-width: 767px) {
+    .portfolio-content__paragraph_item-name {
+        line-height: 28px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .portfolio-content__paragraph_item-simbol {
+        line-height: 28px;
+    }
 }
