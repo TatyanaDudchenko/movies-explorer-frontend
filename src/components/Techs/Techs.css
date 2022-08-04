@@ -8,7 +8,7 @@
     font-size: 50px;
     line-height: 58px;
     font-weight: 400;
-    letter-spacing: -0.4px;
+    letter-spacing: -0.04em;
     margin-top: 90px;
     margin-bottom: 0; /*сбросить стандартный отступ*/
 }
@@ -17,8 +17,8 @@
     font-size: 14px;
     line-height: 20px;
     font-weight: 400;
-    letter-spacing: -0.4px;
-    max-width: 470px;
+    letter-spacing: -0.04em;
+    max-width: 460px;
     text-align: center;
     margin-top: 26px;
     margin-bottom: 0; /*сбросить стандартный отступ*/
@@ -42,7 +42,7 @@
     justify-content: center;
     align-items: center;
     font-size: 14px;
-    letter-spacing: -0.4px;
+    letter-spacing: -0.04em;
     font-weight: 400;
 }
 
@@ -56,7 +56,6 @@
     .techs-content__paragraph {
         font-size: 12px;
         line-height: 18px;
-        max-width: 460px;
         margin-top: 22px;
     }
 }

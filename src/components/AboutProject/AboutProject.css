@@ -11,7 +11,7 @@
 .title-container__title {
     font-size: 22px;
     font-weight: 400;
-    letter-spacing: -1.4px;
+    letter-spacing: -0.04em;
     margin-top: 0; /* сбросить стандартный отступ */
     margin-bottom: 0; /* сбросить стандартный отступ */
 }
@@ -31,7 +31,7 @@
     margin-bottom: 26px;
     font-size: 20px;
     font-weight: 400;
-    letter-spacing: -1.4px;
+    letter-spacing: -0.04em;
 }
 
 .about-project__description-column_paragraph {
