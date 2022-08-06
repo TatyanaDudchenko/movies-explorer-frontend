@@ -1,0 +1,25 @@
+.movies-card {
+    background-color: #222;
+    margin: 0; /*сброшены заданные браузером внешние отступы*/
+  }
+
+.movies-card__parameters {
+  display: flex;
+}
+
+.movies-card__container {
+  max-width: 364px;
+}
+
+.movies-card__image-container {
+  height: 203px;
+  display: block;
+  background-color: #000; /*тестовый цвет для наглядности при разработке*/
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.movies-card__image {
+  max-width: 100%;
+}
