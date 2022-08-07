@@ -12,29 +12,6 @@
     padding-right: 70px;
 }
 
-.header__navbar_item {
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 16px;
-    color: #fff;
-    text-decoration: none;
-    border: none;
-    margin-left: 30px;
-    padding: 0; /* сбросить стандартные отступы */
-}
-
-.header__navbar_item-register {
-    background-color: unset;
-}
-
-.header__navbar_item-login {
-    background-color: #3DDC84;
-    min-width: 76px;
-    height: 32px;
-    border-radius: 3px;  
-    color: #000;
-}
-  
 @media screen and (max-width: 1279px) {
     .header {
         padding-left: 30px;
@@ -48,12 +25,4 @@
         padding-right: 14px;
     }
 }
-
-@media screen and (max-width: 767px) {
-    .header__navbar_item {
-        margin-left: 14px;
-    }
-}
-
-  
   
