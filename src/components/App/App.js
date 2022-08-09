@@ -12,11 +12,31 @@ import Register from '../Register/Register';
 import '../../vendor/normalize.css';
 import '../../vendor/fonts/fonts.css';
 import './App.css';
+import { useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 function App() {
+  const [shouldHideHeaderAndFooter, setShouldHideHeaderAndFooter] = useState(false);
+
+  function handleHideHeaderAndFooter() {
+    setShouldHideHeaderAndFooter(true);
+  }
+
+  let location = useLocation();
+
+  useEffect(() => {
+    if (
+      location.pathname.includes('/signin') ||
+      location.pathname.includes('/signup') 
+
+    ) {
+      handleHideHeaderAndFooter()
+    }
+  }, [location]);
+
   return (
     <div className="page">
-      <Header />
+      {!shouldHideHeaderAndFooter && <Header />}
       <Navigation />
       <Switch>
         <Route exact path="/">
@@ -38,7 +58,7 @@ function App() {
           <Register />
         </Route>
       </Switch>
-      <Footer />
+      {!shouldHideHeaderAndFooter && <Footer />}
     </div>
   );
 }
