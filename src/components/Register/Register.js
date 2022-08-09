@@ -4,7 +4,7 @@ import FormField from '../FormField/FormField';
 import FormInput from '../FormInput/FormInput';
 import headerLogo from '../../images/logo.svg';
 import FormSubmitButton from '../FormSubmitButton/FormSubmitButton';
-import FormLink from '../FormLink/FormLink';
+import FormParagraphLinkContainer from '../FormParagraphLinkContainer/FormParagraphLinkContainer';
 
 function Register({ error, name, email, password }) {
     return (
@@ -39,7 +39,10 @@ function Register({ error, name, email, password }) {
             <FormSubmitButton
                 buttonName={'Зарегистрироваться'}
             />
-            <FormLink
+
+            <FormParagraphLinkContainer
+                formParagraph={'Уже зарегистрированы?'}
+                linkPath={'/signin'}
                 linkName={'Войти'}
             />
         </div>
