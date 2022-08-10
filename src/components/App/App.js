@@ -14,6 +14,7 @@ import '../../vendor/fonts/fonts.css';
 import './App.css';
 import { useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import ErrorPage from '../ErrorPage/ErrorPage';
 
 function App() {
   const [shouldHideHeaderAndFooter, setShouldHideHeaderAndFooter] = useState(false);
@@ -27,7 +28,7 @@ function App() {
   useEffect(() => {
     if (
       location.pathname.includes('/signin') ||
-      location.pathname.includes('/signup') 
+      location.pathname.includes('/signup')
 
     ) {
       handleHideHeaderAndFooter()
@@ -40,7 +41,7 @@ function App() {
       <Navigation />
       <Switch>
         <Route exact path="/">
-          <Main/>
+          <Main />
         </Route>
         <Route path="/movies">
           <Movies />
@@ -56,6 +57,12 @@ function App() {
         </Route>
         <Route path="/signup">
           <Register />
+        </Route>
+        <Route exact path="/error-page">
+          <ErrorPage
+            linkPath={'/movies'}
+            linkName={'Назад'}
+          />
         </Route>
       </Switch>
       {!shouldHideHeaderAndFooter && <Footer />}
