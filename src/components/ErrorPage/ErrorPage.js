@@ -1,17 +1,17 @@
 import './ErrorPage.css';
-import LinkName from '../LinkName/LinkName';
+import {useHistory} from 'react-router-dom';
 
-function ErrorPage({ linkPath, linkName }) {
+function ErrorPage() {
+
+    const history = useHistory();
+
     return (
         <>
             <h2>
               404  
             </h2>
 
-            <LinkName
-                linkPath={linkPath}
-                linkName={linkName}
-            />
+            <p onClick={() => history.goBack()}>Назад</p>
         </>
     );
 }

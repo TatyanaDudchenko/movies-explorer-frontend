@@ -12,7 +12,7 @@ import Register from '../Register/Register';
 import '../../vendor/normalize.css';
 import '../../vendor/fonts/fonts.css';
 import './App.css';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import ErrorPage from '../ErrorPage/ErrorPage';
 
@@ -34,6 +34,9 @@ function App() {
       handleHideHeaderAndFooter()
     }
   }, [location]);
+
+  const history = useHistory();
+  // const goBack = navigate(-1);
 
   return (
     <div className="page">
@@ -60,7 +63,7 @@ function App() {
         </Route>
         <Route exact path="/error-page">
           <ErrorPage
-            linkPath={'/movies'}
+            linkPath={history.goBack}
             linkName={'Назад'}
           />
         </Route>
