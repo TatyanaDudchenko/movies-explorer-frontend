@@ -1,12 +1,11 @@
 import './FormField.css';
 
-function FormField({ label, children, error }) {
+function FormField({ label, children }) {
     return (
-        <>
-            <label>{label}</label>
+        <div className='form-field'>
+            <label className='form-field__label'>{label}</label>
             {children}
-            {error=true && <p>Что-то пошло не так...</p>}
-        </>
+        </div>
 
     );
 }

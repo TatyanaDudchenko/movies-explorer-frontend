@@ -1,0 +1,22 @@
+.login-form__container {
+    max-width: 396px;
+    margin: 0 auto;
+    padding-top: 70px;
+    padding-bottom: 70px;
+}
+
+.login-form__logo {
+    width: 38px;
+}
+
+.login-form__title_margin {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.login-form__content_align {
+    min-height: 413px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
