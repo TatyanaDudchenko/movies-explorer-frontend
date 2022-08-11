@@ -18,10 +18,16 @@ import ErrorPage from '../ErrorPage/ErrorPage';
 
 function App() {
   const [shouldHideHeaderAndFooter, setShouldHideHeaderAndFooter] = useState(false);
+  // const [isAuth, setIsAuth] = useState(false);
+  const isAuth = true;
 
   function handleHideHeaderAndFooter() {
     setShouldHideHeaderAndFooter(true);
   }
+
+  // function handleAuth() {
+  //   setIsAuth(true);
+  // }
 
   let location = useLocation();
 
@@ -37,7 +43,7 @@ function App() {
 
   return (
     <div className="page">
-      {!shouldHideHeaderAndFooter && <Header />}
+      {!shouldHideHeaderAndFooter && <Header isAuth={isAuth} />}
       <Navigation />
       <Switch>
         <Route exact path="/">

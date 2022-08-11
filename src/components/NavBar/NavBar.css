@@ -44,6 +44,11 @@
     justify-content: end;
 }
 
+.header__navbar_item_current {
+    font-weight: 500;
+    color: aqua;
+}
+
 @media screen and (max-width: 767px) {
     .header__navbar_item {
         margin-left: 14px;
