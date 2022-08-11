@@ -28,8 +28,8 @@ function App() {
   useEffect(() => {
     if (
       location.pathname.includes('/signin') ||
-      location.pathname.includes('/signup')
-
+      location.pathname.includes('/signup') ||
+      location.pathname.includes('/error-page')
     ) {
       handleHideHeaderAndFooter()
     }
