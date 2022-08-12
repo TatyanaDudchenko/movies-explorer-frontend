@@ -28,7 +28,7 @@ function Navigation({ isAuth }) {
                         </NavLink>
                     </div>
 
-                    <button className='header__navbar_item header__navbar_item-account'>Аккаунт</button>
+                    <NavLink exact to='/' className='header__navbar_item header__navbar_item-account'>Аккаунт</NavLink>
                 </nav>
             }
         </div>
