@@ -1,7 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Main from '../Main/Main';
-import Navigation from '../Navigation/Navigation';
 import Header from '../Header/Header';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
@@ -44,7 +43,6 @@ function App() {
   return (
     <div className="page">
       {!shouldHideHeaderAndFooter && <Header isAuth={isAuth} />}
-      <Navigation />
       <Switch>
         <Route exact path="/">
           <Main />
