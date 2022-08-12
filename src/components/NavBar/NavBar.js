@@ -17,12 +17,12 @@ function NavBar({ isAuth }) {
                 <nav className='header__navbar header__navbar_justify-content_space-between'>
                     <div className='header__navbar_item-group'>
                         <button
-                            className={`header__navbar_item header__navbar_item-register
+                            className={`header__navbar_item header__navbar_item-movies
                             ${location.pathname.includes('/movies') && 'header__navbar_item_current'}`}>
                             Фильмы
                         </button>
                         <button
-                            className={`header__navbar_item header__navbar_item-register
+                            className={`header__navbar_item header__navbar_item-movies
                             ${location.pathname.includes('/saved-movies') && 'header__navbar_item_current'}`}>
                             Сохраненные фильмы
                         </button>

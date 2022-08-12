@@ -1,6 +1,4 @@
 .header__navbar_item {
-    font-weight: 500;
-    font-size: 12px;
     line-height: 16px;
     color: #fff;
     text-decoration: none;
@@ -11,6 +9,8 @@
 
 .header__navbar_item-register {
     background-color: unset;
+    font-weight: 500;
+    font-size: 12px;
 }
 
 .header__navbar_item-login {
@@ -20,6 +20,8 @@
     height: 32px;
     border-radius: 3px;  
     color: #000;
+    font-weight: 500;
+    font-size: 12px;
 }
 
 .header__navbar_item-account {
@@ -29,11 +31,20 @@
     height: 32px;
     border-radius: 20px;  
     color: #fff;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.header__navbar_item-movies {
+    background-color: unset;
+    font-weight: 400;
+    font-size: 13px;
 }
 
 .header__navbar {
     width: 100%;
     display: flex;
+    align-items: baseline;
 }
 
 .header__navbar_justify-content_space-between {
@@ -46,7 +57,6 @@
 
 .header__navbar_item_current {
     font-weight: 500;
-    color: aqua;
 }
 
 @media screen and (max-width: 767px) {
