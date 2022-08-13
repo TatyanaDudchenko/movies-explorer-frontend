@@ -5,21 +5,58 @@
 
 .movies-card__parameters {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px;
 }
 
 .movies-card__container {
   max-width: 364px;
 }
 
+.movies-card__about-name {
+  font-size: 15px;
+  font-weight: 500;
+  margin-top: 0; /*сброшены стандартные отступы*/
+  margin-bottom: 0; /*сброшены стандартные отступы*/
+}
+
+.movies-card__about-duration {
+  font-size: 11px;
+  font-weight: 400;
+  color: #8B8B8B;
+  margin-top: 9px;
+  margin-bottom: 0; /*сброшены стандартные отступы*/
+}
+
 .movies-card__image-container {
   height: 203px;
   display: block;
-  background-color: #000; /*тестовый цвет для наглядности при разработке*/
+  background-color: green; /*тестовый цвет для наглядности при разработке*/
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+.movies-card__icon-like {
+  width: 30px;
+  height: 30px;
+  border: none; /*сброшены заданные браузером границы*/
+  padding: 0; /*сброшены стандартные отступы*/
+  background-image: url(../../images/icon-saved-inactive.svg);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center;
+  background-color: initial;
+  cursor: pointer;
+  transition: 0.6s ease-in-out;
+}
+
+.movies-card__icon-like:hover {
+  opacity: 0.5;
+}
+
 .movies-card__image {
   max-width: 100%;
+  max-height: 100%;
 }
