@@ -66,4 +66,5 @@
     margin-top: 0; /*сброшены стандартные отступы*/
     margin-bottom: 0; /*сброшены стандартные отступы*/
     padding-left: 12px;
-  }
+    color: #fff;
+}

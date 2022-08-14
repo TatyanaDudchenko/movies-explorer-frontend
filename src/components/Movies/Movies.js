@@ -4,9 +4,12 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
 function Movies() {
     return (
-        <div className='content'>
+        <div className='movies-container'>
             <SearchForm />
             <MoviesCardList />
+            <div className='movies-container__more-button-container'>
+                <button type='button' className='movies-container__more-button'>Еще</button>
+            </div>
         </div>
     )
 }

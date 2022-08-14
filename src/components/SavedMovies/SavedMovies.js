@@ -1,9 +1,11 @@
 import './SavedMovies.css';
+import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
 function SavedMovies() {
     return (
-        <div className='content'>
+        <div className='saved-movies-container'>
+            <SearchForm />
             <MoviesCardList />
         </div>
     )
