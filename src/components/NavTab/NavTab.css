@@ -7,11 +7,8 @@
 
 .nav-tab__link {
     text-decoration: none;
-    background-color: unset;
-    border: none;
     color: #fff;
     margin-left: 20px;
-    padding: 0; /* сбросить стандартные отступы */
     font-weight: 500;
     font-size: 12px;
     line-height: 16px;
@@ -19,7 +16,10 @@
     background-color: #303030;
     min-width: 96px;
     height: 36px;
-    border-radius: 10px;  
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .nav-tab__link:first-child {

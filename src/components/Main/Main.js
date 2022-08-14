@@ -13,13 +13,13 @@ function Main() {
                 <Promo />
                 <NavTab />
             </section>
-            <section className='about'>
+            <section className='about' id='about-link'>
                 <AboutProject />
             </section>
-            <section className='techs'>
+            <section className='techs' id='techs-link'>
                 <Techs />
             </section>
-            <section className='about-me'>
+            <section className='about-me' id='about-me-link'>
                 <AboutMe />
             </section>
             <section className='portfolio'>
