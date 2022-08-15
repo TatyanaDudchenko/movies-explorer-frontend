@@ -23,3 +23,25 @@
     color: #fff;
     cursor: pointer;
 }
+
+@media screen and (max-width: 1279px) {
+    .movies-container {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .movies-container {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .movies-container__more-button {
+        padding-left: 10px;
+        padding-right: 10px;
+        max-width: 240px;
+    }
+}

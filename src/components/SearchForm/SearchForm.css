@@ -20,6 +20,7 @@
 
 .search-form__input {
     font-size: 13px;
+    line-height: 17px;
     font-weight: 400;
     color: #8B8B8B;
     border: none;
@@ -69,4 +70,29 @@
     margin-bottom: 0; /*сброшены стандартные отступы*/
     padding-left: 12px;
     color: #fff;
+}
+
+@media screen and (max-width: 1279px) {
+  .search-form-container {
+    padding-top: 80px;
+    padding-bottom: 50px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .search-form {
+    padding-left: 19px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .search-form__input {
+    font-size: 11px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .search-form__toggle-text {
+    font-size: 11px;
+  }
 }
