@@ -88,3 +88,55 @@
     text-decoration: none;
     margin-top: 16px;
 }
+
+@media screen and (max-width: 1279px) {
+    .profile-form__container {
+        padding-top: 236px;
+        padding-bottom: 269px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .profile-form__container {
+        max-width: 260px;
+        padding-top: 70px;
+        padding-bottom: 40px;
+    }
+}
+
+@media screen and (max-width: 1279px) {
+    .profile-form__title-padding {
+        padding-bottom: 96px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .profile-form__title-padding {
+        padding-bottom: 80px;
+    }
+}
+
+@media screen and (max-width: 1279px) {
+    .profile-form__content_align {
+        min-height: 320px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .profile-form__content_align {
+        min-height: 487px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .profile-form__submit-button {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .profile-form__link {
+        font-size: 12px;
+
+    }
+}
