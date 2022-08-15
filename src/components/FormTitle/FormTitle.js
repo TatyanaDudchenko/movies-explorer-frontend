@@ -1,14 +1,12 @@
 import './FormTitle.css';
 
-function FormTitle({title}) {
+function FormTitle({ title, titleAlignClassName, paddingClassName }) {
     return (
-        <>
-            <h2 className='form-title'>
-                {title}
-            </h2>
-        </>
-        
-    );  
+        <h2 className={`form-title ${titleAlignClassName} ${paddingClassName}`}>
+            {title}
+        </h2>
+
+    );
 }
 
 export default FormTitle;
