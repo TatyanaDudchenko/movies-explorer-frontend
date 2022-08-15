@@ -1,14 +1,12 @@
 import './FormSubmitButton.css';
 
-function FormSubmitButton({buttonName}) {
+function FormSubmitButton({ buttonName }) {
     return (
-        <>
-            <button type='submit' className='form-submit-button'>
-                {buttonName}
-            </button>
-        </>
-        
-    );  
+        <button type='submit' className='form-submit-button'>
+            {buttonName}
+        </button>
+
+    );
 }
 
 export default FormSubmitButton;

@@ -28,8 +28,7 @@ function Register({ error }) {
                     </div>
                     <div className='register-form__button-container'>
                         <FormSubmitButton buttonName={'Зарегистрироваться'} />
-                        <FormParagraphLinkContainer formParagraph={'Уже зарегистрированы?'} linkPath={'/signin'} linkName={'Войти'}
-                        />
+                        <FormParagraphLinkContainer formParagraph={'Уже зарегистрированы?'} linkPath={'/signin'} linkName={'Войти'} />
                     </div>
                 </div>
             </form>
