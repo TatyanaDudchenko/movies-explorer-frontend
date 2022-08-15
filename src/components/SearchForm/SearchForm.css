@@ -24,6 +24,8 @@
     color: #8B8B8B;
     border: none;
     background-color: initial;
+    width: 100%;
+    margin-right: 5px;
 }
 
 .search-form__button {
