@@ -45,11 +45,12 @@
     font-size: 13px;
 }
 
-.header__navbar-container {
+/* .header__navbar-container {
     width: 100%;
-}
+} */
 
 .header__navbar {
+    width: 100%;
     display: flex;
     align-items: baseline;
 }
@@ -71,3 +72,35 @@
         margin-left: 14px;
     }
 }
+
+@media screen and (max-width: 1279px) {
+    .header__menu-button {
+        background-image: url(../../images/icon-menu.svg);
+        width: 44px;
+        height: 44px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 100%;
+        cursor: pointer;
+        transition: 0.6s ease-in-out;
+    }
+
+    .header__menu-button:hover {
+        opacity: 0.5;
+    }
+}
+
+@media screen and (max-width: 1279px) {
+    .header__navbar_inactive {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 1279px) {
+    .header__menu {
+        width: 100%;
+        display: flex;
+        justify-content: end;
+    }
+}
+
