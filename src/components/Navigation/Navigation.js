@@ -17,7 +17,7 @@ function Navigation({ isAuth }) {
             {isAuth &&
                 <>
                     <div className='header__menu'>
-                        <div className='header__menu-button'></div>
+                        <button className='header__menu-button'></button>
                     </div>
                     <nav className='header__navbar header__navbar_justify-content_space-between header__navbar_inactive'>
                         <div className='header__navbar_item-group'>
