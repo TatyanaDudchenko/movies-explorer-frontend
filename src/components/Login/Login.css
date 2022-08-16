@@ -20,3 +20,39 @@
     flex-direction: column;
     justify-content: space-between;
 }
+
+@media screen and (max-width: 1279px) {
+    .login-form__container {
+        max-width: 396px;
+        padding-top: 232px;
+        padding-bottom: 232px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .login-form__container {
+        max-width: 260px;
+        padding-top: 56px;
+        padding-bottom: 30px;
+    }
+}
+
+@media screen and (max-width: 1279px) {
+    .login-form__title_margin {
+        margin-top: 50px;
+        margin-bottom: 80px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .login-form__logo {
+        display: block;
+        margin: 0 auto;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .login-form__content_align {
+        min-height: 497px;
+    }    
+}

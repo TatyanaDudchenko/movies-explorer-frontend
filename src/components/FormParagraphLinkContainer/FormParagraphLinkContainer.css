@@ -4,3 +4,9 @@
     align-items: baseline;
     margin-top: 16px;
 }
+
+@media screen and (max-width: 767px) {
+    .form-paragraph-link-container {
+        margin-top: 14px;
+    }  
+}

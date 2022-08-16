@@ -9,7 +9,7 @@ import FormParagraphLinkContainer from '../FormParagraphLinkContainer/FormParagr
 function Login({ error }) {
   return (
     <div className='login-form login-form__container'>
-      <img className='login-form__logo login-form__logo_margin' src={headerLogo} alt='Логотип Movies Explorer' />
+      <img className='login-form__logo' src={headerLogo} alt='Логотип Movies Explorer' />
       <form className='login-form__content' noValidate>
         <div className='login-form__title login-form__title_margin'>
           <FormTitle title={'Рады видеть!'} />
