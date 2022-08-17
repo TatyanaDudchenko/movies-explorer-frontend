@@ -14,9 +14,11 @@ import './App.css';
 import { useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import ErrorPage from '../ErrorPage/ErrorPage';
+import MenuPopup from '../MenuPopup/MenuPopup';
 
 function App() {
   const [shouldHideHeaderAndFooter, setShouldHideHeaderAndFooter] = useState(false);
+  const [isMenuPopupOpen, setIsMenuPopupOpen] = useState(false);
   // const [isAuth, setIsAuth] = useState(false);
   const isAuth = true;
 
@@ -40,9 +42,18 @@ function App() {
     }
   }, [location]);
 
+  function handleMenuPopupClick() {
+    setIsMenuPopupOpen(true);
+  }
+
+  function closePopup() {
+    setIsMenuPopupOpen(false);
+  }
+
   return (
     <div className="page">
-      {!shouldHideHeaderAndFooter && <Header isAuth={isAuth} />}
+      {!shouldHideHeaderAndFooter && <Header isAuth={isAuth} onMenuPopup={handleMenuPopupClick} />}
+      <MenuPopup isOpen={isMenuPopupOpen} onClose={closePopup} />
       <Switch>
         <Route exact path="/">
           <Main />

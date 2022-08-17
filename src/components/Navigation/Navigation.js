@@ -1,7 +1,7 @@
 import './Navigation.css';
 import { useLocation, NavLink } from 'react-router-dom';
 
-function Navigation({ isAuth }) {
+function Navigation({ isAuth, onMenuPopup }) {
 
     let location = useLocation();
 
@@ -17,7 +17,7 @@ function Navigation({ isAuth }) {
             {isAuth &&
                 <>
                     <div className='header__menu'>
-                        <button className='header__menu-button'></button>
+                        <button onClick={onMenuPopup} className='header__menu-button'></button>
                     </div>
                     <nav className='header__navbar header__navbar_justify-content_space-between header__navbar_inactive'>
                         <div className='header__navbar_item-group'>
