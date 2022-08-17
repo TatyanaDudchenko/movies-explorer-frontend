@@ -20,7 +20,7 @@ function App() {
   const [shouldHideHeaderAndFooter, setShouldHideHeaderAndFooter] = useState(false);
   const [isMenuPopupOpen, setIsMenuPopupOpen] = useState(false);
   // const [isAuth, setIsAuth] = useState(false);
-  const isAuth = false;
+  const isAuth = true;
 
   function handleHideHeaderAndFooter() {
     setShouldHideHeaderAndFooter(true);

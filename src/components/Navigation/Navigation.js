@@ -32,7 +32,7 @@ function Navigation({ isAuth, onMenuPopup }) {
                                 Сохраненные фильмы
                             </NavLink>
                         </div>
-                        <NavLink exact to='/' className='header__navbar_item header__navbar_item-account'>Аккаунт</NavLink>
+                        <NavLink exact to='/' className='header__navbar_item-account'>Аккаунт</NavLink>
                     </nav>
                 </>
             }
