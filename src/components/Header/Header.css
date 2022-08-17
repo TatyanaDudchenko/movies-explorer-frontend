@@ -11,6 +11,10 @@
     padding-right: 70px;
 }
 
+.header_inactive {
+    display: none;
+}
+
 @media screen and (max-width: 1279px) {
     .header {
         padding-left: 30px;
