@@ -29,7 +29,7 @@ function Navigation({ isAuth, onMenuPopup }) {
                             <NavLink to='/saved-movies'
                                 className={`header__navbar_item header__navbar_item-movies
                             ${location.pathname.includes('/saved-movies') && 'header__navbar_item_current'}`}>
-                                Сохраненные фильмы
+                                Сохранённые фильмы
                             </NavLink>
                         </div>
                         <NavLink exact to='/' className='header__navbar_item-account'>Аккаунт</NavLink>
