@@ -1,9 +1,13 @@
 import './Footer.css';
+import { useLocation } from 'react-router-dom';
 import React from 'react';
 
 function Footer() {
+
+    let location = useLocation();
+
     return (
-        <div className='footer'>
+        <div className={`footer ${location.pathname.includes('/profile') && 'footer_inactive'}`}>
             <div className="footer__copyright">
                 <p className='footer__copyright_info'>Учебный проект Яндекс.Практикум х BeatFilm.</p>
             </div>
