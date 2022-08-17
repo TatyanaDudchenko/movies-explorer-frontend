@@ -29,6 +29,7 @@
 .header__navbar_item-account {
     background-color: #313131;
     padding: 8px 20px;
+    box-sizing: border-box;
     height: 32px;
     border-radius: 20px;  
     color: #fff;
