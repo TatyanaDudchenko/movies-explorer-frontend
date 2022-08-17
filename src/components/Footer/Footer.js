@@ -7,7 +7,7 @@ function Footer() {
     let location = useLocation();
 
     return (
-        <div className={`footer ${location.pathname.includes('/profile') && 'footer_inactive'}`}>
+        <div className={`footer ${(location.pathname.includes('/profile') || location.pathname.includes('/error-page')) && 'footer_inactive'}`}>
             <div className="footer__copyright">
                 <p className='footer__copyright_info'>Учебный проект Яндекс.Практикум х BeatFilm.</p>
             </div>
