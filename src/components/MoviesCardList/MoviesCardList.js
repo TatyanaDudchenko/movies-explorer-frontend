@@ -68,7 +68,7 @@ function MoviesCardList() {
 
     return (
         <div className='movies-card-list'>
-            {moviesCardsArray.map(item => (<MoviesCard key={item._id} {...item} moviesCard={item} />))}
+            {moviesCardsArray.map((item, index)=> (<MoviesCard key={index} {...item} moviesCard={item} />))}
         </div>
     )
 }
