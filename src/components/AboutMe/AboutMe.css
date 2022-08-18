@@ -7,6 +7,7 @@
 .about-me-content__photo-author {
     max-width: 270px;
     height: 327px;
+    border-radius: 10px;
 }
 
 .about-me-content__description {

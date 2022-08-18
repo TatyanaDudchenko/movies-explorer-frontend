@@ -1,4 +1,4 @@
-import photoAuthor from '../../images/photo-author.png';
+import photoAuthor from '../../images/photo-author.jpg';
 import './AboutMe.css';
 
 function AboutMe() {
