@@ -1,0 +1,58 @@
+.register-form__container {
+    max-width: 396px;
+    margin: 0 auto;
+    padding-top: 70px;
+    padding-bottom: 70px;
+}
+
+.register-form__logo {
+    width: 38px;
+}
+
+.register-form__title_margin {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.register-form__content_align {
+    min-height: 413px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+@media screen and (max-width: 1279px) {
+    .register-form__container {
+        max-width: 396px;
+        padding-top: 232px;
+        padding-bottom: 232px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .register-form__container {
+        max-width: 260px;
+        padding-top: 56px;
+        padding-bottom: 30px;
+    }
+}
+
+@media screen and (max-width: 1279px) {
+    .register-form__title_margin {
+        margin-top: 50px;
+        margin-bottom: 80px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .register-form__logo {
+        display: block;
+        margin: 0 auto;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .register-form__content_align {
+        min-height: 497px;
+    }    
+}

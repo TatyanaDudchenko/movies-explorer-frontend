@@ -1,0 +1,13 @@
+.form-paragraph {
+    font-size: 14px;
+    font-weight: 400;
+    color: #8B8B8B;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+@media screen and (max-width: 767px) {
+    .form-paragraph {
+        font-size: 12px;
+    }
+}

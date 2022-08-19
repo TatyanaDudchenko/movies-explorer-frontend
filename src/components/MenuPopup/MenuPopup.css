@@ -1,0 +1,130 @@
+.popup {
+    display: none;
+}
+
+@media screen and (max-width: 1279px) {
+    .popup {
+        display: flex;
+        visibility: hidden;
+        opacity: 0;
+        transition: linear 0.3s;
+        background-color: rgba(0, 0, 0, 0.3);
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        left: 0;
+        top: 0;
+        justify-content: end;
+      }
+    
+    .popup_opened {
+        visibility: visible;
+        opacity: 1;
+    } /*модификатор для открытия попапа*/
+      
+    
+    .popup__container {
+        max-width: 520px;
+        width: 100%;
+        height: 100%;
+        background-color: #202020;
+        box-sizing: border-box;
+    }
+
+    .popup__icon-close {
+        width: 22px;
+        height: 22px;
+        margin-top: 22.44px;
+        margin-right: 22.44px;
+        border: none;
+        padding: 0;
+        background-image: url(../../images/icon-close.svg);
+        background-repeat: no-repeat;
+        background-size: 100%;
+        background-position: center;
+        background-color: transparent;
+        cursor: pointer;
+        transition: 0.6s ease-in-out;
+    }
+
+    .popup__icon-close_align {
+        display: flex;
+        width: 100%;
+        justify-content: end;
+    }
+    
+    .popup__navbar {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .popup__navbar_item-group {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 105.44px;
+    }
+
+    .popup__navbar_item {
+        color: #fff;
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: 500;
+        margin-top: 28px;
+    }
+    
+    .popup__navbar_item_current {
+        text-decoration: underline;
+    }
+    
+    .popup__navbar_item-account {
+        background-color: #313131;
+        padding: 8px 20px;
+        box-sizing: border-box;
+        height: 32px;
+        border-radius: 20px;  
+        color: #fff;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 16px;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        margin-bottom: 90px;
+    }
+}
+
+.popup__icon-close:hover {
+    opacity: 0.6;
+}
+
+.popup__navbar_item:first-child {
+    margin-top: 0;
+}
+
+
+@media screen and (max-width: 520px) {
+    .popup__container {
+        max-width: 100%;
+    }
+
+    .popup__icon-close {
+        margin-top: 13.44px;
+        margin-right: 13.44px;
+    }
+
+    .popup__navbar_item-group {
+        margin-top: 99.44px;
+    }
+
+    .popup__navbar_item {
+        margin-top: 24px;
+    }
+
+    .popup__navbar_item-account {      
+        margin-bottom: 46px;
+    }
+}

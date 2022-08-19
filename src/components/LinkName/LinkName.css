@@ -1,0 +1,13 @@
+.link {
+    font-size: 14px;
+    font-weight: 400;
+    color: #4285F4;
+    margin-left: 6px;
+    text-decoration: none;
+}
+
+@media screen and (max-width: 767px) {
+    .link {
+        font-size: 12px;
+    } 
+}
