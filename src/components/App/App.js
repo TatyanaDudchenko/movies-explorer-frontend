@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import api from "../../utils/MoviesApi";
 import Main from '../Main/Main';
 import Header from '../Header/Header';
 import Movies from '../Movies/Movies';
@@ -19,6 +20,7 @@ import MenuPopup from '../MenuPopup/MenuPopup';
 function App() {
   const [shouldHideHeaderAndFooter, setShouldHideHeaderAndFooter] = useState(false);
   const [isMenuPopupOpen, setIsMenuPopupOpen] = useState(false);
+  const [movies, setMovies] = useState([]);
   // const [isAuth, setIsAuth] = useState(false);
   const isAuth = true;
 
@@ -49,6 +51,16 @@ function App() {
     setIsMenuPopupOpen(false);
   }
 
+  function handleUpdateFoundMovies() {
+    api.getFoundMovies()
+      .then((movies) => {
+        setMovies(movies);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   return (
     <div className="page">
       {!shouldHideHeaderAndFooter && <Header isAuth={isAuth} onMenuPopup={handleMenuPopupClick} />}
@@ -58,7 +70,7 @@ function App() {
           <Main />
         </Route>
         <Route path="/movies">
-          <Movies />
+          <Movies movies={movies} onUpdateFoundMovies={handleUpdateFoundMovies} />
         </Route>
         <Route path="/saved-movies">
           <SavedMovies />

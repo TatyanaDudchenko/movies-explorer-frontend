@@ -1,10 +1,18 @@
 import './SearchForm.css';
 
+function SearchForm({ onUpdateFoundMovies }) {
 
-function SearchForm() {
+    function handleSubmit(e) {
+        e.preventDefault();
+
+        if (e.target[0].value.length !== 0) {
+            onUpdateFoundMovies();
+        }
+    }
+
     return (
         <div className='search-form-container'>
-            <form className='search-form'>
+            <form onSubmit={handleSubmit} className='search-form'>
                 <input className='search-form__input'
                     type='text'
                     name='find'
