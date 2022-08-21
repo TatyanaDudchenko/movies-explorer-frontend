@@ -6,10 +6,10 @@ function MoviesCard({ movie }) {
     const moviesUrl = 'https://api.nomoreparties.co/';
 
     // преобразование минут в часы и минуты
-    const time = movie.duration
-    const hours = Math.trunc(time/60);
-    const minutes = time % 60;
-    const moviesTime = hours + 'ч ' + minutes + 'м';
+    const minutesDuration = movie.duration
+    const hours = Math.trunc(minutesDuration/60);
+    const minutes = minutesDuration % 60;
+    const movieDuration = hours + 'ч ' + minutes + 'м';
 
     return (
         <figure className='movies-card'>
@@ -17,7 +17,7 @@ function MoviesCard({ movie }) {
                 <figcaption className='movies-card__parameters'>
                     <div className='movies-card__about'>
                         <h2 className='movies-card__about-name'>{movie.nameRU}</h2>
-                        <time className='movies-card__about-duration'>{moviesTime}</time>
+                        <time className='movies-card__about-duration'>{movieDuration}</time>
                     </div>
                     <button type='button' className='movies-card__icon-like' alt='Иконка сохранения фильма'></button>
                 </figcaption>
