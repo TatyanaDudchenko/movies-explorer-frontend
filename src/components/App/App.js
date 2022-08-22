@@ -51,7 +51,7 @@ function App() {
     setIsMenuPopupOpen(false);
   }
 
-  function handleUpdateFoundMovies() {
+  function handleGetFoundMovies() {
     api.getFoundMovies()
       .then((movies) => {
         setMovies(movies);
@@ -70,7 +70,7 @@ function App() {
           <Main />
         </Route>
         <Route path="/movies">
-          <Movies movies={movies} onUpdateFoundMovies={handleUpdateFoundMovies} />
+          <Movies movies={movies} onGetFoundMovies={handleGetFoundMovies} />
         </Route>
         <Route path="/saved-movies">
           <SavedMovies />

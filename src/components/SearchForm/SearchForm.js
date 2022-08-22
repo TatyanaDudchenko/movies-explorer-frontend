@@ -1,12 +1,12 @@
 import './SearchForm.css';
 
-function SearchForm({ onUpdateFoundMovies }) {
+function SearchForm({ onGetFoundMovies }) {
 
     function handleSubmit(e) {
         e.preventDefault();
 
         if (e.target[0].value.length !== 0) {
-            onUpdateFoundMovies();
+            onGetFoundMovies();
         }
     }
 
