@@ -15,7 +15,7 @@
   getFoundMovies() {
   return fetch(`${this.baseUrl}`, {
     headers: {
-      authorization: `Bearer ${localStorage.getItem('jwt')}`,
+      authorization: `Bearer ${localStorage.getItem('movies')}`,
     }
   })
     .then(this._checkResponse)

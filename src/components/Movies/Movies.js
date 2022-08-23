@@ -2,10 +2,13 @@ import './Movies.css';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
-function Movies({ movies, onGetFoundMovies }) {
+function Movies({ movies, onGetFoundMovies, onSearchText, onToggleClick }) {
     return (
         <div className='movies-container'>
-            <SearchForm onGetFoundMovies={onGetFoundMovies} />
+            <SearchForm
+            onGetFoundMovies={onGetFoundMovies}
+            onToggleClick={onToggleClick}
+            onSearchText={onSearchText} />
             <MoviesCardList movies={movies} />
             <div className='movies-container__more-button-container'>
                 <button type='button' className='movies-container__more-button'>Еще</button>

@@ -21,6 +21,8 @@ function App() {
   const [shouldHideHeaderAndFooter, setShouldHideHeaderAndFooter] = useState(false);
   const [isMenuPopupOpen, setIsMenuPopupOpen] = useState(false);
   const [movies, setMovies] = useState([]);
+  // const [isSearchText, setIsSearchText] = useState('');
+  const [isToggleClick, setIsToggleClick] = useState(false);
   // const [isAuth, setIsAuth] = useState(false);
   const isAuth = true;
 
@@ -51,14 +53,24 @@ function App() {
     setIsMenuPopupOpen(false);
   }
 
+  function handleToggleClick() {
+    if (isToggleClick) {
+      setIsToggleClick(true);
+    }
+  }
+
   function handleGetFoundMovies() {
     api.getFoundMovies()
       .then((movies) => {
-        setMovies(movies);
+        localStorage.setItem('movies', JSON.stringify(movies));
+        const localStorageMovies = JSON.parse(localStorage.getItem('movies'));
+        setMovies(localStorageMovies);
       })
       .catch((err) => {
         console.log(err);
       });
+
+    // localStorage.setItem('toggleState', JSON.stringify(isToggleClick));
   }
 
   return (
@@ -70,7 +82,11 @@ function App() {
           <Main />
         </Route>
         <Route path="/movies">
-          <Movies movies={movies} onGetFoundMovies={handleGetFoundMovies} />
+          <Movies
+            movies={movies}
+            onGetFoundMovies={handleGetFoundMovies}
+            // onSearchText={isSearchText}
+            onToggleClick={handleToggleClick} />
         </Route>
         <Route path="/saved-movies">
           <SavedMovies />
