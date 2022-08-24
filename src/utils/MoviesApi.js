@@ -1,7 +1,7 @@
-  class MoviesApi {
-    constructor({baseUrl}) {
-      this.baseUrl = baseUrl;
-    }
+class MoviesApi {
+  constructor({ baseUrl }) {
+    this.baseUrl = baseUrl;
+  }
 
   _checkResponse(result) {
     if (result.ok) {
@@ -13,12 +13,12 @@
 
   // метод для загрузки начальных карточек фильмов с сервера
   getFoundMovies() {
-  return fetch(`${this.baseUrl}`, {
-    headers: {
-      authorization: `Bearer ${localStorage.getItem('movies')}`,
-    }
-  })
-    .then(this._checkResponse)
+    return fetch(`${this.baseUrl}`, {
+      // headers: {
+      //   authorization: `Bearer ${localStorage.getItem('jwt')}`,
+      // }
+    })
+      .then(this._checkResponse)
 
   }
 

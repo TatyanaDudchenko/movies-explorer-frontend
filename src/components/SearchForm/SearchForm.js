@@ -1,12 +1,10 @@
 import './SearchForm.css';
 
-function SearchForm({ onGetFoundMovies, onToggleClick }) {
+function SearchForm({ onGetFoundMovies, onToggleClick, onToggleClickState }) {
 
-    // Определяем состояние кнопки переключения короткометражек
-    const isActive = false;
     // Создаём переменную, которую после зададим в `className` для состояния кнопки переключения короткометражек
     const toggleIconButtonStateClassName = (
-        `${isActive && 'search-form__toggle-icon_active'}`
+        `${onToggleClickState && 'search-form__toggle-icon_active'}`
     );
 
     function handleSubmit(e) {
@@ -14,14 +12,18 @@ function SearchForm({ onGetFoundMovies, onToggleClick }) {
 
         if (e.target[0].value.length !== 0) {
             onGetFoundMovies();
-            // handleSearchTextSaving();
-            // onToggleClick();
+            handleSearchTextSaving(e);
+            handleToggleClickStateSaving(onToggleClickState);
         }
     }
 
-    // function handleSearchTextSaving(e) {
-    //     localStorage.setItem('searchText', JSON.stringify(e.target[0].value));
-    // }
+    function handleSearchTextSaving(e) {
+        localStorage.setItem('searchText', JSON.stringify(e.target[0].value));
+    }
+
+    function handleToggleClickStateSaving(onToggleClickState) {
+        localStorage.setItem('toggleState', JSON.stringify(onToggleClickState));
+    }
 
     return (
         <div className='search-form-container'>
@@ -35,8 +37,8 @@ function SearchForm({ onGetFoundMovies, onToggleClick }) {
                 <button type='submit' className='search-form__button search-form__submit-button'></button>
             </form>
             <div className='search-form__toggle-container'>
-                <button type='switch' className={`search-form__button search-form__toggle-icon ${toggleIconButtonStateClassName}`}></button>
-                <p onClick={onToggleClick} className='search-form__toggle-text'>Короткометражки</p>
+                <button onClick={onToggleClick} type='switch' className={`search-form__button search-form__toggle-icon ${toggleIconButtonStateClassName}`}></button>
+                <p className='search-form__toggle-text'>Короткометражки</p>
             </div>
         </div>
 
