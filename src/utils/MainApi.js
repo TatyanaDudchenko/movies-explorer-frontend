@@ -7,14 +7,14 @@ const checkResponse = (response) => {
   throw new Error({status: response.status});
 }
 
-export const register = (name, email, password) => {
+export const register = (userName, email, password) => {
   return fetch(`${BASE_URL}/signup`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      name: name,
+      userName: userName,
       email: email,
       password: password
     })
@@ -46,5 +46,3 @@ export const checkToken = (token) => {
   })
   .then((response) => checkResponse(response))
 };
-
-
