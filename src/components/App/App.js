@@ -12,10 +12,11 @@ import Register from '../Register/Register';
 import '../../vendor/normalize.css';
 import '../../vendor/fonts/fonts.css';
 import './App.css';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import ErrorPage from '../ErrorPage/ErrorPage';
 import MenuPopup from '../MenuPopup/MenuPopup';
+import * as auth from "../../utils/MainApi";
 
 function App() {
   const [shouldHideHeaderAndFooter, setShouldHideHeaderAndFooter] = useState(false);
@@ -23,15 +24,20 @@ function App() {
   const [movies, setMovies] = useState([]);
   // const [isSearchText, setIsSearchText] = useState('');
   const [isToggleClick, setIsToggleClick] = useState(false);
-  // const [isAuth, setIsAuth] = useState(false);
-  const isAuth = true;
+  // const [signedIn, setSignedIn] = useState(false);
+  // const [infoemail, setInfoemail] = useState("");
+  // const [userName, setUserName] = useState("");
+  // const [signedIn, setSignedIn] = useState(false);
+  const signedIn = true;
+
+  const history = useHistory();
 
   function handleHideHeaderAndFooter() {
     setShouldHideHeaderAndFooter(true);
   }
 
-  // function handleAuth() {
-  //   setIsAuth(true);
+  // function handleSignedIn() {
+  //   setSignedIn(true);
   // }
 
   let location = useLocation();
@@ -45,6 +51,17 @@ function App() {
     }
   }, [location]);
 
+  function handleRegister(registerState) {
+    auth
+      .register(registerState.password, registerState.email, registerState.userName)
+      .then(() => {
+        history.push('/signin');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   function handleMenuPopupClick() {
     setIsMenuPopupOpen(true);
   }
@@ -54,9 +71,7 @@ function App() {
   }
 
   function handleToggleClick() {
-    if (isToggleClick) {
-      setIsToggleClick(true);
-    }
+    setIsToggleClick(!isToggleClick);
   }
 
   function handleGetFoundMovies() {
@@ -69,13 +84,11 @@ function App() {
       .catch((err) => {
         console.log(err);
       });
-
-    // localStorage.setItem('toggleState', JSON.stringify(isToggleClick));
   }
 
   return (
     <div className="page">
-      {!shouldHideHeaderAndFooter && <Header isAuth={isAuth} onMenuPopup={handleMenuPopupClick} />}
+      {!shouldHideHeaderAndFooter && <Header signedIn={signedIn} onMenuPopup={handleMenuPopupClick} />}
       <MenuPopup isOpen={isMenuPopupOpen} onClose={closePopup} />
       <Switch>
         <Route exact path="/">
@@ -85,8 +98,8 @@ function App() {
           <Movies
             movies={movies}
             onGetFoundMovies={handleGetFoundMovies}
-            // onSearchText={isSearchText}
-            onToggleClick={handleToggleClick} />
+            onToggleClick={handleToggleClick}
+            onToggleClickState={isToggleClick} />
         </Route>
         <Route path="/saved-movies">
           <SavedMovies />
@@ -98,7 +111,7 @@ function App() {
           <Login />
         </Route>
         <Route path="/signup">
-          <Register />
+          <Register handleRegister={handleRegister} />
         </Route>
         <Route exact path="/error-page">
           <ErrorPage />
