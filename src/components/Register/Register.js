@@ -10,9 +10,9 @@ import { useState } from 'react';
 function Register({ error, handleRegister }) {
 
     const [registerState, setRegisterState] = useState({
-        password: '',
+        name: '',
         email: '',
-        userName: '',
+        password: '',
     });
 
     function handleChange(e) {
@@ -39,13 +39,13 @@ function Register({ error, handleRegister }) {
                 <div className='register-form__content_align'>
                     <div className='register-form__fields'>
                         <FormField label='Имя'>
-                            <FormInput onChange={handleChange} error={error} type='text' name='UserName' value={registerState.userName} minLength='2' maxLength='30' />
+                            <FormInput onChange={handleChange} error={error} type='text' name='name' value={registerState.name} minLength='2' maxLength='30' />
                         </FormField>
                         <FormField label='E-mail'>
                             <FormInput onChange={handleChange} error={error} type='email' name='email' value={registerState.email} minLength='2' maxLength='30' />
                         </FormField>
-                        <FormField label='Пароль' error={error}>
-                            <FormInput onChange={handleChange} error={error} type='password' name='password' value={registerState.password} />
+                        <FormField label='Пароль'>
+                            <FormInput onChange={handleChange} error={error} type='password' name='password' value={registerState.password} minLength='2' maxLength='30' />
                         </FormField>
                     </div>
                     <div className='register-form__button-container'>
