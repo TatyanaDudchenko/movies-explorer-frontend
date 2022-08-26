@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://api.movies-explorer-dudta.nomoreparties.sbs';
+export const BASE_URL = 'http://localhost:3001';
 
 const checkResponse = (response) => {
   if (response.ok) {
