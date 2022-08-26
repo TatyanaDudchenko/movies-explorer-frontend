@@ -1,9 +1,14 @@
 // import { Link } from 'react-router-dom';
 import './MoviesCard.css';
 
-function MoviesCard({ movie }) {
+function MoviesCard({ movie, onLikeClick, onLikeClickState }) {
 
-    const moviesUrl = 'https://api.nomoreparties.co/';
+    // Создаём переменную, которую после зададим в `className` для состояния кнопки лайка
+    const likeButtonStateClassName = (
+        `${onLikeClickState && 'movies-card__icon-like_active'}`
+    );
+
+    const moviesUrl = 'https://api.nomoreparties.co';
 
     // преобразование минут в часы и минуты
     const minutesDuration = movie.duration
@@ -19,7 +24,7 @@ function MoviesCard({ movie }) {
                         <h2 className='movies-card__about-name'>{movie.nameRU}</h2>
                         <time className='movies-card__about-duration'>{movieDuration}</time>
                     </div>
-                    <button type='button' className='movies-card__icon-like' alt='Иконка сохранения фильма'></button>
+                    <button onClick={onLikeClick} type='button' className={`movies-card__icon-like ${likeButtonStateClassName}`} alt='Иконка сохранения фильма'></button>
                 </figcaption>
                 <div className='movies-card__image-container'>
                     <img className='movies-card__image' src={`${moviesUrl}${movie.image.url}`} alt={movie.name} />

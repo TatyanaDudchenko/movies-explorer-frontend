@@ -24,6 +24,7 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [isSearchText, setIsSearchText] = useState('');
   const [isToggleClick, setIsToggleClick] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
   const [signedIn, setSignedIn] = useState(false);
   // const [userName, setUserName] = useState('');
 
@@ -132,6 +133,10 @@ function App() {
     setIsToggleClick(!isToggleClick);
   }
 
+  function handleLikeClick() {
+    setIsLiked(!isLiked);
+  }
+
   function handleGetFoundMovies() {
     api.getFoundMovies()
       .then((movies) => {
@@ -176,10 +181,19 @@ function App() {
             onGetFoundMovies={handleGetFoundMovies}
             onToggleClick={handleToggleClick}
             onToggleClickState={isToggleClick}
+            onLikeClick={handleLikeClick}
+            onLikeClickState={isLiked}
             onSearchText={isSearchText} />
         </Route>
         <Route path='/saved-movies'>
-          <SavedMovies />
+          <SavedMovies
+            movies={movies}
+            onGetFoundMovies={handleGetFoundMovies}
+            onToggleClick={handleToggleClick}
+            onToggleClickState={isToggleClick}
+            onLikeClick={handleLikeClick}
+            onLikeClickState={isLiked}
+            onSearchText={isSearchText} />
         </Route>
         <Route path='/profile'>
           <Profile signout={signout} />
