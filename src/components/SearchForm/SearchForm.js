@@ -1,6 +1,10 @@
 import './SearchForm.css';
+// import { useEffect, useState } from 'react';
 
-function SearchForm({ onGetFoundMovies, onToggleClick, onToggleClickState }) {
+function SearchForm({ onGetFoundMovies, onToggleClick, onToggleClickState, onSearchText }) {
+
+    // const [isSearchText, setIsSearchText] = useState('');
+
 
     // Создаём переменную, которую после зададим в `className` для состояния кнопки переключения короткометражек
     const toggleIconButtonStateClassName = (
@@ -9,10 +13,15 @@ function SearchForm({ onGetFoundMovies, onToggleClick, onToggleClickState }) {
 
     function handleSubmit(e) {
         e.preventDefault();
+        
+        onSearchText = e.target[0].value;
+
+        // isSearchText(e.target[0].value)
 
         if (e.target[0].value.length !== 0) {
             onGetFoundMovies();
             handleSearchTextSaving(e);
+            
             handleToggleClickStateSaving(onToggleClickState);
         }
     }
@@ -24,6 +33,12 @@ function SearchForm({ onGetFoundMovies, onToggleClick, onToggleClickState }) {
     function handleToggleClickStateSaving(onToggleClickState) {
         localStorage.setItem('toggleState', JSON.stringify(onToggleClickState));
     }
+
+    // useEffect(() => {
+    //     const localStorageSearchText = JSON.parse(localStorage.getItem('searchText'));
+    //     if (!localStorage.getItem('searchText')) return;
+    //     setIsSearchText(localStorageSearchText);
+    // }, []);
 
     return (
         <div className='search-form-container'>
