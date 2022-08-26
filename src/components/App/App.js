@@ -22,12 +22,10 @@ function App() {
   const [shouldHideHeaderAndFooter, setShouldHideHeaderAndFooter] = useState(false);
   const [isMenuPopupOpen, setIsMenuPopupOpen] = useState(false);
   const [movies, setMovies] = useState([]);
-  // const [isSearchText, setIsSearchText] = useState('');
+  const [isSearchText, setIsSearchText] = useState('');
   const [isToggleClick, setIsToggleClick] = useState(false);
   const [signedIn, setSignedIn] = useState(false);
   // const [userName, setUserName] = useState('');
-  // const [signedIn, setSignedIn] = useState(false);
-  // const signedIn = true;
 
   const history = useHistory();
 
@@ -54,7 +52,7 @@ function App() {
     auth
       .register(registerState.name, registerState.email, registerState.password)
       .then(() => {
-        history.push("/signin");
+        history.push('/signin');
       })
       .catch((err) => {
         console.log(err);
@@ -63,7 +61,7 @@ function App() {
 
   function handleLogin(loginState) {
     auth
-      .authorize(loginState.password, loginState.email)
+      .authorize(loginState.email, loginState.password)
       .then((data) => {
         if (!data.token) return;
 
@@ -146,6 +144,24 @@ function App() {
       });
   }
 
+  useEffect(() => {
+    const localStorageMovies = JSON.parse(localStorage.getItem('movies'));
+    if (!localStorage.getItem('movies')) return;
+    setMovies(localStorageMovies);
+  }, []);
+
+  useEffect(() => {
+    const localStorageToggleState = JSON.parse(localStorage.getItem('toggleState'));
+    if (!localStorage.getItem('toggleState')) return;
+    setIsToggleClick(localStorageToggleState);
+  }, []);
+
+  useEffect(() => {
+    const localStorageSearchText = JSON.parse(localStorage.getItem('searchText'));
+    if (!localStorage.getItem('searchText')) return;
+    setIsSearchText(localStorageSearchText);
+  }, []);
+
   return (
     <div className='page'>
       {!shouldHideHeaderAndFooter && <Header signedIn={signedIn} onMenuPopup={handleMenuPopupClick} />}
@@ -159,7 +175,8 @@ function App() {
             movies={movies}
             onGetFoundMovies={handleGetFoundMovies}
             onToggleClick={handleToggleClick}
-            onToggleClickState={isToggleClick} />
+            onToggleClickState={isToggleClick}
+            onSearchText={isSearchText} />
         </Route>
         <Route path='/saved-movies'>
           <SavedMovies />
