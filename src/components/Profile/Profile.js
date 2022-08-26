@@ -2,7 +2,7 @@ import './Profile.css';
 import FormTitle from '../FormTitle/FormTitle';
 import { Link } from 'react-router-dom';
 
-function Profile({ error }) {
+function Profile({ error, signout }) {
     return (
         <div className='profile-form profile-form__container'>
             <form className='profile-form__content' noValidate>
@@ -38,7 +38,7 @@ function Profile({ error }) {
                     </div>
                     <div className='profile-form__button-container'>
                         <button type='submit' className='profile-form__submit-button'>Редактировать</button>
-                        <Link className='profile-form__link' to='/signin'>Выйти из аккаунта</Link>
+                        <Link onClick={signout} className='profile-form__link' to='/signin'>Выйти из аккаунта</Link>
                     </div>
                 </div>
             </form>

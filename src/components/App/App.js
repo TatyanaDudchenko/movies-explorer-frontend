@@ -114,11 +114,11 @@ function App() {
       });
   }
 
-  // function signout() {
-  //   setSignedIn(false);
-  //   localStorage.removeItem('jwt');
-  //   history.push('/signin');
-  // }
+  function signout() {
+    setSignedIn(false);
+    localStorage.removeItem('jwt');
+    history.push('/signin');
+  }
 
   function handleMenuPopupClick() {
     setIsMenuPopupOpen(true);
@@ -182,7 +182,7 @@ function App() {
           <SavedMovies />
         </Route>
         <Route path='/profile'>
-          <Profile />
+          <Profile signout={signout} />
         </Route>
         <Route path='/signin'>
           <Login handleLogin={handleLogin} />
