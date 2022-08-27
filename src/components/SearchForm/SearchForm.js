@@ -1,10 +1,9 @@
 import './SearchForm.css';
-// import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-function SearchForm({ onGetFoundMovies, onToggleClick, onToggleClickState, onSearchText }) {
+function SearchForm({ onGetFoundMovies, onToggleClick, onToggleClickState }) {
 
-    // const [isSearchText, setIsSearchText] = useState('');
-
+    const [searchText, setSearchText] = useState('');
 
     // Создаём переменную, которую после зададим в `className` для состояния кнопки переключения короткометражек
     const toggleIconButtonStateClassName = (
@@ -13,16 +12,20 @@ function SearchForm({ onGetFoundMovies, onToggleClick, onToggleClickState, onSea
 
     function handleSubmit(e) {
         e.preventDefault();
-        
-        onSearchText = e.target[0].value;
-
-        // isSearchText(e.target[0].value)
 
         if (e.target[0].value.length !== 0) {
             onGetFoundMovies();
+            handleChange(e);
             handleSearchTextSaving(e);
-            
+
             handleToggleClickStateSaving(onToggleClickState);
+        }
+    }
+
+    function handleChange(e) {
+        const value = e.target[0].value;
+        if (value) {
+            setSearchText(e.target[0].value)
         }
     }
 
@@ -34,16 +37,18 @@ function SearchForm({ onGetFoundMovies, onToggleClick, onToggleClickState, onSea
         localStorage.setItem('toggleState', JSON.stringify(onToggleClickState));
     }
 
-    // useEffect(() => {
-    //     const localStorageSearchText = JSON.parse(localStorage.getItem('searchText'));
-    //     if (!localStorage.getItem('searchText')) return;
-    //     setIsSearchText(localStorageSearchText);
-    // }, []);
+    useEffect(() => {
+        const localStorageSearchText = JSON.parse(localStorage.getItem('searchText'));
+        if (!localStorage.getItem('searchText')) return;
+        setSearchText(localStorageSearchText);
+    }, []);
 
     return (
         <div className='search-form-container'>
             <form onSubmit={handleSubmit} className='search-form'>
                 <input className='search-form__input'
+                    onChange={handleChange}
+                    value={searchText}
                     type='text'
                     name='find'
                     placeholder='Фильм'

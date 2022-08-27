@@ -22,7 +22,7 @@ function App() {
   const [shouldHideHeaderAndFooter, setShouldHideHeaderAndFooter] = useState(false);
   const [isMenuPopupOpen, setIsMenuPopupOpen] = useState(false);
   const [movies, setMovies] = useState([]);
-  const [isSearchText, setIsSearchText] = useState('');
+  // const [isSearchText, setIsSearchText] = useState('');
   const [isToggleClick, setIsToggleClick] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [signedIn, setSignedIn] = useState(false);
@@ -89,9 +89,9 @@ function App() {
       .then((res) => {
         if (!res) return;
 
-        // setSignedIn({
-        //   signedIn: true,
-        // });
+        setSignedIn({
+          signedIn: true,
+        });
 
         history.push('/');
       })
@@ -163,11 +163,11 @@ function App() {
     setIsToggleClick(localStorageToggleState);
   }, []);
 
-  useEffect(() => {
-    const localStorageSearchText = JSON.parse(localStorage.getItem('searchText'));
-    if (!localStorage.getItem('searchText')) return;
-    setIsSearchText(localStorageSearchText);
-  }, []);
+  // useEffect(() => {
+  //   const localStorageSearchText = JSON.parse(localStorage.getItem('searchText'));
+  //   if (!localStorage.getItem('searchText')) return;
+  //   setIsSearchText(localStorageSearchText);
+  // }, []);
 
   return (
     <div className='page'>
@@ -184,8 +184,7 @@ function App() {
             onToggleClick={handleToggleClick}
             onToggleClickState={isToggleClick}
             onLikeClick={handleLikeClick}
-            onLikeClickState={isLiked}
-            onSearchText={isSearchText} />
+            onLikeClickState={isLiked} />
         </Route>
         <Route path='/saved-movies'>
           <SavedMovies
@@ -194,8 +193,7 @@ function App() {
             onToggleClick={handleToggleClick}
             onToggleClickState={isToggleClick}
             onLikeClick={handleLikeClick}
-            onLikeClickState={isLiked}
-            onSearchText={isSearchText} />
+            onLikeClickState={isLiked} />
         </Route>
         <Route path='/profile'>
           <Profile signout={signout} />
