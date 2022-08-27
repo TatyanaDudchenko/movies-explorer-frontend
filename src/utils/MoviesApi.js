@@ -22,6 +22,38 @@ class MoviesApi {
 
   }
 
+  // метод для постановки лайка
+  putLike(itemId) {
+    return fetch(`${this.baseUrl}/${itemId}/likes`, {
+      method: 'PUT',
+      headers: {
+        // authorization: `Bearer ${localStorage.getItem("jwt")}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        _id: itemId,
+      })
+    })
+      .then(this._checkResponse)
+
+  }
+
+  // метод для удаления лайка
+  deleteLike(itemId) {
+    return fetch(`${this.baseUrl}/${itemId}/likes`, {
+      method: 'DELETE',
+      headers: {
+        // authorization: `Bearer ${localStorage.getItem("jwt")}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        _id: itemId,
+      })
+    })
+      .then(this._checkResponse)
+
+  }
+
 }
 
 const api = new MoviesApi({

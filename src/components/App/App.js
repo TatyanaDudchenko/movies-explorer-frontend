@@ -30,8 +30,8 @@ function App() {
 
   const history = useHistory();
 
-  function handleHideHeaderAndFooter() {
-    setShouldHideHeaderAndFooter(true);
+  function handleHideHeaderAndFooter(props) {
+    setShouldHideHeaderAndFooter(props);
   }
 
   // function handleSignedIn() {
@@ -45,7 +45,9 @@ function App() {
       location.pathname.includes('/signin') ||
       location.pathname.includes('/signup')
     ) {
-      handleHideHeaderAndFooter()
+      handleHideHeaderAndFooter(true)
+    } else {
+      handleHideHeaderAndFooter(false)
     }
   }, [location]);
 
@@ -87,9 +89,9 @@ function App() {
       .then((res) => {
         if (!res) return;
 
-        setSignedIn({
-          signedIn: true,
-        });
+        // setSignedIn({
+        //   signedIn: true,
+        // });
 
         history.push('/');
       })
@@ -116,7 +118,7 @@ function App() {
   }
 
   function signout() {
-    setSignedIn(false);
+    // setSignedIn(false);
     localStorage.removeItem('jwt');
     history.push('/signin');
   }
