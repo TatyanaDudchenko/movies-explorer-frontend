@@ -15,22 +15,17 @@ function SearchForm({ onGetFoundMovies, onToggleClick, onToggleClickState }) {
 
         if (e.target[0].value.length !== 0) {
             onGetFoundMovies();
-            handleChange(e);
             handleSearchTextSaving(e);
-
             handleToggleClickStateSaving(onToggleClickState);
         }
     }
 
     function handleChange(e) {
-        const value = e.target[0].value;
-        if (value) {
-            setSearchText(e.target[0].value)
-        }
+        setSearchText(e.target.value)
     }
 
-    function handleSearchTextSaving(e) {
-        localStorage.setItem('searchText', JSON.stringify(e.target[0].value));
+    function handleSearchTextSaving() {
+        localStorage.setItem('searchText', searchText);
     }
 
     function handleToggleClickStateSaving(onToggleClickState) {
@@ -38,7 +33,7 @@ function SearchForm({ onGetFoundMovies, onToggleClick, onToggleClickState }) {
     }
 
     useEffect(() => {
-        const localStorageSearchText = JSON.parse(localStorage.getItem('searchText'));
+        const localStorageSearchText = localStorage.getItem('searchText');
         if (!localStorage.getItem('searchText')) return;
         setSearchText(localStorageSearchText);
     }, []);

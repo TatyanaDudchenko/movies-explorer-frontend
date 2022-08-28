@@ -22,7 +22,6 @@ function App() {
   const [shouldHideHeaderAndFooter, setShouldHideHeaderAndFooter] = useState(false);
   const [isMenuPopupOpen, setIsMenuPopupOpen] = useState(false);
   const [movies, setMovies] = useState([]);
-  // const [isSearchText, setIsSearchText] = useState('');
   const [isToggleClick, setIsToggleClick] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [signedIn, setSignedIn] = useState(false);
@@ -162,12 +161,6 @@ function App() {
     if (!localStorage.getItem('toggleState')) return;
     setIsToggleClick(localStorageToggleState);
   }, []);
-
-  // useEffect(() => {
-  //   const localStorageSearchText = JSON.parse(localStorage.getItem('searchText'));
-  //   if (!localStorage.getItem('searchText')) return;
-  //   setIsSearchText(localStorageSearchText);
-  // }, []);
 
   return (
     <div className='page'>
