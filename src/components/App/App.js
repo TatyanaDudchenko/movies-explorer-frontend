@@ -55,7 +55,7 @@ function App() {
     MainApi
       .register(registerState.name, registerState.email, registerState.password)
       .then(() => {
-        history.push('/signin');
+        handleLogin(registerState);
       })
       .catch((err) => {
         console.log(err);
@@ -71,9 +71,7 @@ function App() {
         localStorage.setItem('jwt', data.token);
         setSignedIn((old) => ({ ...old, signedIn: true }));
 
-        emailCheck();
-
-        history.push('/');
+        history.push('/movies');
       })
       .catch((err) => {
         console.log(err);
@@ -104,21 +102,8 @@ function App() {
     tokenCheck();
   }, [tokenCheck]);
 
-  function emailCheck() {
-    const jwt = localStorage.getItem('jwt');
-
-    MainApi
-      .checkToken(jwt)
-      .then((res) => {
-        if (!res) return;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
   function signout() {
-    // setSignedIn(false);
+    setSignedIn(false);
     localStorage.removeItem('jwt');
     history.push('/signin');
   }

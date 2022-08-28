@@ -32,7 +32,7 @@ function Navigation({ signedIn, onMenuPopup }) {
                                 Сохранённые фильмы
                             </NavLink>
                         </div>
-                        <NavLink exact to='/' className='header__navbar_item-account'>Аккаунт</NavLink>
+                        <NavLink to='/profile' className='header__navbar_item-account'>Аккаунт</NavLink>
                     </nav>
                 </>
             }
