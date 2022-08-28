@@ -22,6 +22,7 @@ function App() {
   const [shouldHideHeaderAndFooter, setShouldHideHeaderAndFooter] = useState(false);
   const [isMenuPopupOpen, setIsMenuPopupOpen] = useState(false);
   const [movies, setMovies] = useState([]);
+  const [savedMovie, setSavedMovie] = useState({});
   const [isToggleClick, setIsToggleClick] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [signedIn, setSignedIn] = useState(false);
@@ -134,10 +135,6 @@ function App() {
     setIsToggleClick(!isToggleClick);
   }
 
-  function handleLikeClick() {
-    setIsLiked(!isLiked);
-  }
-
   function handleGetFoundMovies() {
     MoviesApi.getFoundMovies()
       .then((movies) => {
@@ -162,6 +159,38 @@ function App() {
     setIsToggleClick(localStorageToggleState);
   }, []);
 
+  // обработчик смены состояния иконки лайка
+  function handleLikeClick(movie) {
+    setIsLiked(!isLiked); //movie.id
+  }
+
+  // обработчик постановки лайка
+  function handleMovieLike(movie) {
+
+    handleLikeClick(movie);
+    
+    if (!isLiked) {
+      MoviesApi
+        .putMovieInSaved(movie)
+        .then((movie) => {
+          console.log(movie)
+          setSavedMovie(movie)
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      MoviesApi
+        .deleteMovieFromSaved(movie.id)
+        .then((movie) => {
+          setSavedMovie(movie)
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }
+
   return (
     <div className='page'>
       {!shouldHideHeaderAndFooter && <Header signedIn={signedIn} onMenuPopup={handleMenuPopupClick} />}
@@ -176,16 +205,15 @@ function App() {
             onGetFoundMovies={handleGetFoundMovies}
             onToggleClick={handleToggleClick}
             onToggleClickState={isToggleClick}
-            onLikeClick={handleLikeClick}
-            onLikeClickState={isLiked} />
+            onLikeClickState={isLiked}
+            onMovieLike={handleMovieLike} />
         </Route>
         <Route path='/saved-movies'>
           <SavedMovies
-            movies={movies}
+            savedMovie={savedMovie}
             onGetFoundMovies={handleGetFoundMovies}
             onToggleClick={handleToggleClick}
             onToggleClickState={isToggleClick}
-            onLikeClick={handleLikeClick}
             onLikeClickState={isLiked} />
         </Route>
         <Route path='/profile'>

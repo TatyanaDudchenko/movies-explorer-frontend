@@ -4,7 +4,7 @@ const checkResponse = (response) => {
   if (response.ok) {
     return response.json();
   }
-  throw new Error({status: response.status});
+  throw new Error({ status: response.status });
 }
 
 export const register = (name, email, password) => {
@@ -19,7 +19,7 @@ export const register = (name, email, password) => {
       password: password
     })
   })
-  .then((response) => checkResponse(response))
+    .then((response) => checkResponse(response))
 };
 
 export const authorize = (email, password) => {
@@ -29,11 +29,11 @@ export const authorize = (email, password) => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-        email: email,
-        password: password
+      email: email,
+      password: password
     })
   })
-  .then((response) => checkResponse(response))
+    .then((response) => checkResponse(response))
 };
 
 export const checkToken = (token) => {
@@ -41,8 +41,51 @@ export const checkToken = (token) => {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      authorization : `Bearer ${token}`,
+      authorization: `Bearer ${token}`,
     }
   })
-  .then((response) => checkResponse(response))
+    .then((response) => checkResponse(response))
 };
+
+
+// // метод для сохранения фильма
+// export const putMovieInSaved = (movieId) => {
+//   return fetch(`${BASE_URL}/movies`, {
+//     method: 'PUT',
+//     headers: {
+//       authorization: `Bearer ${localStorage.getItem('jwt')}`,
+//       'Content-Type': 'application/json'
+//     },
+//     body: JSON.stringify({
+//       country: movieId.country,
+//       director: movieId.director,
+//       duration: movieId.duration,
+//       year: movieId.year,
+//       description: movieId.description,
+//       image: movieId.image,
+//       trailerLink: movieId.trailerLink,
+//       thumbnail: movieId.thumbnail,
+//       nameRU: movieId.nameRU,
+//       nameEN: movieId.nameEN,
+//       movieId: movieId.movieId,
+//     })
+//   })
+//     .then((response) => checkResponse(response))
+
+// }
+
+// // метод для удаления фильма
+// export const deleteMovieFromSaved = (itemId) => {
+//   return fetch(`${BASE_URL}/${itemId}`, {
+//     method: 'DELETE',
+//     headers: {
+//       // authorization: `Bearer ${localStorage.getItem("jwt")}`,
+//       'Content-Type': 'application/json'
+//     },
+//     body: JSON.stringify({
+//       _id: itemId,
+//     })
+//   })
+//     .then((response) => checkResponse(response))
+
+// }
