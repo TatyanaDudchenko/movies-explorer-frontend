@@ -1,7 +1,7 @@
 import './SearchForm.css';
 import { useEffect, useState } from 'react';
 
-function SearchForm({ onGetFoundMovies, onToggleClick, onToggleClickState }) {
+function SearchForm({ onGetFoundMovies, onToggleClick, onToggleClickState, onSearchAndFilterMovies }) {
 
     const [searchText, setSearchText] = useState('');
 
@@ -17,6 +17,7 @@ function SearchForm({ onGetFoundMovies, onToggleClick, onToggleClickState }) {
             onGetFoundMovies();
             handleSearchTextSaving(e);
             handleToggleClickStateSaving(onToggleClickState);
+            onSearchAndFilterMovies(searchText);
         }
     }
 

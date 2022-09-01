@@ -2,7 +2,7 @@ import './SavedMovies.css';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
-function SavedMovies({ movies, savedMovie, onGetFoundMovies, onToggleClick, onToggleClickState, onLikeClick, onLikeClickState }) {
+function SavedMovies({ savedMovies, moviesUrl, onGetFoundMovies, onToggleClick, onToggleClickState, onLikeClick, onLikeClickState }) {
     return (
         <div className='saved-movies-container'>
             <SearchForm
@@ -10,8 +10,8 @@ function SavedMovies({ movies, savedMovie, onGetFoundMovies, onToggleClick, onTo
                 onToggleClick={onToggleClick}
                 onToggleClickState={onToggleClickState} />
             <MoviesCardList
-                movies={movies}
-                savedMovie={savedMovie}
+                moviesUrl={moviesUrl}
+                savedMovies={savedMovies}
                 onLikeClick={onLikeClick}
                 onLikeClickState={onLikeClickState} />
         </div>

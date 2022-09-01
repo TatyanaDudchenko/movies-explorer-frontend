@@ -1,14 +1,25 @@
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-function MoviesCardList({ movies, savedMovie, onLikeClickState, onMovieLike }) {
+import { useLocation } from 'react-router-dom';
+
+function MoviesCardList({ movies, moviesUrl, savedMovies, onLikeClickState, onMovieLike }) {
+
+    let location = useLocation();
 
     return (
         <div className='movies-card-list'>
-            {movies.map((item, index)=> (<MoviesCard
+            {location.pathname.includes('/movies') && movies.map((item) => (<MoviesCard
+                moviesUrl={moviesUrl}
                 onLikeClickState={onLikeClickState}
                 onMovieLike={onMovieLike}
-                key={index} {...item} movie={item} />))}
+                key={item.id} {...item} movie={item} />))}
+            {location.pathname.includes('/saved-movies') && savedMovies.map((item) => (<MoviesCard
+                moviesUrl={moviesUrl}
+                onLikeClickState={onLikeClickState}
+                savedMovies={savedMovies}
+                // onMovieLike={onMovieLike}
+                key={item.id} {...item} savedMovie={item} />))}
         </div>
     )
 }
