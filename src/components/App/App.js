@@ -17,26 +17,39 @@ import { useState, useEffect, useCallback } from 'react';
 import ErrorPage from '../ErrorPage/ErrorPage';
 import MenuPopup from '../MenuPopup/MenuPopup';
 import * as MainApi from '../../utils/MainApi';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import { Redirect } from 'react-router-dom';
+
 
 function App() {
   const [shouldHideHeaderAndFooter, setShouldHideHeaderAndFooter] = useState(false);
   const [isMenuPopupOpen, setIsMenuPopupOpen] = useState(false);
   const [movies, setMovies] = useState([]);
-  const [savedMovie, setSavedMovie] = useState({});
+  const [savedMovies, setSavedMovies] = useState([]);
   const [isToggleClick, setIsToggleClick] = useState(false);
-  const [isLiked, setIsLiked] = useState(false);
   const [signedIn, setSignedIn] = useState(false);
-  // const [userName, setUserName] = useState('');
+  const [currentUser, setСurrentUser] = useState({});
+  const moviesUrl = 'https://api.nomoreparties.co';
 
   const history = useHistory();
+
+  useEffect(() => {
+    if (signedIn) {
+      Promise.all([MainApi.getUserInfo(), MoviesApi.getFoundMovies()])
+        .then(([userData, movies]) => {
+          setСurrentUser(userData);
+          setMovies(movies);
+          // setSavedMovies(savedMovies);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [signedIn]);
 
   function handleHideHeaderAndFooter(props) {
     setShouldHideHeaderAndFooter(props);
   }
-
-  // function handleSignedIn() {
-  //   setSignedIn(true);
-  // }
 
   let location = useLocation();
 
@@ -120,6 +133,18 @@ function App() {
     setIsToggleClick(!isToggleClick);
   }
 
+  function handleUpdateUser(props) {
+    MainApi
+      .editProfile(props)
+      .then((userData) => {
+        setСurrentUser(userData);
+      })
+      .then(() => <Redirect to='/movies' />)
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   function handleGetFoundMovies() {
     MoviesApi.getFoundMovies()
       .then((movies) => {
@@ -144,31 +169,32 @@ function App() {
     setIsToggleClick(localStorageToggleState);
   }, []);
 
-  // обработчик смены состояния иконки лайка
-  function handleLikeClick(movie) {
-    setIsLiked(!isLiked); //movie.id
-  }
-
   // обработчик постановки лайка
   function handleMovieLike(movie) {
 
-    handleLikeClick(movie);
-    
-    if (!isLiked) {
-      MoviesApi
-        .putMovieInSaved(movie)
-        .then((movie) => {
-          console.log(movie)
-          setSavedMovie(movie)
+    // определяем, есть ли у карточки лайк (есть ли фильм с таким же id в списке сохраненных)
+    const isLikedInitial = savedMovies?.some((item) => item === movie.id);
+
+    if (!isLikedInitial) { // определяем нужно ли сохранять фильм в зависимости от того, был ли он сохранен ранее
+      MainApi
+        .putMovieInSaved(movie, moviesUrl)
+        console.log(movie)
+        .then((likedMovie) => {
+          console.log(likedMovie)
+          setMovies((movies) =>
+            movies.map((item) => (item._id === movie.id ? likedMovie : item))); // обновляем состояние карточки, которую лайкнули (чтобы обновилась кнопка лайка)
+          setSavedMovies(prev => [...prev, movie]) // обновляем массив со списком сохраненных фильмов
         })
         .catch((err) => {
           console.log(err);
         });
     } else {
-      MoviesApi
-        .deleteMovieFromSaved(movie.id)
-        .then((movie) => {
-          setSavedMovie(movie)
+      MainApi
+        .deleteMovieFromSaved(movie.id, moviesUrl)
+        .then((deletedMovie) => {
+          setMovies((movies) =>
+            movies.map((item) => (item._id === movie.id ? deletedMovie : item))); // обновляем состояние карточки, которую лайкнули (чтобы обновилась кнопка лайка)
+          setSavedMovies(savedMovies => [...savedMovies].filter((item) => item.id !== movie.id)) // обновляем массив со списком сохраненных фильмов
         })
         .catch((err) => {
           console.log(err);
@@ -176,46 +202,84 @@ function App() {
     }
   }
 
+  function searchAndFilterMovies(searchText, movies, isToggleClick) {
+    movies.forEach((item) => {
+        if(item.name.includes(searchText)) {
+          setMovies(item)
+        }
+        else if(item.nameRU.includes(searchText)) {
+          setMovies(item)
+        }
+        else if(item.nameEN.includes(searchText)) {
+          setMovies(item)
+        }
+        else if(item.description.includes(searchText)) {
+          setMovies(item)
+        }
+        else if(item.year.includes(searchText)) {
+          setMovies(item)
+        }
+        else if(item.country.includes(searchText)) {
+          setMovies(item)
+        }
+      })
+    
+      searchAndFilterMovies(movies)
+    // if (isToggleClick) {
+    //   const findShortMovies = queryMovies;
+    //   return findShortMovies(queryMovies);
+    // }
+    // return queryMovies
+  }
+
   return (
-    <div className='page'>
-      {!shouldHideHeaderAndFooter && <Header signedIn={signedIn} onMenuPopup={handleMenuPopupClick} />}
-      <MenuPopup isOpen={isMenuPopupOpen} onClose={closePopup} />
-      <Switch>
-        <Route exact path='/'>
-          <Main />
-        </Route>
-        <Route path='/movies'>
-          <Movies
-            movies={movies}
-            onGetFoundMovies={handleGetFoundMovies}
-            onToggleClick={handleToggleClick}
-            onToggleClickState={isToggleClick}
-            onLikeClickState={isLiked}
-            onMovieLike={handleMovieLike} />
-        </Route>
-        <Route path='/saved-movies'>
-          <SavedMovies
-            savedMovie={savedMovie}
-            onGetFoundMovies={handleGetFoundMovies}
-            onToggleClick={handleToggleClick}
-            onToggleClickState={isToggleClick}
-            onLikeClickState={isLiked} />
-        </Route>
-        <Route path='/profile'>
-          <Profile signout={signout} />
-        </Route>
-        <Route path='/signin'>
-          <Login handleLogin={handleLogin} />
-        </Route>
-        <Route path='/signup'>
-          <Register handleRegister={handleRegister} />
-        </Route>
-        <Route exact path='/error-page'>
-          <ErrorPage />
-        </Route>
-      </Switch>
-      {!shouldHideHeaderAndFooter && <Footer />}
-    </div>
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className='page'>
+        {!shouldHideHeaderAndFooter && <Header signedIn={signedIn} onMenuPopup={handleMenuPopupClick} />}
+        <MenuPopup isOpen={isMenuPopupOpen} onClose={closePopup} />
+        <Switch>
+          <Route exact path='/'>
+            <Main
+            />
+          </Route>
+          <Route path='/movies'>
+            <Movies
+              moviesUrl={moviesUrl}
+              movies={movies}
+              onGetFoundMovies={handleGetFoundMovies}
+              onToggleClick={handleToggleClick}
+              onToggleClickState={isToggleClick}
+              onMovieLike={handleMovieLike}
+              onSearchAndFilterMovies={searchAndFilterMovies} />
+          </Route>
+          <Route path='/saved-movies'>
+            <SavedMovies
+              moviesUrl={moviesUrl}
+              savedMovies={savedMovies}
+              onGetFoundMovies={handleGetFoundMovies}
+              onToggleClick={handleToggleClick}
+              onToggleClickState={isToggleClick}
+            />
+          </Route>
+          <Route path='/profile'>
+            <Profile
+              signout={signout}
+              onUpdateUser={handleUpdateUser}
+            />
+          </Route>
+          <Route path='/signin'>
+            <Login handleLogin={handleLogin} />
+          </Route>
+          <Route path='/signup'>
+            <Register handleRegister={handleRegister} />
+          </Route>
+          <Route exact path='/error-page'>
+            <ErrorPage />
+          </Route>
+        </Switch>
+        {!shouldHideHeaderAndFooter && <Footer />}
+      </div>
+    </CurrentUserContext.Provider>
   );
 }
 
