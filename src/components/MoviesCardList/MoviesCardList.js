@@ -10,6 +10,7 @@ function MoviesCardList({ movies, moviesUrl, savedMovies, onLikeClickState, onMo
     return (
         <div className='movies-card-list'>
             {location.pathname.includes('/movies') && movies.map((item) => (<MoviesCard
+                savedMovies={savedMovies}
                 moviesUrl={moviesUrl}
                 onLikeClickState={onLikeClickState}
                 onMovieLike={onMovieLike}

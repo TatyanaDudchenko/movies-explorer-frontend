@@ -35,11 +35,11 @@ function App() {
 
   useEffect(() => {
     if (signedIn) {
-      Promise.all([MainApi.getUserInfo(), MoviesApi.getFoundMovies()])
-        .then(([userData, movies]) => {
+      Promise.all([MainApi.getUserInfo(), MoviesApi.getFoundMovies(), MainApi.getMovies])
+        .then(([userData, movies, savedMovies]) => {
           setСurrentUser(userData);
           setMovies(movies);
-          // setSavedMovies(savedMovies);
+          setSavedMovies(savedMovies);
         })
         .catch((err) => {
           console.log(err);
@@ -170,17 +170,16 @@ function App() {
   }, []);
 
   // обработчик постановки лайка
-  function handleMovieLike(movie) {
+  function handleMovieLike(movie, savedMovies) {
 
     // определяем, есть ли у карточки лайк (есть ли фильм с таким же id в списке сохраненных)
-    const isLikedInitial = savedMovies?.some((item) => item === movie.id);
+    const isLikedInitial = savedMovies?.some((item) => item.id === movie.id);
 
     if (!isLikedInitial) { // определяем нужно ли сохранять фильм в зависимости от того, был ли он сохранен ранее
       MainApi
         .putMovieInSaved(movie, moviesUrl)
-        console.log(movie)
         .then((likedMovie) => {
-          console.log(likedMovie)
+          // console.log(likedMovie)
           setMovies((movies) =>
             movies.map((item) => (item._id === movie.id ? likedMovie : item))); // обновляем состояние карточки, которую лайкнули (чтобы обновилась кнопка лайка)
           setSavedMovies(prev => [...prev, movie]) // обновляем массив со списком сохраненных фильмов

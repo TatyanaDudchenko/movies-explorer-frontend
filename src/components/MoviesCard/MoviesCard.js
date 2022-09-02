@@ -4,8 +4,8 @@ function MoviesCard({ movie, moviesUrl, savedMovies, onMovieLike }) {
 
     // Определяем, есть ли у карточки лайк (есть ли фильм с таким же id в списке сохраненных)
     // console.log(savedMovies)
-    const isLikedInitial = savedMovies?.some((item) => item === movie.id);
-
+    const isLikedInitial = savedMovies?.some((item) => item.id === movie.id);
+    // console.log(movie)
     // Создаём переменную, которую после зададим в `className` для состояния кнопки лайка
     const likeButtonStateClassName = (
         `${isLikedInitial && 'movies-card__icon-like_active'}`

@@ -57,6 +57,16 @@ export const getUserInfo = () => {
     .then((response) => checkResponse(response))
 };
 
+// метод для загрузки сохраненных фильмов с сервера
+export const getMovies = () => {
+  return fetch(`${BASE_URL}/movies`, {
+    headers: {
+      authorization: `Bearer ${localStorage.getItem('jwt')}`,
+    }
+  })
+    .then((response) => checkResponse(response))
+}
+
 // метод для сохранения фильма
 export const putMovieInSaved = (movie, moviesUrl) => {
   return fetch(`${BASE_URL}/movies`, {
@@ -84,7 +94,7 @@ export const putMovieInSaved = (movie, moviesUrl) => {
 
 // метод для удаления фильма
 export const deleteMovieFromSaved = (movieId) => {
-  return fetch(`${BASE_URL}/${movieId}`, {
+  return fetch(`${BASE_URL}/movies/${movieId}`, {
     method: 'DELETE',
     headers: {
       authorization: `Bearer ${localStorage.getItem('jwt')}`,
