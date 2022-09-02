@@ -35,7 +35,7 @@ function App() {
 
   useEffect(() => {
     if (signedIn) {
-      Promise.all([MainApi.getUserInfo(), MoviesApi.getFoundMovies(), MainApi.getMovies])
+      Promise.all([MainApi.getUserInfo(), MoviesApi.getFoundMovies(), MainApi.getMovies()])
         .then(([userData, movies, savedMovies]) => {
           setСurrentUser(userData);
           setMovies(movies);
@@ -187,6 +187,13 @@ function App() {
         .catch((err) => {
           console.log(err);
         });
+        MainApi.getMovies()
+        .then((savedMovies) => {
+          setSavedMovies(savedMovies)
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     } else {
       MainApi
         .deleteMovieFromSaved(movie.id, moviesUrl)
@@ -194,6 +201,13 @@ function App() {
           setMovies((movies) =>
             movies.map((item) => (item._id === movie.id ? deletedMovie : item))); // обновляем состояние карточки, которую лайкнули (чтобы обновилась кнопка лайка)
           setSavedMovies(savedMovies => [...savedMovies].filter((item) => item.id !== movie.id)) // обновляем массив со списком сохраненных фильмов
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+        MainApi.getMovies()
+        .then((savedMovies) => {
+          setSavedMovies(savedMovies)
         })
         .catch((err) => {
           console.log(err);
