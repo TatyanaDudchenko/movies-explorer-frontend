@@ -4,7 +4,7 @@ function MoviesCard({ movie, savedMovies, onMovieLike, imageUrl, imageAlt }) {
 
     // Определяем, есть ли у карточки лайк (есть ли фильм с таким же id в списке сохраненных)
     // console.log(movie)
-    const isLikedInitial = savedMovies?.some((item) => item.id === movie.id);
+    const isLikedInitial = savedMovies.some((item) => item.movieId === movie.id);
 
     // Создаём переменную, которую после зададим в `className` для состояния кнопки лайка
     const likeButtonStateClassName = (
@@ -12,7 +12,7 @@ function MoviesCard({ movie, savedMovies, onMovieLike, imageUrl, imageAlt }) {
     );
 
     function handleLikeClick() {
-        onMovieLike(movie)
+        onMovieLike(movie, savedMovies)
     }
 
     // преобразование минут в часы и минуты

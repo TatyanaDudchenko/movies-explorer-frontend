@@ -170,18 +170,19 @@ function App() {
   }, []);
 
   // обработчик постановки лайка
-  function handleMovieLike(movie) {
+  function handleMovieLike(movie, savedMovies) {
+    console.log("savedMovies", savedMovies)
 
     // определяем, есть ли у карточки лайк (есть ли фильм с таким же id в списке сохраненных)
-    // const isLikedInitial = savedMovies?.some((item) => item.id === movie.id);
+    // const isLikedInitial = savedMovies?.some((item) => item.movieId === movie.id);
 
-    const isLikedInitial = savedMovies?.some((item) => {
+    const isLikedInitial = savedMovies.some((item) => {
       console.log("savedMovies", savedMovies)
-      console.log("item.id", item.id)
+      console.log("item.movieId", item.movieId)
       console.log("item", item)
       console.log("movie.id", movie.id)
       console.log("movie", movie)
-      return item.id === movie.id});
+      return item.movieId === movie.id});
  
 
     if (!isLikedInitial) { // определяем нужно ли сохранять фильм в зависимости от того, был ли он сохранен ранее
@@ -190,26 +191,26 @@ function App() {
         .then((likedMovie) => {
           // console.log(likedMovie)
           setMovies((movies) =>
-            movies.map((item) => (item.id === movie.id ? likedMovie : item))); // обновляем состояние карточки, которую лайкнули (чтобы обновилась кнопка лайка)
+            movies.map((item) => (item.movieId === movie.id ? likedMovie : item))); // обновляем состояние карточки, которую лайкнули (чтобы обновилась кнопка лайка)
           setSavedMovies(prev => [...prev, movie]) // обновляем массив со списком сохраненных фильмов
         })
         .catch((err) => {
           console.log(err);
         });
-        // MainApi.getMovies()
-        // .then((savedMovies) => {
-        //   setSavedMovies(savedMovies)
-        // })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
+        MainApi.getMovies()
+        .then((savedMovies) => {
+          setSavedMovies(savedMovies)
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     } else {
       MainApi
         .deleteMovieFromSaved(movie.id, moviesUrl)
         .then((deletedMovie) => {
           setMovies((movies) =>
-            movies.map((item) => (item.id === movie.id ? deletedMovie : item))); // обновляем состояние карточки, которую лайкнули (чтобы обновилась кнопка лайка)
-          setSavedMovies(savedMovies => [...savedMovies].filter((item) => item.id !== movie.movieId)) // обновляем массив со списком сохраненных фильмов
+            movies.map((item) => (item.movieId === movie.id ? deletedMovie : item))); // обновляем состояние карточки, которую лайкнули (чтобы обновилась кнопка лайка)
+          setSavedMovies(savedMovies => [...savedMovies].filter((item) => item.movieId !== movie.movieId)) // обновляем массив со списком сохраненных фильмов
         })
         .catch((err) => {
           console.log(err);
@@ -268,6 +269,7 @@ function App() {
             <Movies
               moviesUrl={moviesUrl}
               movies={movies}
+              savedMovies={savedMovies}
               onGetFoundMovies={handleGetFoundMovies}
               onToggleClick={handleToggleClick}
               onToggleClickState={isToggleClick}
