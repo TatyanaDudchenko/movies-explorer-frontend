@@ -1,6 +1,6 @@
 import './MoviesCard.css';
 
-function MoviesCard({ movie, savedMovies, onMovieLike, imageUrl, imageAlt }) {
+function MoviesCard({ movie, savedMovies, onMovieLike, imageUrl, imageAlt, likeButtonDelete }) {
 
     // Определяем, есть ли у карточки лайк (есть ли фильм с таким же id в списке сохраненных)
     // console.log(movie)
@@ -29,7 +29,7 @@ function MoviesCard({ movie, savedMovies, onMovieLike, imageUrl, imageAlt }) {
                         <h2 className='movies-card__about-name'>{movie.nameRU}</h2>
                         <time className='movies-card__about-duration'>{movieDuration}</time>
                     </div>
-                    <button onClick={handleLikeClick} type='button' className={`movies-card__icon-like ${likeButtonStateClassName}`} alt='Иконка сохранения фильма'></button>
+                    <button onClick={handleLikeClick} type='button' className={`movies-card__icon-like ${likeButtonStateClassName} ${likeButtonDelete}`} alt='Иконка сохранения фильма'></button>
                 </figcaption>
                 <div className='movies-card__image-container'>
                     <a href={movie.trailerLink}>
