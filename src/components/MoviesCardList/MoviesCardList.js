@@ -7,6 +7,9 @@ function MoviesCardList({ movies, moviesUrl, savedMovies, onLikeClickState, onMo
 
     let location = useLocation();
 
+    // Создаём переменную, которую после зададим в `className` для состояния кнопки лайка
+    const likeButtonDelete = 'movies-card__icon-like_delete';
+
     return (
         <div className='movies-card-list'>
             {location.pathname.includes('/movies') && movies.map((item) => (
@@ -25,6 +28,7 @@ function MoviesCardList({ movies, moviesUrl, savedMovies, onLikeClickState, onMo
                 <MoviesCard
                     moviesUrl={moviesUrl}
                     onLikeClickState={onLikeClickState}
+                    likeButtonDelete={likeButtonDelete}
                     movie={item}
                     savedMovies={savedMovies}
                     // onMovieLike={onMovieLike}
