@@ -148,8 +148,8 @@ function App() {
   function handleGetFoundMovies() {
     MoviesApi.getFoundMovies()
       .then((movies) => {
-        // localStorage.setItem('movies', JSON.stringify(movies));
-        const localStorageMovies = JSON.parse(localStorage.getItem('searchMovies'));
+        localStorage.setItem('movies', JSON.stringify(movies));
+        const localStorageMovies = JSON.parse(localStorage.getItem('movies'));
         setMovies(localStorageMovies);
       })
       .catch((err) => {
@@ -157,11 +157,27 @@ function App() {
       });
   }
 
+  // function handleGetFoundMovies() {
+  //   MoviesApi.getFoundMovies()
+  //     .then((movies) => {
+  //       setMovies(movies);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }
+
   useEffect(() => {
-    const localStorageMovies = JSON.parse(localStorage.getItem('movies'));
-    if (!localStorage.getItem('movies')) return;
+    const localStorageMovies = JSON.parse(localStorage.getItem('searchMovies'));
+    if (!localStorage.getItem('searchMovies')) return;
     setMovies(localStorageMovies);
   }, []);
+
+  // useEffect(() => {
+  //   const localStorageMovies = JSON.parse(localStorage.getItem('movies'));
+  //   if (!localStorage.getItem('movies')) return;
+  //   setMovies(localStorageMovies);
+  // }, []);
 
   useEffect(() => {
     const localStorageToggleState = JSON.parse(localStorage.getItem('toggleState'));
