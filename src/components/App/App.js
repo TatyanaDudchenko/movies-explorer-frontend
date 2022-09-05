@@ -169,27 +169,38 @@ function App() {
     setIsToggleClick(localStorageToggleState);
   }, []);
 
-  // обработчик постановки лайка
+  // обработчик удаления фильма из списка сохраненных
+  function handleMovieLikeDelete(movie, savedMovies) {
+    let likedMovieId = savedMovies.find(item => item._id === movie._id)._id
+    MainApi
+      .deleteMovieFromSaved(likedMovieId, moviesUrl)
+      .then((deletedMovie) => {
+        setMovies((movies) =>
+          movies.map((item) => (item._id === movie._id ? deletedMovie : item))); // обновляем состояние карточки, которую удалили
+        setSavedMovies(savedMovies => [...savedMovies].filter((item) => item._id !== movie._id)) // обновляем массив со списком сохраненных фильмов
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    MainApi.getMovies()
+      .then((savedMovies) => {
+        setSavedMovies(savedMovies)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  // обработчик лайка
   function handleMovieLike(movie, savedMovies) {
-    console.log("savedMovies", savedMovies)
 
     // определяем, есть ли у карточки лайк (есть ли фильм с таким же id в списке сохраненных)
-    // const isLikedInitial = savedMovies?.some((item) => item.movieId === movie.id);
-
-    const isLikedInitial = savedMovies.some((item) => {
-      console.log("savedMovies", savedMovies)
-      console.log("item.movieId", item.movieId)
-      console.log("item", item)
-      console.log("movie.id", movie.id)
-      console.log("movie", movie)
-      return item.movieId === movie.id});
- 
+    const isLikedInitial = savedMovies?.some((item) => item.movieId === movie.id);
 
     if (!isLikedInitial) { // определяем нужно ли сохранять фильм в зависимости от того, был ли он сохранен ранее
       MainApi
         .putMovieInSaved(movie, moviesUrl)
         .then((likedMovie) => {
-          // console.log(likedMovie)
           setMovies((movies) =>
             movies.map((item) => (item.movieId === movie.id ? likedMovie : item))); // обновляем состояние карточки, которую лайкнули (чтобы обновилась кнопка лайка)
           setSavedMovies(prev => [...prev, movie]) // обновляем массив со списком сохраненных фильмов
@@ -197,7 +208,7 @@ function App() {
         .catch((err) => {
           console.log(err);
         });
-        MainApi.getMovies()
+      MainApi.getMovies()
         .then((savedMovies) => {
           setSavedMovies(savedMovies)
         })
@@ -205,49 +216,50 @@ function App() {
           console.log(err);
         });
     } else {
+      let likedMovieId = savedMovies.find(item => item.movieId === movie.id)._id
       MainApi
-        .deleteMovieFromSaved(movie.id, moviesUrl)
+        .deleteMovieFromSaved(likedMovieId, moviesUrl)
         .then((deletedMovie) => {
           setMovies((movies) =>
             movies.map((item) => (item.movieId === movie.id ? deletedMovie : item))); // обновляем состояние карточки, которую лайкнули (чтобы обновилась кнопка лайка)
-          setSavedMovies(savedMovies => [...savedMovies].filter((item) => item.movieId !== movie.movieId)) // обновляем массив со списком сохраненных фильмов
+          setSavedMovies(savedMovies => [...savedMovies].filter((item) => item.movieId !== movie.id)) // обновляем массив со списком сохраненных фильмов
         })
         .catch((err) => {
           console.log(err);
         });
-        // MainApi.getMovies()
-        // .then((savedMovies) => {
-        //   setSavedMovies(savedMovies)
-        // })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
+      MainApi.getMovies()
+        .then((savedMovies) => {
+          setSavedMovies(savedMovies)
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   }
 
   function searchAndFilterMovies(searchText, movies, isToggleClick) {
     movies.forEach((item) => {
-        if(item.name.includes(searchText)) {
-          setMovies(item)
-        }
-        else if(item.nameRU.includes(searchText)) {
-          setMovies(item)
-        }
-        else if(item.nameEN.includes(searchText)) {
-          setMovies(item)
-        }
-        else if(item.description.includes(searchText)) {
-          setMovies(item)
-        }
-        else if(item.year.includes(searchText)) {
-          setMovies(item)
-        }
-        else if(item.country.includes(searchText)) {
-          setMovies(item)
-        }
-      })
-    
-      searchAndFilterMovies(movies)
+      if (item.name.includes(searchText)) {
+        setMovies(item)
+      }
+      else if (item.nameRU.includes(searchText)) {
+        setMovies(item)
+      }
+      else if (item.nameEN.includes(searchText)) {
+        setMovies(item)
+      }
+      else if (item.description.includes(searchText)) {
+        setMovies(item)
+      }
+      else if (item.year.includes(searchText)) {
+        setMovies(item)
+      }
+      else if (item.country.includes(searchText)) {
+        setMovies(item)
+      }
+    })
+
+    searchAndFilterMovies(movies)
     // if (isToggleClick) {
     //   const findShortMovies = queryMovies;
     //   return findShortMovies(queryMovies);
@@ -280,6 +292,7 @@ function App() {
             <SavedMovies
               moviesUrl={moviesUrl}
               savedMovies={savedMovies}
+              onMovieLikeDelete={handleMovieLikeDelete}
               onGetFoundMovies={handleGetFoundMovies}
               onToggleClick={handleToggleClick}
               onToggleClickState={isToggleClick}
