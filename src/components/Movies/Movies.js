@@ -9,6 +9,7 @@ function Movies({ movies, savedMovies, moviesUrl, onGetFoundMovies, onToggleClic
                 onGetFoundMovies={onGetFoundMovies}
                 onToggleClick={onToggleClick}
                 onToggleClickState={onToggleClickState}
+                movies={movies}
                 onSearchAndFilterMovies={onSearchAndFilterMovies} />
             <MoviesCardList
                 moviesUrl={moviesUrl}

@@ -1,7 +1,7 @@
 import './SearchForm.css';
 import { useEffect, useState } from 'react';
 
-function SearchForm({ onGetFoundMovies, onToggleClick, onToggleClickState, onSearchAndFilterMovies }) {
+function SearchForm({ onGetFoundMovies, onToggleClick, onToggleClickState, onSearchAndFilterMovies, movies }) {
 
     const [searchText, setSearchText] = useState('');
 
@@ -17,7 +17,8 @@ function SearchForm({ onGetFoundMovies, onToggleClick, onToggleClickState, onSea
             onGetFoundMovies();
             handleSearchTextSaving(e);
             handleToggleClickStateSaving(onToggleClickState);
-            onSearchAndFilterMovies(searchText);
+            let findMovies = onSearchAndFilterMovies(searchText, movies, onToggleClickState);
+            localStorage.setItem('searchMovies', findMovies);
         }
     }
 
@@ -50,7 +51,7 @@ function SearchForm({ onGetFoundMovies, onToggleClick, onToggleClickState, onSea
                     placeholder='Фильм'
                     required
                 />
-                <button type='submit' className='search-form__button search-form__submit-button'></button>
+                <button onClick={onSearchAndFilterMovies(searchText, movies, onToggleClickState)} type='submit' className='search-form__button search-form__submit-button'></button>
             </form>
             <div className='search-form__toggle-container'>
                 <button onClick={onToggleClick} type='switch' className={`search-form__button search-form__toggle-icon ${toggleIconButtonStateClassName}`}></button>

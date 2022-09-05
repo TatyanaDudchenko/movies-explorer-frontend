@@ -148,8 +148,8 @@ function App() {
   function handleGetFoundMovies() {
     MoviesApi.getFoundMovies()
       .then((movies) => {
-        localStorage.setItem('movies', JSON.stringify(movies));
-        const localStorageMovies = JSON.parse(localStorage.getItem('movies'));
+        // localStorage.setItem('movies', JSON.stringify(movies));
+        const localStorageMovies = JSON.parse(localStorage.getItem('searchMovies'));
         setMovies(localStorageMovies);
       })
       .catch((err) => {
@@ -238,34 +238,36 @@ function App() {
   }
 
   function searchAndFilterMovies(searchText, movies, isToggleClick) {
+    console.log(searchText)
+    let findMovies = [];
+
     movies.forEach((item) => {
-      if (item.name.includes(searchText)) {
-        setMovies(item)
+      if (item.nameRU.includes(searchText)) {
+        findMovies.push(item)
       }
-      else if (item.nameRU.includes(searchText)) {
-        setMovies(item)
-      }
-      else if (item.nameEN.includes(searchText)) {
-        setMovies(item)
-      }
-      else if (item.description.includes(searchText)) {
-        setMovies(item)
-      }
-      else if (item.year.includes(searchText)) {
-        setMovies(item)
-      }
-      else if (item.country.includes(searchText)) {
-        setMovies(item)
-      }
+      // else if (item.nameEN.includes(searchText)) {
+      //   findMovies.push(item)
+      // }
+      // else if (item.description.includes(searchText)) {
+      //   findMovies.push(item)
+      // }
+      // else if (item.year.includes(searchText)) {
+      //   findMovies.push(item)
+      // }
+      // else if (item.country.includes(searchText)) {
+      //   findMovies.push(item)
+      // }
     })
 
-    searchAndFilterMovies(movies)
+    return findMovies;
+
     // if (isToggleClick) {
     //   const findShortMovies = queryMovies;
     //   return findShortMovies(queryMovies);
     // }
     // return queryMovies
   }
+
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
