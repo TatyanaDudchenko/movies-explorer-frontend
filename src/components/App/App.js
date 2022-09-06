@@ -19,7 +19,7 @@ import MenuPopup from '../MenuPopup/MenuPopup';
 import * as MainApi from '../../utils/MainApi';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { Redirect } from 'react-router-dom';
-
+import ProtectedRoute from '../ProtectedRoute';
 
 function App() {
   const [shouldHideHeaderAndFooter, setShouldHideHeaderAndFooter] = useState(false);
@@ -333,14 +333,16 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className='page'>
-        {!shouldHideHeaderAndFooter && <Header signedIn={signedIn} onMenuPopup={handleMenuPopupClick} />}
+        <ProtectedRoute exact path='/' signedIn={signedIn}>
+          {!shouldHideHeaderAndFooter && <Header signedIn={signedIn} onMenuPopup={handleMenuPopupClick} />}
+        </ProtectedRoute>
         <MenuPopup isOpen={isMenuPopupOpen} onClose={closePopup} />
         <Switch>
-          <Route exact path='/'>
+          <ProtectedRoute exact path='/' signedIn={signedIn}>
             <Main
             />
-          </Route>
-          <Route path='/movies'>
+          </ProtectedRoute>
+          <ProtectedRoute path='/movies' signedIn={signedIn}>
             <Movies
               moviesUrl={moviesUrl}
               movies={movies}
@@ -350,8 +352,8 @@ function App() {
               onToggleClickState={isToggleClick}
               onMovieLike={handleMovieLike}
               onSearchAndFilterMovies={searchAndFilterMovies} />
-          </Route>
-          <Route path='/saved-movies'>
+          </ProtectedRoute>
+          <ProtectedRoute path='/saved-movies' signedIn={signedIn}>
             <SavedMovies
               moviesUrl={moviesUrl}
               savedMovies={savedMovies}
@@ -360,24 +362,26 @@ function App() {
               onToggleClick={handleToggleClick}
               onToggleClickState={isToggleClick}
             />
-          </Route>
-          <Route path='/profile'>
+          </ProtectedRoute>
+          <ProtectedRoute path='/profile' signedIn={signedIn}>
             <Profile
               signout={signout}
               onUpdateUser={handleUpdateUser}
             />
-          </Route>
+          </ProtectedRoute>
           <Route path='/signin'>
             <Login handleLogin={handleLogin} />
           </Route>
           <Route path='/signup'>
             <Register handleRegister={handleRegister} />
           </Route>
-          <Route exact path='/error-page'>
+          <ProtectedRoute path='/error-page' signedIn={signedIn}>
             <ErrorPage />
-          </Route>
+          </ProtectedRoute>
         </Switch>
-        {!shouldHideHeaderAndFooter && <Footer />}
+        <ProtectedRoute exact path='/' signedIn={signedIn}>
+          {!shouldHideHeaderAndFooter && <Footer />}
+        </ProtectedRoute>
       </div>
     </CurrentUserContext.Provider>
   );
