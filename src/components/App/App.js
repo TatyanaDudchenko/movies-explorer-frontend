@@ -145,6 +145,18 @@ function App() {
       });
   }
 
+  // function handleGetFoundMovies() {
+  //   MoviesApi.getFoundMovies()
+  //     .then((movies) => {
+  //       localStorage.setItem('movies', JSON.stringify(movies));
+  //       const localStorageMovies = JSON.parse(localStorage.getItem('movies'));
+  //       setMovies(localStorageMovies);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }
+
   function handleGetFoundMovies() {
     MoviesApi.getFoundMovies()
       .then((movies) => {
@@ -167,17 +179,17 @@ function App() {
   //     });
   // }
 
-  useEffect(() => {
-    const localStorageMovies = JSON.parse(localStorage.getItem('searchMovies'));
-    if (!localStorage.getItem('searchMovies')) return;
-    setMovies(localStorageMovies);
-  }, []);
-
   // useEffect(() => {
-  //   const localStorageMovies = JSON.parse(localStorage.getItem('movies'));
-  //   if (!localStorage.getItem('movies')) return;
+  //   const localStorageMovies = JSON.parse(localStorage.getItem('searchMovies'));
+  //   if (!localStorage.getItem('searchMovies')) return;
   //   setMovies(localStorageMovies);
   // }, []);
+
+  useEffect(() => {
+    const localStorageMovies = JSON.parse(localStorage.getItem('movies'));
+    if (!localStorage.getItem('movies')) return;
+    setMovies(localStorageMovies);
+  }, []);
 
   useEffect(() => {
     const localStorageToggleState = JSON.parse(localStorage.getItem('toggleState'));
@@ -258,21 +270,21 @@ function App() {
     let findMovies = [];
 
     movies.forEach((item) => {
-      if (item.nameRU.includes(searchText)) {
+      if (item.nameRU?.includes(searchText)) {
         findMovies.push(item)
       }
-      // else if (item.nameEN.includes(searchText)) {
-      //   findMovies.push(item)
-      // }
-      // else if (item.description.includes(searchText)) {
-      //   findMovies.push(item)
-      // }
-      // else if (item.year.includes(searchText)) {
-      //   findMovies.push(item)
-      // }
-      // else if (item.country.includes(searchText)) {
-      //   findMovies.push(item)
-      // }
+      else if (item.nameEN?.includes(searchText)) {
+        findMovies.push(item)
+      }
+      else if (item.description?.includes(searchText)) {
+        findMovies.push(item)
+      }
+      else if (item.year?.includes(searchText)) {
+        findMovies.push(item)
+      }
+      else if (item.country?.includes(searchText)) {
+        findMovies.push(item)
+      }
     })
 
     return findMovies;
@@ -283,6 +295,39 @@ function App() {
     // }
     // return queryMovies
   }
+
+  // const [findMovies, setFindMovies] = useState([]);
+
+  // function searchAndFilterMovies(searchText, movies, isToggleClick) {
+  //   console.log(searchText)
+
+  //   movies.forEach((item) => {
+  //     if (item.nameRU?.includes(searchText)) {
+  //       setFindMovies([item, ...findMovies]);
+  //       console.log(findMovies)
+  //     }
+  //     else if (item.nameEN?.includes(searchText)) {
+  //       setFindMovies([item, ...findMovies]);
+  //     }
+  //     else if (item.description?.includes(searchText)) {
+  //       setFindMovies([item, ...findMovies]);
+  //     }
+  //     else if (item.year?.includes(searchText)) {
+  //       setFindMovies([item, ...findMovies]);
+  //     }
+  //     else if (item.country?.includes(searchText)) {
+  //       setFindMovies([item, ...findMovies]);
+  //     }
+  //   })
+
+  //   // return findMovies;
+
+  //   // if (isToggleClick) {
+  //   //   const findShortMovies = queryMovies;
+  //   //   return findShortMovies(queryMovies);
+  //   // }
+  //   // return queryMovies
+  // }
 
 
   return (
