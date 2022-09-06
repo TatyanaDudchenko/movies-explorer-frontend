@@ -17,7 +17,7 @@ function MoviesCardList({ movies, moviesUrl, savedMovies, onLikeClickState, onMo
                     savedMovies={savedMovies}
                     moviesUrl={moviesUrl}
                     onLikeClickState={onLikeClickState}
-                    key={item._id} {...item} movie={item}
+                    key={item.id} {...item} movie={item}
                     imageUrl={`${moviesUrl}${item.image.url}`}
                     imageAlt={`${item.nameRU}`}
                     onClick={onMovieLike}
