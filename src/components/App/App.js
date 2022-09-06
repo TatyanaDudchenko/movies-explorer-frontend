@@ -16,6 +16,7 @@ import { useLocation, useHistory } from 'react-router-dom';
 import { useState, useEffect, useCallback } from 'react';
 import ErrorPage from '../ErrorPage/ErrorPage';
 import MenuPopup from '../MenuPopup/MenuPopup';
+import InfoTooltip from '../InfoTooltip/InfoTooltip';
 import * as MainApi from '../../utils/MainApi';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { Redirect } from 'react-router-dom';
@@ -29,6 +30,8 @@ function App() {
   const [isToggleClick, setIsToggleClick] = useState(false);
   const [signedIn, setSignedIn] = useState(false);
   const [currentUser, setСurrentUser] = useState({});
+  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
+  const [tooltipMessage, setTooltipMessage] = useState(true);
   const moviesUrl = 'https://api.nomoreparties.co';
 
   const history = useHistory();
@@ -64,14 +67,23 @@ function App() {
     }
   }, [location]);
 
+
+  function handleInfoTooltipOpen() {
+    setIsInfoTooltipOpen(true);
+  }
+
   function handleRegister(registerState) {
     MainApi
       .register(registerState.name, registerState.email, registerState.password)
       .then(() => {
+        setTooltipMessage(true);
+        handleInfoTooltipOpen();
         handleLogin(registerState);
       })
       .catch((err) => {
         console.log(err);
+        setTooltipMessage(false);
+        handleInfoTooltipOpen();
       });
   }
 
@@ -88,6 +100,8 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
+        setTooltipMessage(false);
+        handleInfoTooltipOpen();
       });
   }
 
@@ -127,6 +141,7 @@ function App() {
 
   function closePopup() {
     setIsMenuPopupOpen(false);
+    setIsInfoTooltipOpen(false);
   }
 
   function handleToggleClick() {
@@ -337,10 +352,14 @@ function App() {
           {!shouldHideHeaderAndFooter && <Header signedIn={signedIn} onMenuPopup={handleMenuPopupClick} />}
         </ProtectedRoute>
         <MenuPopup isOpen={isMenuPopupOpen} onClose={closePopup} />
+        <InfoTooltip
+          isOpen={isInfoTooltipOpen}
+          onClose={closePopup}
+          message={tooltipMessage}
+        />
         <Switch>
           <ProtectedRoute exact path='/' signedIn={signedIn}>
-            <Main
-            />
+            <Main />
           </ProtectedRoute>
           <ProtectedRoute path='/movies' signedIn={signedIn}>
             <Movies
