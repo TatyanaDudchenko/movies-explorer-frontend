@@ -1,7 +1,7 @@
 import './SearchForm.css';
 import { useEffect, useState } from 'react';
 
-function SearchForm({ onGetFoundMovies, onToggleClick, onToggleClickState, onSearchAndFilterMovies, movies }) {
+function SearchForm({ onGetFoundMovies, onToggleClick, onToggleClickState, onSearchAndFilterMovies, movies, setMoviesSearchResult }) {
 
     const [searchText, setSearchText] = useState('');
 
@@ -10,26 +10,19 @@ function SearchForm({ onGetFoundMovies, onToggleClick, onToggleClickState, onSea
         `${onToggleClickState && 'search-form__toggle-icon_active'}`
     );
 
-    // function handleSubmit(e) {
-    //     e.preventDefault();
-
-    //     if (e.target[0].value.length !== 0) {
-    //         onGetFoundMovies();
-    //         handleSearchTextSaving(e);
-    //         handleToggleClickStateSaving(onToggleClickState);
-    //         onSearchAndFilterMovies(searchText, movies, onToggleClickState);
-    //     }
-    // }
-
     function handleSubmit(e) {
         e.preventDefault();
 
         if (e.target[0].value.length !== 0) {
-            onGetFoundMovies(); // получаем фильмы с MoviesApi
-            handleSearchTextSaving(e); // получае значение инпута
+            handleSearchTextSaving(e); // получаем значение инпута
             handleToggleClickStateSaving(onToggleClickState); // получаем значение состояния чекбокса
-            let findMovies = onSearchAndFilterMovies(searchText, movies, onToggleClickState); // сохраняем массив с найденными по поиску фильмам в переменную
-            localStorage.setItem('searchMovies', findMovies); // сохраняем массив с найденными в локальное хранилище
+            onGetFoundMovies(); // получаем фильмы с MoviesApi
+            // вызываем функцию поиска с переданными параметрами и сохраняем результат (массив с найденными фильмами) в переменную
+            let findMovies = onSearchAndFilterMovies(searchText, movies, onToggleClickState);
+            localStorage.setItem('foundMovies', findMovies); // сохраняем массив с найденными фильмами в локальное хранилище
+            // обновляем результат поиска фильмов для отрисовки на странице
+            setMoviesSearchResult(findMovies);
+
         }
     }
 
