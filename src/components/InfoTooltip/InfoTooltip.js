@@ -1,5 +1,3 @@
-// import iconSuccess from '../images/icon-success.svg';
-// import iconFail from '../images/icon-fail.svg';
 import './InfoTooltip.css';
 
 function InfoTooltip({ onClose, isOpen, message }) {
