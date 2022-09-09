@@ -12,7 +12,7 @@ function MoviesCardList({ moviesSearchResult, moviesUrl, savedMovies, onLikeClic
 
     return (
         <div className='movies-card-list'>
-            {location.pathname.includes('/movies') && moviesSearchResult.map((item) => (
+            {location.pathname.includes('/movies') && (moviesSearchResult.slice(0, 12)).map((item) => (
                 <MoviesCard
                     savedMovies={savedMovies}
                     moviesUrl={moviesUrl}
@@ -23,7 +23,7 @@ function MoviesCardList({ moviesSearchResult, moviesUrl, savedMovies, onLikeClic
                     onClick={onMovieLike}
                 />
             ))}
-            {location.pathname.includes('/saved-movies') && savedMovies.map((item) => (
+            {location.pathname.includes('/saved-movies') && (savedMovies.slice(0, 12)).map((item) => (
                 <MoviesCard
                     moviesUrl={moviesUrl}
                     onLikeClickState={onLikeClickState}
