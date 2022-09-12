@@ -32,7 +32,8 @@ function App() {
   const [currentUser, setСurrentUser] = useState({});
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [tooltipMessage, setTooltipMessage] = useState(true);
-  const [moviesSearchResult, setMoviesSearchResult] = useState([] || (localStorage.getItem('foundMovies')));
+  // const [moviesSearchResult, setMoviesSearchResult] = useState([] || JSON.parse(localStorage.getItem('foundMovies')));
+  const [moviesSearchResult, setMoviesSearchResult] = useState([] || JSON.parse(localStorage.getItem('foundMovies')));
 
   // const [showMovies, setShowMovies] = useState([]);
   // const MOVIES_TO_SHOW = '12';
@@ -171,10 +172,6 @@ function App() {
     setIsInfoTooltipOpen(false);
   }
 
-  function handleToggleClick() {
-    setIsToggleClick(!isToggleClick);
-  }
-
   function handleUpdateUser(props) {
     MainApi
       .editProfile(props)
@@ -198,22 +195,10 @@ function App() {
   }
 
   // useEffect(() => {
-  //   const localStorageMovies = localStorage.getItem('foundMovies');
-  //   if (!localStorage.getItem('foundMovies')) return;
-  //   setMovies(localStorageMovies);
-  // }, []);
-
-  // useEffect(() => {
   //   const localStorageMovies = JSON.parse(localStorage.getItem('movies'));
   //   if (!localStorage.getItem('movies')) return;
   //   setMovies(localStorageMovies);
   // }, []);
-
-  useEffect(() => {
-    const localStorageToggleState = JSON.parse(localStorage.getItem('toggleState'));
-    if (!localStorage.getItem('toggleState')) return;
-    setIsToggleClick(localStorageToggleState);
-  }, []);
 
   // обработчик удаления фильма из списка сохраненных
   function handleMovieLikeDelete(movie, savedMovies) {
@@ -283,6 +268,69 @@ function App() {
     }
   }
 
+  
+  function filterShotMovies(isToggleClick) {
+    if (isToggleClick === false) {
+      setMoviesSearchResult(moviesSearchResult => [...moviesSearchResult].filter((item) => item.duration <= 40))
+    // localStorage.setItem('foundMovies', JSON.stringify(moviesSearchResult));
+    // setMoviesSearchResult( JSON.parse(localStorage.getItem('foundMovies')))
+
+
+    } else {
+      setMoviesSearchResult(JSON.parse(localStorage.getItem('foundMovies')));
+    }
+  }
+
+  // const [filteredMovies, setFilteredMovies] =  useState([] || JSON.parse(localStorage.getItem('filteredMovies')));
+
+    useEffect(() => {
+    const localStorageMovies = JSON.parse(localStorage.getItem('foundMovies'));
+    if (!localStorage.getItem('foundMovies')) return;
+    setMoviesSearchResult(localStorageMovies);
+  }, []);
+
+  useEffect(() => {
+    const localStorageToggleState = JSON.parse(localStorage.getItem('toggleState'));
+    if (!localStorage.getItem('toggleState')) return;
+    setIsToggleClick(localStorageToggleState);
+  }, []);
+
+  function handleToggleClick() {
+    setIsToggleClick(!isToggleClick);
+    filterShotMovies(isToggleClick);
+    localStorage.setItem('foundMovies', JSON.stringify(moviesSearchResult));
+    // localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
+    localStorage.setItem('toggleState', JSON.stringify(isToggleClick));
+    // setMoviesSearchResult(JSON.parse(localStorage.getItem('foundMovies')));
+
+  }
+
+
+  //     useEffect(() => {
+  //   const localStorageMovies = JSON.parse(localStorage.getItem('filteredMovies'));
+  //   if (!localStorage.getItem('filteredMovies')) return;
+  //   setFilteredMovies(localStorageMovies);
+  // }, []);
+
+  // function filterShotMovies(isToggleClick) {
+  //   if (!isToggleClick) {
+  //     setFilteredMovies(filteredMovies => [...filteredMovies].filter((item) => item.duration <= 40))
+  //   localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
+
+  //   } else {
+  //     setMoviesSearchResult(JSON.parse(localStorage.getItem('foundMovies')));
+  //   }
+  // }
+
+  // function handleToggleClick() {
+  //   setIsToggleClick(!isToggleClick);
+  //   filterShotMovies(isToggleClick);
+  //   localStorage.setItem('foundMovies', JSON.stringify(moviesSearchResult));
+  //   localStorage.setItem('toggleState', JSON.stringify(!isToggleClick));
+  //   // setMoviesSearchResult(JSON.parse(localStorage.getItem('foundMovies')));
+
+  // }
+
   function searchAndFilterMovies(searchText, movies, isToggleClick) {
     console.log(searchText)
     let findMovies = [];
@@ -305,14 +353,20 @@ function App() {
       }
     })
 
-    return findMovies;
+    // if (!isToggleClick) {
+    //   findMovies.filter((item) => item.duration <= 40);
+    //   return findMovies;
+    // }
 
+    localStorage.setItem('foundMovies', JSON.stringify(findMovies)); // сохраняем массив с найденными фильмами в локальное хранилище
 
     // if (isToggleClick) {
     //   const findShortMovies = queryMovies;
     //   return findShortMovies(queryMovies);
     // }
     // return queryMovies
+
+    return findMovies;
   }
 
 
@@ -339,6 +393,7 @@ function App() {
               movies={movies}
               setMoviesSearchResult={setMoviesSearchResult}
               moviesSearchResult={moviesSearchResult}
+              // filteredMovies={filteredMovies}
               savedMovies={savedMovies}
               onGetFoundMovies={handleGetFoundMovies}
               onToggleClick={handleToggleClick}
