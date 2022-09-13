@@ -32,7 +32,6 @@ function App() {
   const [currentUser, setСurrentUser] = useState({});
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [tooltipMessage, setTooltipMessage] = useState(true);
-  // const [moviesSearchResult, setMoviesSearchResult] = useState([] || JSON.parse(localStorage.getItem('foundMovies')));
   const [moviesSearchResult, setMoviesSearchResult] = useState([] || JSON.parse(localStorage.getItem('foundMovies')));
 
   // const [showMovies, setShowMovies] = useState([]);
@@ -55,28 +54,6 @@ function App() {
         });
     }
   }, [signedIn]);
-
-  // useEffect(() => {
-  //   if (signedIn) {
-  //     Promise.all([MainApi.getUserInfo(), MoviesApi.getFoundMovies(), MainApi.getMovies()])
-  //       .then(([userData, movies, savedMovies]) => {
-  //         setСurrentUser(userData);
-  //         setMovies((movies) => showMovies.slice(0, movies.length + MOVIES_TO_SHOW));
-  //         setShowMovies(showMovies);
-  //         setSavedMovies(savedMovies);
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  //   }
-  // }, [signedIn, showMovies]);
-
-  // useEffect(() => {
-  //   const localStorageMovies = localStorage.getItem('foundMovies');
-  //   if (!localStorage.getItem('foundMovies')) return;
-  //   setShowMovies(localStorageMovies);
-  //   setShowMovies(prev => showMovies.slice(0, prev.length + MOVIES_TO_SHOW))
-  // }, [signedIn, showMovies]);
 
   function handleHideHeaderAndFooter(props) {
     setShouldHideHeaderAndFooter(props);
@@ -194,12 +171,6 @@ function App() {
       });
   }
 
-  // useEffect(() => {
-  //   const localStorageMovies = JSON.parse(localStorage.getItem('movies'));
-  //   if (!localStorage.getItem('movies')) return;
-  //   setMovies(localStorageMovies);
-  // }, []);
-
   // обработчик удаления фильма из списка сохраненных
   function handleMovieLikeDelete(movie, savedMovies) {
     let likedMovieId = savedMovies.find(item => item._id === movie._id)._id
@@ -268,26 +239,26 @@ function App() {
     }
   }
 
-  
   function filterShotMovies(isToggleClick) {
     if (isToggleClick === false) {
       setMoviesSearchResult(moviesSearchResult => [...moviesSearchResult].filter((item) => item.duration <= 40))
-    // localStorage.setItem('foundMovies', JSON.stringify(moviesSearchResult));
-    // setMoviesSearchResult( JSON.parse(localStorage.getItem('foundMovies')))
-
-
+      localStorage.setItem('filteredMovies', JSON.stringify(moviesSearchResult.filter((item) => item.duration <= 40)));
     } else {
       setMoviesSearchResult(JSON.parse(localStorage.getItem('foundMovies')));
     }
   }
 
-  // const [filteredMovies, setFilteredMovies] =  useState([] || JSON.parse(localStorage.getItem('filteredMovies')));
-
-    useEffect(() => {
-    const localStorageMovies = JSON.parse(localStorage.getItem('foundMovies'));
-    if (!localStorage.getItem('foundMovies')) return;
-    setMoviesSearchResult(localStorageMovies);
-  }, []);
+  useEffect(() => {
+    if (isToggleClick === true) {
+      const localStorageMovies = JSON.parse(localStorage.getItem('filteredMovies'));
+      if (!localStorage.getItem('filteredMovies')) return;
+      setMoviesSearchResult(localStorageMovies);
+    } else {
+      const localStorageMovies = JSON.parse(localStorage.getItem('foundMovies'));
+      if (!localStorage.getItem('foundMovies')) return;
+      setMoviesSearchResult(localStorageMovies);
+    }
+  }, [isToggleClick]);
 
   useEffect(() => {
     const localStorageToggleState = JSON.parse(localStorage.getItem('toggleState'));
@@ -297,39 +268,9 @@ function App() {
 
   function handleToggleClick() {
     setIsToggleClick(!isToggleClick);
+    localStorage.setItem('toggleState', JSON.stringify(!isToggleClick));
     filterShotMovies(isToggleClick);
-    localStorage.setItem('foundMovies', JSON.stringify(moviesSearchResult));
-    // localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
-    localStorage.setItem('toggleState', JSON.stringify(isToggleClick));
-    // setMoviesSearchResult(JSON.parse(localStorage.getItem('foundMovies')));
-
   }
-
-
-  //     useEffect(() => {
-  //   const localStorageMovies = JSON.parse(localStorage.getItem('filteredMovies'));
-  //   if (!localStorage.getItem('filteredMovies')) return;
-  //   setFilteredMovies(localStorageMovies);
-  // }, []);
-
-  // function filterShotMovies(isToggleClick) {
-  //   if (!isToggleClick) {
-  //     setFilteredMovies(filteredMovies => [...filteredMovies].filter((item) => item.duration <= 40))
-  //   localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
-
-  //   } else {
-  //     setMoviesSearchResult(JSON.parse(localStorage.getItem('foundMovies')));
-  //   }
-  // }
-
-  // function handleToggleClick() {
-  //   setIsToggleClick(!isToggleClick);
-  //   filterShotMovies(isToggleClick);
-  //   localStorage.setItem('foundMovies', JSON.stringify(moviesSearchResult));
-  //   localStorage.setItem('toggleState', JSON.stringify(!isToggleClick));
-  //   // setMoviesSearchResult(JSON.parse(localStorage.getItem('foundMovies')));
-
-  // }
 
   function searchAndFilterMovies(searchText, movies, isToggleClick) {
     console.log(searchText)
@@ -353,23 +294,10 @@ function App() {
       }
     })
 
-    // if (!isToggleClick) {
-    //   findMovies.filter((item) => item.duration <= 40);
-    //   return findMovies;
-    // }
-
     localStorage.setItem('foundMovies', JSON.stringify(findMovies)); // сохраняем массив с найденными фильмами в локальное хранилище
-
-    // if (isToggleClick) {
-    //   const findShortMovies = queryMovies;
-    //   return findShortMovies(queryMovies);
-    // }
-    // return queryMovies
 
     return findMovies;
   }
-
-
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -393,7 +321,7 @@ function App() {
               movies={movies}
               setMoviesSearchResult={setMoviesSearchResult}
               moviesSearchResult={moviesSearchResult}
-              // filteredMovies={filteredMovies}
+              onSetIsToggleClick={setIsToggleClick}
               savedMovies={savedMovies}
               onGetFoundMovies={handleGetFoundMovies}
               onToggleClick={handleToggleClick}
