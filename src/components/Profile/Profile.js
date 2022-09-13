@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { useState, useEffect, useContext } from 'react';
 
-function Profile({ error, signout, onUpdateUser }) {
+function Profile({ error, signout, onUpdateUser, setTooltipMessage, handleInfoTooltipOpen }) {
     const currentUser = useContext(CurrentUserContext);
 
     const [profileUserName, setProfileUserName] = useState('');
@@ -30,6 +30,8 @@ function Profile({ error, signout, onUpdateUser }) {
             name: profileUserName,
             email: profileUserEmail,
         });
+        setTooltipMessage('Ваш профиль успешно обновлен!');
+        handleInfoTooltipOpen();
     }
 
     return (

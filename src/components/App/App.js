@@ -31,7 +31,7 @@ function App() {
   const [signedIn, setSignedIn] = useState(false);
   const [currentUser, setСurrentUser] = useState({});
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
-  const [tooltipMessage, setTooltipMessage] = useState(true);
+  const [tooltipMessage, setTooltipMessage] = useState('');
   const [moviesSearchResult, setMoviesSearchResult] = useState([] || JSON.parse(localStorage.getItem('foundMovies')));
 
   // const [showMovies, setShowMovies] = useState([]);
@@ -81,13 +81,13 @@ function App() {
     MainApi
       .register(registerState.name, registerState.email, registerState.password)
       .then(() => {
-        setTooltipMessage(true);
+        setTooltipMessage('Вы успешно зарегистрировались!');
         handleInfoTooltipOpen();
         handleLogin(registerState);
       })
       .catch((err) => {
         console.log(err);
-        setTooltipMessage(false);
+        setTooltipMessage('Что-то пошло не так! Попробуйте еще раз.');
         handleInfoTooltipOpen();
       });
   }
@@ -105,7 +105,7 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
-        setTooltipMessage(false);
+        setTooltipMessage('Что-то пошло не так! Попробуйте еще раз.');
         handleInfoTooltipOpen();
       });
   }
@@ -273,7 +273,6 @@ function App() {
   }
 
   function searchAndFilterMovies(searchText, movies, isToggleClick) {
-    console.log(searchText)
     let findMovies = [];
 
     movies.forEach((item) => {
@@ -293,7 +292,10 @@ function App() {
         findMovies.push(item)
       }
     })
-
+    if (findMovies.length === 0) {
+      setTooltipMessage('Ничего не найдено');
+      handleInfoTooltipOpen();
+    }
     localStorage.setItem('foundMovies', JSON.stringify(findMovies)); // сохраняем массив с найденными фильмами в локальное хранилище
 
     return findMovies;
@@ -312,9 +314,11 @@ function App() {
           message={tooltipMessage}
         />
         <Switch>
-          <ProtectedRoute exact path='/' signedIn={signedIn}>
+          <Route exact path='/' signedIn={signedIn}>
+            {!signedIn && <Header signedIn={signedIn} onMenuPopup={handleMenuPopupClick} />}
             <Main />
-          </ProtectedRoute>
+            {!signedIn && <Footer />}
+          </Route>
           <ProtectedRoute path='/movies' signedIn={signedIn}>
             <Movies
               moviesUrl={moviesUrl}
@@ -343,6 +347,8 @@ function App() {
             <Profile
               signout={signout}
               onUpdateUser={handleUpdateUser}
+              setTooltipMessage={setTooltipMessage}
+              handleInfoTooltipOpen={handleInfoTooltipOpen}
             />
           </ProtectedRoute>
           <Route path='/signin'>
