@@ -154,10 +154,14 @@ function App() {
       .editProfile(props)
       .then((userData) => {
         setСurrentUser(userData);
+        setTooltipMessage('Ваш профиль успешно обновлен!');
+        handleInfoTooltipOpen();
       })
       .then(() => <Redirect to='/movies' />)
       .catch((err) => {
         console.log(err);
+        setTooltipMessage('Что-то пошло не так! Попробуйте еще раз.');
+        handleInfoTooltipOpen();
       });
   }
 
@@ -347,8 +351,6 @@ function App() {
             <Profile
               signout={signout}
               onUpdateUser={handleUpdateUser}
-              setTooltipMessage={setTooltipMessage}
-              handleInfoTooltipOpen={handleInfoTooltipOpen}
             />
           </ProtectedRoute>
           <Route path='/signin'>
