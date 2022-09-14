@@ -99,7 +99,8 @@ function App() {
         if (!data.token) return;
 
         localStorage.setItem('jwt', data.token);
-        setSignedIn((old) => ({ ...old, signedIn: true }));
+        setSignedIn(true);
+        // setSignedIn((old) => ({ ...old, signedIn: true }));
 
         history.push('/movies');
       })
@@ -119,9 +120,11 @@ function App() {
       .then((res) => {
         if (!res) return;
 
-        setSignedIn({
-          signedIn: true,
-        });
+        // setSignedIn({
+        //   signedIn: true,
+        // });
+
+        setSignedIn(true);
 
         history.push('/');
       })
