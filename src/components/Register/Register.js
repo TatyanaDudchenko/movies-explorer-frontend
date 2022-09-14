@@ -6,6 +6,7 @@ import headerLogo from '../../images/logo.svg';
 import FormSubmitButton from '../FormSubmitButton/FormSubmitButton';
 import FormParagraphLinkContainer from '../FormParagraphLinkContainer/FormParagraphLinkContainer';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function Register({ error, handleRegister }) {
 
@@ -27,11 +28,11 @@ function Register({ error, handleRegister }) {
         e.preventDefault();
 
         handleRegister(registerState);
-    }; 
+    };
 
     return (
         <div className='register-form register-form__container'>
-            <img className='register-form__logo' src={headerLogo} alt='Логотип Movies Explorer' />
+            <Link to='/'><img className='register-form__logo' src={headerLogo} alt='Логотип Movies Explorer' /></Link>
             <form onSubmit={handleSubmit} className='register-form__content' noValidate>
                 <div className='register-form__title register-form__title_margin'>
                     <FormTitle title={'Добро пожаловать!'} />

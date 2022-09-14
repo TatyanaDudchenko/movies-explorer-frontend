@@ -6,6 +6,7 @@ import headerLogo from '../../images/logo.svg';
 import FormSubmitButton from '../FormSubmitButton/FormSubmitButton';
 import FormParagraphLinkContainer from '../FormParagraphLinkContainer/FormParagraphLinkContainer';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function Login({ error, handleLogin }) {
 
@@ -29,7 +30,8 @@ function Login({ error, handleLogin }) {
   }
   return (
     <div className='login-form login-form__container'>
-      <img className='login-form__logo' src={headerLogo} alt='Логотип Movies Explorer' />
+
+      <Link to='/'><img className='login-form__logo' src={headerLogo} alt='Логотип Movies Explorer' /></Link>
       <form onSubmit={handleSubmit} className='login-form__content' noValidate>
         <div className='login-form__title login-form__title_margin'>
           <FormTitle title={'Рады видеть!'} />

@@ -42,8 +42,8 @@
 }
 
 
-.header__navbar_item-account_inactive {
-    display: none;
+.header__navbar_item_inactive {
+    cursor: default;
 }
 
 .header__navbar_item-movies {

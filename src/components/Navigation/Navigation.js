@@ -23,20 +23,21 @@ function Navigation({ signedIn, onMenuPopup }) {
                         <div className='header__navbar_item-group'>
                             <NavLink to='/movies'
                                 className={`header__navbar_item header__navbar_item-movies
-                            ${location.pathname.includes('/movies') && 'header__navbar_item_current'}`}>
+                            ${location.pathname.includes('/movies') && 'header__navbar_item_current header__navbar_item_inactive'}`}>
                                 Фильмы
                             </NavLink>
                             <NavLink to='/saved-movies'
                                 className={`header__navbar_item header__navbar_item-movies
-                            ${location.pathname.includes('/saved-movies') && 'header__navbar_item_current'}`}>
+                            ${location.pathname.includes('/saved-movies') && 'header__navbar_item_current header__navbar_item_inactive'}`}>
                                 Сохранённые фильмы
                             </NavLink>
                         </div>
 
-                        {location.pathname.includes('/profile') && <NavLink exact to='/' className='header__navbar_item-account'>Главная</NavLink>}
-
-                        <NavLink to='/profile' className={`header__navbar_item-account
-                        ${location.pathname.includes('/profile') && 'header__navbar_item-account_inactive'}`}>Аккаунт</NavLink>
+                        <NavLink to='/profile'
+                            className={`header__navbar_item-account
+                            ${location.pathname.includes('/profile') && 'header__navbar_item_inactive'}`}>
+                            Аккаунт
+                        </NavLink>
                     </nav>
                 </>
             }
