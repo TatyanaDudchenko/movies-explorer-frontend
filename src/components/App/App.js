@@ -280,19 +280,19 @@ function App() {
     let findMovies = [];
 
     movies.forEach((item) => {
-      if (item.nameRU?.toLowerCase().includes(searchText)) {
+      if (item.nameRU?.toLowerCase().indexOf(searchText.toLowerCase()) > -1) {
         findMovies.push(item)
       }
-      else if (item.nameEN?.toLowerCase().includes(searchText)) {
+      else if (item.nameEN?.toLowerCase().indexOf(searchText.toLowerCase()) > -1) {
         findMovies.push(item)
       }
-      else if (item.description?.toLowerCase().includes(searchText)) {
+      else if (item.description?.toLowerCase().indexOf(searchText.toLowerCase()) > -1) {
         findMovies.push(item)
       }
-      else if (item.year?.toLowerCase().includes(searchText)) {
+      else if (item.year?.toLowerCase().indexOf(searchText.toLowerCase()) > -1) {
         findMovies.push(item)
       }
-      else if (item.country?.toLowerCase().includes(searchText)) {
+      else if (item.country?.toLowerCase().indexOf(searchText.toLowerCase()) > -1) {
         findMovies.push(item)
       }
     })
