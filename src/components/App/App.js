@@ -166,7 +166,6 @@ function App() {
         setTooltipMessage('Ваш профиль успешно обновлен!');
         handleInfoTooltipOpen();
       })
-      .then(() => <Redirect to='/movies' />)
       .catch((err) => {
         console.log(err);
         setTooltipMessage('Что-то пошло не так! Попробуйте еще раз.');
@@ -290,7 +289,7 @@ function App() {
   }
 
   function searchAndFilterMovies(searchText, movies, isToggleClick) {
-    handlePreloaderOpen();
+    // handlePreloaderOpen();
     let findMovies = [];
 
     movies.forEach((item) => {
