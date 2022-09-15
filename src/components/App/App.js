@@ -20,7 +20,6 @@ import InfoTooltip from '../InfoTooltip/InfoTooltip';
 import Preloader from '../Preloader/Preloader';
 import * as MainApi from '../../utils/MainApi';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import { Redirect } from 'react-router-dom';
 import ProtectedRoute from '../ProtectedRoute';
 
 function App() {
@@ -106,9 +105,8 @@ function App() {
 
         localStorage.setItem('jwt', data.token);
         setSignedIn(true);
-        // setSignedIn((old) => ({ ...old, signedIn: true }));
 
-        history.push('/movies');
+        history.push('/');
       })
       .catch((err) => {
         console.log(err);
@@ -126,18 +124,13 @@ function App() {
       .then((res) => {
         if (!res) return;
 
-        // setSignedIn({
-        //   signedIn: true,
-        // });
-
         setSignedIn(true);
 
-        history.push('/');
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [history])
+  }, [])
 
   useEffect(() => {
     tokenCheck();
@@ -146,7 +139,7 @@ function App() {
   function signout() {
     setSignedIn(false);
     localStorage.removeItem('jwt');
-    history.push('/signin');
+    history.push('/');
   }
 
   function handleMenuPopupClick() {
@@ -289,7 +282,6 @@ function App() {
   }
 
   function searchAndFilterMovies(searchText, movies, isToggleClick) {
-    // handlePreloaderOpen();
     let findMovies = [];
 
     movies.forEach((item) => {
@@ -333,11 +325,13 @@ function App() {
           isOpen={isPreloaderOpen}
         />
         <Switch>
-          <Route exact path='/' signedIn={signedIn}>
-            {!signedIn && <Header signedIn={signedIn} onMenuPopup={handleMenuPopupClick} />}
+
+          <Route exact path='/'>
+            {!signedIn && <Header signedIn={signedIn} />}
             <Main />
             {!signedIn && <Footer />}
           </Route>
+
           <ProtectedRoute path='/movies' signedIn={signedIn}>
             <Movies
               moviesUrl={moviesUrl}

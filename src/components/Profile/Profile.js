@@ -1,6 +1,6 @@
 import './Profile.css';
 import FormTitle from '../FormTitle/FormTitle';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { useState, useEffect, useContext } from 'react';
 
@@ -71,7 +71,8 @@ function Profile({ error, signout, onUpdateUser }) {
                     </div>
                     <div className='profile-form__button-container'>
                         <button type='submit' className='profile-form__submit-button'>Редактировать</button>
-                        <Link onClick={signout} className='profile-form__link' to='/signin'>Выйти из аккаунта</Link>
+                        {/* <Link onClick={signout} className='profile-form__link' to='/'>Выйти из аккаунта</Link> */}
+                        <a href='/' onClick={signout} className='profile-form__link'>Выйти из аккаунта</a>
                     </div>
                 </div>
             </form>
