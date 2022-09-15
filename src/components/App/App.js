@@ -17,6 +17,7 @@ import { useState, useEffect, useCallback } from 'react';
 import ErrorPage from '../ErrorPage/ErrorPage';
 import MenuPopup from '../MenuPopup/MenuPopup';
 import InfoTooltip from '../InfoTooltip/InfoTooltip';
+import Preloader from '../Preloader/Preloader';
 import * as MainApi from '../../utils/MainApi';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { Redirect } from 'react-router-dom';
@@ -32,6 +33,7 @@ function App() {
   const [currentUser, setСurrentUser] = useState({});
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [tooltipMessage, setTooltipMessage] = useState('');
+  const [isPreloaderOpen, setIsPreloaderOpen] = useState(false);
   const [moviesSearchResult, setMoviesSearchResult] = useState([] || JSON.parse(localStorage.getItem('foundMovies')));
 
   // const [showMovies, setShowMovies] = useState([]);
@@ -75,6 +77,10 @@ function App() {
 
   function handleInfoTooltipOpen() {
     setIsInfoTooltipOpen(true);
+  }
+
+  function handlePreloaderOpen() {
+    setIsPreloaderOpen(true);
   }
 
   function handleRegister(registerState) {
@@ -169,8 +175,12 @@ function App() {
   }
 
   function handleGetFoundMovies() {
+
+    handlePreloaderOpen(); //запускаем прелоадер
+
     MoviesApi.getFoundMovies()
       .then((movies) => {
+        setIsPreloaderOpen(false); // выключаем прелоадер
         setMovies(movies);
       })
       .catch((err) => {
@@ -280,6 +290,7 @@ function App() {
   }
 
   function searchAndFilterMovies(searchText, movies, isToggleClick) {
+    handlePreloaderOpen();
     let findMovies = [];
 
     movies.forEach((item) => {
@@ -301,7 +312,6 @@ function App() {
     })
     if (findMovies.length === 0) {
       setTooltipMessage('Ничего не найдено');
-      handleInfoTooltipOpen();
     }
     localStorage.setItem('foundMovies', JSON.stringify(findMovies)); // сохраняем массив с найденными фильмами в локальное хранилище
 
@@ -319,6 +329,9 @@ function App() {
           isOpen={isInfoTooltipOpen}
           onClose={closePopup}
           message={tooltipMessage}
+        />
+        <Preloader
+          isOpen={isPreloaderOpen}
         />
         <Switch>
           <Route exact path='/' signedIn={signedIn}>
