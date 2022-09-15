@@ -1,25 +1,25 @@
-import React from 'react';
-import { Redirect, Route } from "react-router-dom";
-import { useState, useEffect } from 'react';
+// import React from 'react';
+// import { Redirect, Route } from "react-router-dom";
+// import { useState, useEffect } from 'react';
 
 
-const ProtectedRoute = ({ children }) => {
-  const [signedIn, setSignedIn] = useState(true);
+// const ProtectedRoute = ({ children }) => {
+//   const [signedIn, setSignedIn] = useState(true);
 
-  useEffect(() => {
-    if (!localStorage.getItem("jwt")) {
-      setSignedIn(false);
-    }
-  }, []);
+//   useEffect(() => {
+//     if (!localStorage.getItem("jwt")) {
+//       setSignedIn(false);
+//     }
+//   }, []);
 
-  return (
-    <Route>
-      {() => signedIn ? children : <Redirect to="/" />}
-    </Route>
-  )
-};
+//   return (
+//     <Route>
+//       {() => signedIn ? children : <Redirect to="/" />}
+//     </Route>
+//   )
+// };
 
-export default ProtectedRoute;
+// export default ProtectedRoute;
 
 // return (
 //   <Route>
@@ -30,13 +30,13 @@ export default ProtectedRoute;
   // const [isJwt, setIsJwt] = useState(false);
 
 
-// import React from 'react';
-// import { Redirect } from "react-router-dom";
+import React from 'react';
+import { Redirect } from "react-router-dom";
 
-// const ProtectedRoute = ({ signedIn, children }) => {
-//   return (
-//     signedIn ? children : <Redirect exact to="/" />
-//   )
-// };
+const ProtectedRoute = ({ signedIn, children }) => {
+  return (
+    signedIn ? children : <Redirect exact to="/" />
+  )
+};
 
-// export default ProtectedRoute;
+export default ProtectedRoute;
