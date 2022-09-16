@@ -35,9 +35,6 @@ function App() {
   const [isPreloaderOpen, setIsPreloaderOpen] = useState(false);
   const [moviesSearchResult, setMoviesSearchResult] = useState([] || JSON.parse(localStorage.getItem('foundMovies')));
 
-  // const [showMovies, setShowMovies] = useState([]);
-  // const MOVIES_TO_SHOW = '12';
-
   const moviesUrl = 'https://api.nomoreparties.co';
 
   const history = useHistory();
