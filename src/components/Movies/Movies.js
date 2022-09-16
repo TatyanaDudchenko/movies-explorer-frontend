@@ -1,6 +1,7 @@
 import './Movies.css';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
+import { useState, useEffect } from 'react';
 
 function Movies({ movies, filteredMovies, moviesSearchResult, setMoviesSearchResult, savedMovies, moviesUrl, onGetFoundMovies, onToggleClick, onToggleClickState, onSetIsToggleClick, onLikeClickState, onMovieLike, onSearchAndFilterMovies }) {
 
@@ -8,16 +9,33 @@ function Movies({ movies, filteredMovies, moviesSearchResult, setMoviesSearchRes
 
     // }
 
+    const [searchText, setSearchText] = useState('');
+
+    
+    useEffect(() => {
+        const localStorageSearchText = localStorage.getItem('searchText');
+        if (!localStorage.getItem('searchText')) return;
+        setSearchText(localStorageSearchText);
+    }, []);
+
+
     return (
         <div className='movies-container'>
             <SearchForm
                 onGetFoundMovies={onGetFoundMovies}
                 onToggleClick={onToggleClick}
                 onToggleClickState={onToggleClickState}
-                movies={movies}
+                movArr={movies}
                 onSetIsToggleClick={onSetIsToggleClick}
                 setMoviesSearchResult={setMoviesSearchResult}
-                onSearchAndFilterMovies={onSearchAndFilterMovies} />
+                searchTextQuery={searchText}
+                searchText={searchText}
+                setSearchTextQuery={setSearchText}
+                setSearchText={setSearchText}
+                keyInStorageSearchText={'searchText'}
+
+                // onSearchAndFilterMovies={onSearchAndFilterMovies} />
+                onSearchAndFilterFunction={onSearchAndFilterMovies} />
             <MoviesCardList
                 moviesUrl={moviesUrl}
                 movies={movies}

@@ -3,7 +3,7 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 
 import { useLocation } from 'react-router-dom';
 
-function MoviesCardList({ moviesSearchResult, moviesUrl, savedMovies, onLikeClickState, onMovieLike, onMovieLikeDelete, filteredMovies, onToggleClickState }) {
+function MoviesCardList({ moviesSearchResult, moviesUrl, savedMovies, savedMoviesSearchResult, onLikeClickState, onMovieLike, onMovieLikeDelete, filteredMovies, onToggleClickState }) {
 
     let location = useLocation();
 
@@ -24,7 +24,7 @@ function MoviesCardList({ moviesSearchResult, moviesUrl, savedMovies, onLikeClic
                     onClick={onMovieLike}
                 />
             ))}
-            {location.pathname.includes('/saved-movies') && (savedMovies.slice(0, 12)).map((item) => (
+            {location.pathname.includes('/saved-movies') && (savedMoviesSearchResult.slice(0, 12)).map((item) => (
                 <MoviesCard
                     moviesUrl={moviesUrl}
                     onLikeClickState={onLikeClickState}

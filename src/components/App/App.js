@@ -305,8 +305,14 @@ function App() {
       setTooltipMessage('Ничего не найдено');
     }
     localStorage.setItem('foundMovies', JSON.stringify(findMovies)); // сохраняем массив с найденными фильмами в локальное хранилище
+    // обновляем результат поиска фильмов для отрисовки на странице
+    setMoviesSearchResult(JSON.parse(localStorage.getItem('foundMovies')));
+
+    localStorage.setItem('searchText', searchText);
 
     return findMovies;
+
+
   }
 
   return (

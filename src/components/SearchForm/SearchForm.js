@@ -1,9 +1,25 @@
 import './SearchForm.css';
-import { useEffect, useState } from 'react';
 
-function SearchForm({ onGetFoundMovies, onToggleClick, onToggleClickState, onSetIsToggleClick, onSearchAndFilterMovies, movies, setMoviesSearchResult }) {
+function SearchForm({
+    onGetFoundMovies,
+    onToggleClick,
+    onToggleClickState,
+    onSetIsToggleClick,
+    // onSearchAndFilterMovies,
+    // onSearchAndFilterSavedMovies,
+    onSearchAndFilterFunction,
+    // movies,
+    // savedMovies,
+    movArr,
+    setMoviesSearchResult,
+    // savedMoviesSearchText,
+    setSavedMoviesSearchText,
+    searchTextQuery,
+    setSearchTextQuery,
+    keyInStorageSearchText,
+}) {
 
-    const [searchText, setSearchText] = useState('');
+    // const [searchText, setSearchText] = useState('');
 
     // Создаём переменную, которую после зададим в `className` для состояния кнопки переключения короткометражек
     const toggleIconButtonStateClassName = (
@@ -19,38 +35,53 @@ function SearchForm({ onGetFoundMovies, onToggleClick, onToggleClickState, onSet
                 onSetIsToggleClick(false);
             }
 
-            handleSearchTextSaving(e); // получаем значение инпута
+            // handleSearchTextSaving(e); // получаем значение инпута
             onGetFoundMovies(); // получаем фильмы с MoviesApi
             // вызываем функцию поиска с переданными параметрами и сохраняем результат (массив с найденными фильмами) в переменную
-            onSearchAndFilterMovies(searchText, movies, onToggleClickState);
+            onSearchAndFilterFunction(searchTextQuery, movArr, onToggleClickState);
+            // onSearchAndFilterMovies(searchText, movies, onToggleClickState);
+            // onSearchAndFilterSavedMovies(savedMoviesSearchText, savedMovies, onToggleClickState);
 
             localStorage.setItem('toggleState', JSON.stringify(onToggleClickState)); // сохраняем состояние чекбокса в локальное хранилище
 
-            // обновляем результат поиска фильмов для отрисовки на странице
-            setMoviesSearchResult(JSON.parse(localStorage.getItem('foundMovies')));
+            // // обновляем результат поиска фильмов для отрисовки на странице
+            // setMoviesSearchResult(JSON.parse(localStorage.getItem('foundMovies')));
         }
     }
 
     function handleChange(e) {
-        setSearchText(e.target.value)
+        setSearchTextQuery(e.target.value);
+        // setSavedMoviesSearchText(e.target.value);
     }
 
-    function handleSearchTextSaving() {
-        localStorage.setItem('searchText', searchText);
-    }
+    // function handleSearchTextSaving() {
+    //     localStorage.setItem(`${keyInStorageSearchText}`, searchTextQuery);
+    //     // localStorage.setItem('savedMoviesSearchText', savedMoviesSearchText);
+    // }
 
-    useEffect(() => {
-        const localStorageSearchText = localStorage.getItem('searchText');
-        if (!localStorage.getItem('searchText')) return;
-        setSearchText(localStorageSearchText);
-    }, []);
+    // useEffect(() => {
+    //     const localStorageSearchText = localStorage.getItem(`${keyInStorageSearchText}`);
+    //     if (!localStorage.getItem(`${keyInStorageSearchText}`)) return;
+    //     setSearchTextQuery(localStorageSearchText);
+    // }, [setSearchTextQuery, keyInStorageSearchText]);
+
+
+
+
+
+
+    // useEffect(() => {
+    //     const localStorageSearchText = localStorage.getItem('savedMoviesSearchText');
+    //     if (!localStorage.getItem('savedMoviesSearchText')) return;
+    //     setSavedMoviesSearchText(localStorageSearchText);
+    // }, [setSavedMoviesSearchText]);
 
     return (
         <div className='search-form-container'>
             <form onSubmit={handleSubmit} className='search-form'>
                 <input className='search-form__input'
                     onChange={handleChange}
-                    value={searchText}
+                    value={searchTextQuery}
                     type='text'
                     name='find'
                     placeholder='Фильм'
