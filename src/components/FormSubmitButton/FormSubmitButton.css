@@ -11,6 +11,12 @@
     cursor: pointer;
 }
 
+.form-submit-button_inactive {
+    cursor: default;
+    background-color: white;
+    color: rgb(205, 205, 205);
+}
+
 @media screen and (max-width: 767px) {
     .form-submit-button {
         padding: 15px;

@@ -5,7 +5,7 @@ import FormInput from '../FormInput/FormInput';
 import headerLogo from '../../images/logo.svg';
 import FormSubmitButton from '../FormSubmitButton/FormSubmitButton';
 import FormParagraphLinkContainer from '../FormParagraphLinkContainer/FormParagraphLinkContainer';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 function Register({ error, handleRegister }) {
@@ -15,6 +15,8 @@ function Register({ error, handleRegister }) {
         email: '',
         password: '',
     });
+
+    const [isValid, setIsValid] = useState(false);
 
     function handleChange(e) {
         const { name, value } = e.target;
@@ -29,6 +31,15 @@ function Register({ error, handleRegister }) {
 
         handleRegister(registerState);
     };
+
+    useEffect(() => {
+        // если нет пустых значений в хотя бы одном из полей
+        if (!((registerState.name === '') || (registerState.email === '')  || (registerState.password === ''))) {
+            setIsValid(true)
+        } else {
+            setIsValid(false)
+        }
+    }, [registerState.name, registerState.email, registerState.password, isValid]);
 
     return (
         <div className='register-form register-form__container'>
@@ -50,7 +61,7 @@ function Register({ error, handleRegister }) {
                         </FormField>
                     </div>
                     <div className='register-form__button-container'>
-                        <FormSubmitButton buttonName={'Зарегистрироваться'} />
+                        <FormSubmitButton isValid={isValid} buttonName={'Зарегистрироваться'} />
                         <FormParagraphLinkContainer formParagraph={'Уже зарегистрированы?'} linkPath={'/signin'} linkName={'Войти'} />
                     </div>
                 </div>

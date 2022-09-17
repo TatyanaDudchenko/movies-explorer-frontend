@@ -5,7 +5,7 @@ import FormInput from '../FormInput/FormInput';
 import headerLogo from '../../images/logo.svg';
 import FormSubmitButton from '../FormSubmitButton/FormSubmitButton';
 import FormParagraphLinkContainer from '../FormParagraphLinkContainer/FormParagraphLinkContainer';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 function Login({ error, handleLogin }) {
@@ -14,6 +14,8 @@ function Login({ error, handleLogin }) {
     email: '',
     password: '',
   });
+
+  const [isValid, setIsValid] = useState(false);
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -28,6 +30,16 @@ function Login({ error, handleLogin }) {
 
     handleLogin(loginState);
   }
+  
+  useEffect(() => {
+    // если нет пустых значений в хотя бы одном из полей
+    if (!((loginState.email === '') || (loginState.password === ''))) {
+      setIsValid(true)
+    } else {
+      setIsValid(false)
+    }
+  }, [loginState.email, loginState.password, isValid]);
+
   return (
     <div className='login-form login-form__container'>
 
@@ -46,7 +58,7 @@ function Login({ error, handleLogin }) {
             </FormField>
           </div>
           <div className='login-form__button-container'>
-            <FormSubmitButton buttonName={'Войти'} />
+            <FormSubmitButton isValid={isValid} buttonName={'Войти'} />
             <FormParagraphLinkContainer formParagraph={'Еще не зарегистрированы?'} linkPath={'/signup'} linkName={'Регистрация'} />
           </div>
         </div>
