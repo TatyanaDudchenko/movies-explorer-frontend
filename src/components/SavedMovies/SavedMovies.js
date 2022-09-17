@@ -10,7 +10,10 @@ function SavedMovies({ savedMovies, moviesUrl, onGetFoundMovies, onToggleClick, 
     const [savedMoviesSearchText, setSavedMoviesSearchText] = useState('');
     const [isSavedMoviesToggleClick, setIsSavedMoviesToggleClick] = useState(false);
 
-
+    // сохраняем фильмы в локальное хранилище для последующего использования в функциональности переключения чекбокса короткометражек в неактивное состояние
+    useEffect(() => {
+        localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
+    }, [savedMovies]);
 
     function searchAndFilterSavedMovies(savedMoviesSearchText, savedMovies, isToggleClick) {
         let findMoviesInSaved = [];
@@ -37,19 +40,42 @@ function SavedMovies({ savedMovies, moviesUrl, onGetFoundMovies, onToggleClick, 
         // }
         setSavedMoviesSearchResult(findMoviesInSaved); // сохраняем массив с найденными фильмами
 
+        // сохраняем фильмы в локальное хранилище для последующего использования в функциональности переключения чекбокса короткометражек в неактивное состояние
+        localStorage.setItem('savedMovies', JSON.stringify(findMoviesInSaved));
+
+        // обновляем результат поиска фильмов для отрисовки на странице в локальном хранилище
+        setSavedMoviesSearchResult(JSON.parse(localStorage.getItem('savedMovies')));
+
         return findMoviesInSaved;
     }
 
     function filterShotSavedMovies(isSavedMoviesToggleClick) {
         if (isSavedMoviesToggleClick === false) {
-            setSavedMoviesSearchResult(savedMoviesSearchResult => [...savedMoviesSearchResult].filter((item) => item.duration <= 40))
-            // } else {
+            setSavedMoviesSearchResult(savedMoviesSearchResult => [...savedMoviesSearchResult].filter((item) => item.duration <= 40));
+
+            // сохраняем фильмы в локальное хранилище для последующего использования в функциональности переключения чекбокса короткометражек в активное состояние
+            localStorage.setItem('filteredSavedMovies', JSON.stringify(savedMoviesSearchResult.filter((item) => item.duration <= 40)));
+        } else {
+            setSavedMoviesSearchResult(JSON.parse(localStorage.getItem('savedMovies'))); //
             //   // ничего не найдено
         }
     }
 
+    useEffect(() => {
+        if (isSavedMoviesToggleClick === true) {
+            const localStorageFilteredSavedMovies = JSON.parse(localStorage.getItem('filteredSavedMovies'));
+            if (!localStorage.getItem('filteredSavedMovies')) return;
+            setSavedMoviesSearchResult(localStorageFilteredSavedMovies);
+        } else {
+            const localStorageSavedMovies = JSON.parse(localStorage.getItem('savedMovies'));
+            if (!localStorage.getItem('savedMovies')) return;
+            setSavedMoviesSearchResult(localStorageSavedMovies);
+        }
+    }, [isSavedMoviesToggleClick]);
+
     function handleSavedMoviesToggleClick() {
         setIsSavedMoviesToggleClick(!isSavedMoviesToggleClick);
+        localStorage.setItem('toggleSavedMoviesState', JSON.stringify(!isSavedMoviesToggleClick));
         filterShotSavedMovies(isSavedMoviesToggleClick);
     }
 
@@ -61,8 +87,6 @@ function SavedMovies({ savedMovies, moviesUrl, onGetFoundMovies, onToggleClick, 
         <div className='saved-movies-container'>
             <SearchForm
                 onGetFoundMovies={onGetFoundMovies}
-                // onToggleClick={onToggleClick}
-                // onToggleClickState={onToggleClickState}
                 onSearchAndFilterFunction={searchAndFilterSavedMovies}
                 searchTextQuery={savedMoviesSearchText}
                 setSearchTextQuery={setSavedMoviesSearchText}
