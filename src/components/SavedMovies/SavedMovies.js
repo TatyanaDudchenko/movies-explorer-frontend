@@ -4,7 +4,7 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import { useState, useEffect } from 'react';
 
 
-function SavedMovies({ savedMovies, moviesUrl, onGetFoundMovies, onToggleClick, onToggleClickState, onLikeClickState, onMovieLikeDelete }) {
+function SavedMovies({ savedMovies, moviesUrl, onGetFoundMovies, onToggleClick, onToggleClickState, onLikeClickState, onMovieLikeDelete, setTooltipMessage, handleInfoTooltipOpen }) {
 
     const [savedMoviesSearchResult, setSavedMoviesSearchResult] = useState([] || savedMovies);
     const [savedMoviesSearchText, setSavedMoviesSearchText] = useState('');
@@ -34,10 +34,13 @@ function SavedMovies({ savedMovies, moviesUrl, onGetFoundMovies, onToggleClick, 
             else if (item.country?.toLowerCase().indexOf(savedMoviesSearchText.toLowerCase()) > -1) {
                 findMoviesInSaved.push(item)
             }
-        })
-        // if (findMoviesInSaved.length === 0) {
-        //   setTooltipMessage('Ничего не найдено');
-        // }
+        });
+        
+        if (findMoviesInSaved.length === 0) {
+          setTooltipMessage('Ничего не найдено');
+          handleInfoTooltipOpen();
+        }
+
         setSavedMoviesSearchResult(findMoviesInSaved); // сохраняем массив с найденными фильмами
 
         // сохраняем фильмы в локальное хранилище для последующего использования в функциональности переключения чекбокса короткометражек в неактивное состояние
@@ -94,7 +97,9 @@ function SavedMovies({ savedMovies, moviesUrl, onGetFoundMovies, onToggleClick, 
                 onToggleClick={handleSavedMoviesToggleClick}
                 onToggleClickState={isSavedMoviesToggleClick}
                 onSetIsToggleClick={setIsSavedMoviesToggleClick}
-                movArr={savedMovies} />
+                movArr={savedMovies}
+                setTooltipMessage={setTooltipMessage}
+                handleInfoTooltipOpen={handleInfoTooltipOpen} />
             <MoviesCardList
                 moviesUrl={moviesUrl}
                 savedMovies={savedMovies}

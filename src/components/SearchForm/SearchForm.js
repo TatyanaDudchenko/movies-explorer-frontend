@@ -17,9 +17,9 @@ function SearchForm({
     searchTextQuery,
     setSearchTextQuery,
     keyInStorageSearchText,
+    setTooltipMessage,
+    handleInfoTooltipOpen,
 }) {
-
-    // const [searchText, setSearchText] = useState('');
 
     // Создаём переменную, которую после зададим в `className` для состояния кнопки переключения короткометражек
     const toggleIconButtonStateClassName = (
@@ -35,46 +35,20 @@ function SearchForm({
                 onSetIsToggleClick(false);
             }
 
-            // handleSearchTextSaving(e); // получаем значение инпута
             onGetFoundMovies(); // получаем фильмы с MoviesApi
-            // вызываем функцию поиска с переданными параметрами и сохраняем результат (массив с найденными фильмами) в переменную
+            // вызываем функцию поиска с переданными параметрами и сохраняем результат (массив с найденными фильмами)
             onSearchAndFilterFunction(searchTextQuery, movArr, onToggleClickState);
-            // onSearchAndFilterMovies(searchText, movies, onToggleClickState);
-            // onSearchAndFilterSavedMovies(savedMoviesSearchText, savedMovies, onToggleClickState);
 
             localStorage.setItem('toggleState', JSON.stringify(onToggleClickState)); // сохраняем состояние чекбокса в локальное хранилище
-
-            // // обновляем результат поиска фильмов для отрисовки на странице
-            // setMoviesSearchResult(JSON.parse(localStorage.getItem('foundMovies')));
+        } else {
+            setTooltipMessage('Для выполнения поиска введите текст в поисковую строку');
+            handleInfoTooltipOpen();
         }
     }
 
     function handleChange(e) {
         setSearchTextQuery(e.target.value);
-        // setSavedMoviesSearchText(e.target.value);
     }
-
-    // function handleSearchTextSaving() {
-    //     localStorage.setItem(`${keyInStorageSearchText}`, searchTextQuery);
-    //     // localStorage.setItem('savedMoviesSearchText', savedMoviesSearchText);
-    // }
-
-    // useEffect(() => {
-    //     const localStorageSearchText = localStorage.getItem(`${keyInStorageSearchText}`);
-    //     if (!localStorage.getItem(`${keyInStorageSearchText}`)) return;
-    //     setSearchTextQuery(localStorageSearchText);
-    // }, [setSearchTextQuery, keyInStorageSearchText]);
-
-
-
-
-
-
-    // useEffect(() => {
-    //     const localStorageSearchText = localStorage.getItem('savedMoviesSearchText');
-    //     if (!localStorage.getItem('savedMoviesSearchText')) return;
-    //     setSavedMoviesSearchText(localStorageSearchText);
-    // }, [setSavedMoviesSearchText]);
 
     return (
         <div className='search-form-container'>
@@ -85,7 +59,6 @@ function SearchForm({
                     type='text'
                     name='find'
                     placeholder='Фильм'
-                    required
                 />
                 <button type='submit' className='search-form__button search-form__submit-button'></button>
             </form>

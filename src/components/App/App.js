@@ -94,9 +94,10 @@ function App() {
       });
   }
 
-  function handleLogin(loginState) {
+  function handleLogin(values) {
+    // function handleLogin(loginState) {
     MainApi
-      .authorize(loginState.email, loginState.password)
+      .authorize(values.email, values.password)
       .then((data) => {
         if (!data.token) return;
 
@@ -148,19 +149,24 @@ function App() {
     setIsInfoTooltipOpen(false);
   }
 
-  function handleUpdateUser(props) {
-    MainApi
-      .editProfile(props)
-      .then((userData) => {
-        setСurrentUser(userData);
-        setTooltipMessage('Ваш профиль успешно обновлен!');
-        handleInfoTooltipOpen();
-      })
-      .catch((err) => {
-        console.log(err);
-        setTooltipMessage('Что-то пошло не так! Попробуйте еще раз.');
-        handleInfoTooltipOpen();
-      });
+  function handleUpdateUser(values) {
+    if (!((currentUser.name === values.name) & (currentUser.email === values.email))) {
+      MainApi
+        .editProfile(values)
+        .then((userData) => {
+          setСurrentUser(userData);
+          setTooltipMessage('Ваш профиль успешно обновлен!');
+          handleInfoTooltipOpen();
+        })
+        .catch((err) => {
+          console.log(err);
+          setTooltipMessage('Что-то пошло не так! Попробуйте еще раз.');
+          handleInfoTooltipOpen();
+        });
+    } else {
+      setTooltipMessage('Для обновления профиля введите новое имя или email');
+      handleInfoTooltipOpen();
+    }
   }
 
   function handleGetFoundMovies() {
@@ -297,10 +303,13 @@ function App() {
       else if (item.country?.toLowerCase().indexOf(searchText.toLowerCase()) > -1) {
         findMovies.push(item)
       }
-    })
+    });
+
     if (findMovies.length === 0) {
       setTooltipMessage('Ничего не найдено');
+      handleInfoTooltipOpen();
     }
+
     localStorage.setItem('foundMovies', JSON.stringify(findMovies)); // сохраняем массив с найденными фильмами в локальное хранилище
     // обновляем результат поиска фильмов для отрисовки на странице
     setMoviesSearchResult(JSON.parse(localStorage.getItem('foundMovies')));
@@ -347,7 +356,9 @@ function App() {
               onToggleClick={handleToggleClick}
               onToggleClickState={isToggleClick}
               onMovieLike={handleMovieLike}
-              onSearchAndFilterMovies={searchAndFilterMovies} />
+              onSearchAndFilterMovies={searchAndFilterMovies}
+              setTooltipMessage={setTooltipMessage}
+              handleInfoTooltipOpen={handleInfoTooltipOpen} />
           </ProtectedRoute>
           <ProtectedRoute path='/saved-movies' signedIn={signedIn}>
             <SavedMovies
@@ -357,6 +368,8 @@ function App() {
               onGetFoundMovies={handleGetFoundMovies}
               onToggleClick={handleToggleClick}
               onToggleClickState={isToggleClick}
+              setTooltipMessage={setTooltipMessage}
+              handleInfoTooltipOpen={handleInfoTooltipOpen}
             />
           </ProtectedRoute>
           <ProtectedRoute path='/profile' signedIn={signedIn}>

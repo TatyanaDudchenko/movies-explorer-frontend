@@ -16,7 +16,9 @@ function Movies({
     onSetIsToggleClick,
     onLikeClickState,
     onMovieLike,
-    onSearchAndFilterMovies
+    onSearchAndFilterMovies,
+    setTooltipMessage,
+    handleInfoTooltipOpen,
 }) {
 
     const [searchText, setSearchText] = useState('');
@@ -104,7 +106,9 @@ function Movies({
                 setSearchTextQuery={setSearchText}
                 setSearchText={setSearchText}
                 keyInStorageSearchText={'searchText'}
-                onSearchAndFilterFunction={onSearchAndFilterMovies} />
+                onSearchAndFilterFunction={onSearchAndFilterMovies}
+                setTooltipMessage={setTooltipMessage}
+                handleInfoTooltipOpen={handleInfoTooltipOpen} />
             <MoviesCardList
                 moviesUrl={moviesUrl}
                 movies={movies}

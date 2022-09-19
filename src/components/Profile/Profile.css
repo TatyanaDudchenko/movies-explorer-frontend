@@ -81,6 +81,11 @@
     cursor: pointer;
 }
 
+.profile-form__submit-button_inactive {
+    cursor: default;
+    color: gray;
+}
+
 .profile-form__link {
     font-size: 13px;
     font-weight: 500;

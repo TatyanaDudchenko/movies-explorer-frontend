@@ -1,35 +1,23 @@
 import './Profile.css';
 import FormTitle from '../FormTitle/FormTitle';
-// import { Link } from 'react-router-dom';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import { useState, useEffect, useContext } from 'react';
+import { useEffect, useContext } from 'react';
+import { useFormWithValidation } from '../../utils/Validation';
 
-function Profile({ error, signout, onUpdateUser }) {
+function Profile({ signout, onUpdateUser }) {
     const currentUser = useContext(CurrentUserContext);
 
-    const [profileUserName, setProfileUserName] = useState('');
-    const [profileUserEmail, setProfileUseEmail] = useState('');
-
-    function handleNameChange(e) {
-        setProfileUserName(e.target.value);
-    }
-
-    function handleEmailChange(e) {
-        setProfileUseEmail(e.target.value);
-    }
+    const { values, handleChange, errors, isValid, setValues, setIsValid } = useFormWithValidation();
+    const submitBattonInactiveClassName = 'profile-form__submit-button_inactive';
 
     useEffect(() => {
-        setProfileUserName(currentUser.name);
-        setProfileUseEmail(currentUser.email);
-    }, [currentUser]);
+        setValues(currentUser);
+        setIsValid(true);
+      }, [currentUser, setValues, setIsValid]);
 
     function handleSubmit(e) {
         e.preventDefault();
-
-        onUpdateUser({
-            name: profileUserName,
-            email: profileUserEmail,
-        });
+        onUpdateUser(values);
     }
 
     return (
@@ -41,37 +29,36 @@ function Profile({ error, signout, onUpdateUser }) {
                         <div className='profile-form__field'>
                             <label className='profile-form__field-label'>Имя</label>
                             <div className='profile-form__field-input-container'>
-                                <input className={`profile-form__field-input ${error = false && 'profile-form__input-error-message_color'}`}
-                                    onChange={handleNameChange}
-                                    value={profileUserName}
+                                <input className={`profile-form__field-input ${errors.name && 'profile-form__input-error-message_color'}`}
+                                    onChange={handleChange}
+                                    value={values.name || ''}
                                     type='text'
                                     name='name'
                                     minLength='2'
                                     maxLength='30'
                                     required
                                 />
-                                {error = false && <span className='profile-form__input-error-message profile-form__input-error-message_color'>Что-то пошло не так...</span>}
+                                {errors.name && <span className='profile-form__input-error-message profile-form__input-error-message_color'>{errors.name}</span>}
                             </div>
                         </div>
                         <div className='profile-form__field'>
                             <label className='profile-form__field-label'>E-mail</label>
                             <div className='profile-form__field-input-container'>
-                                <input className={`profile-form__field-input ${error = false && 'profile-form__input-error-message_color'}`}
-                                    onChange={handleEmailChange}
-                                    value={profileUserEmail}
+                                <input className={`profile-form__field-input ${errors.email && 'profile-form__input-error-message_color'}`}
+                                    onChange={handleChange}
+                                    value={values.email || ''}
                                     type='email'
                                     name='email'
                                     minLength='2'
                                     maxLength='30'
                                     required
                                 />
-                                {error = false && <span className='profile-form__input-error-message profile-form__input-error-message_color'>Что-то пошло не так...</span>}
+                                {errors.email && <span className='profile-form__input-error-message profile-form__input-error-message_color'>{errors.email}</span>}
                             </div>
                         </div>
                     </div>
                     <div className='profile-form__button-container'>
-                        <button type='submit' className='profile-form__submit-button'>Редактировать</button>
-                        {/* <Link onClick={signout} className='profile-form__link' to='/'>Выйти из аккаунта</Link> */}
+                        <button type='submit' className={`profile-form__submit-button ${!isValid && submitBattonInactiveClassName}`}>Редактировать</button>
                         <a href='/' onClick={signout} className='profile-form__link'>Выйти из аккаунта</a>
                     </div>
                 </div>

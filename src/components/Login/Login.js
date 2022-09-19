@@ -5,40 +5,24 @@ import FormInput from '../FormInput/FormInput';
 import headerLogo from '../../images/logo.svg';
 import FormSubmitButton from '../FormSubmitButton/FormSubmitButton';
 import FormParagraphLinkContainer from '../FormParagraphLinkContainer/FormParagraphLinkContainer';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-function Login({ error, handleLogin }) {
+import { useFormWithValidation } from '../../utils/Validation';
 
-  const [loginState, setLoginState] = useState({
-    email: '',
-    password: '',
-  });
+function Login({ handleLogin }) {
 
-  const [isValid, setIsValid] = useState(false);
+  const { values, handleChange, errors, isValid, resetForm} = useFormWithValidation();
 
-  function handleChange(e) {
-    const { name, value } = e.target;
-    setLoginState((old) => ({
-      ...old,
-      [name]: value,
-    }));
-  }
+  useEffect(() => {
+    resetForm();
+  }, [resetForm]);
 
   function handleSubmit(e) {
     e.preventDefault();
 
-    handleLogin(loginState);
+    handleLogin(values);
   }
-  
-  useEffect(() => {
-    // если нет пустых значений в хотя бы одном из полей
-    if (!((loginState.email === '') || (loginState.password === ''))) {
-      setIsValid(true)
-    } else {
-      setIsValid(false)
-    }
-  }, [loginState.email, loginState.password, isValid]);
 
   return (
     <div className='login-form login-form__container'>
@@ -51,10 +35,10 @@ function Login({ error, handleLogin }) {
         <div className='login-form__content_align'>
           <div className='login-form__fields'>
             <FormField label='E-mail'>
-              <FormInput onChange={handleChange} error={error} type='email' name='email' minLength='2' maxLength='30' />
+              <FormInput onChange={handleChange} error={errors.email} type='email' name='email' minLength='2' maxLength='30' />
             </FormField>
             <FormField label='Пароль'>
-              <FormInput onChange={handleChange} error={error} type='password' name='password' minLength='2' maxLength='30' />
+              <FormInput onChange={handleChange} error={errors.password} type='password' name='password' minLength='2' maxLength='30' />
             </FormField>
           </div>
           <div className='login-form__button-container'>
