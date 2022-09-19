@@ -5,41 +5,23 @@ import FormInput from '../FormInput/FormInput';
 import headerLogo from '../../images/logo.svg';
 import FormSubmitButton from '../FormSubmitButton/FormSubmitButton';
 import FormParagraphLinkContainer from '../FormParagraphLinkContainer/FormParagraphLinkContainer';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useFormWithValidation } from '../../utils/Validation';
 
-function Register({ error, handleRegister }) {
+function Register({ handleRegister }) {
 
-    const [registerState, setRegisterState] = useState({
-        name: '',
-        email: '',
-        password: '',
-    });
-
-    const [isValid, setIsValid] = useState(false);
-
-    function handleChange(e) {
-        const { name, value } = e.target;
-        setRegisterState(old => ({
-            ...old,
-            [name]: value
-        }));
-    };
-
-    function handleSubmit(e) {
-        e.preventDefault();
-
-        handleRegister(registerState);
-    };
+    const { values, handleChange, errors, isValid, resetForm} = useFormWithValidation();
 
     useEffect(() => {
-        // если нет пустых значений в хотя бы одном из полей
-        if (!((registerState.name === '') || (registerState.email === '')  || (registerState.password === ''))) {
-            setIsValid(true)
-        } else {
-            setIsValid(false)
-        }
-    }, [registerState.name, registerState.email, registerState.password, isValid]);
+      resetForm();
+    }, [resetForm]);
+  
+    function handleSubmit(e) {
+      e.preventDefault();
+  
+      handleRegister(values);
+    }
 
     return (
         <div className='register-form register-form__container'>
@@ -51,13 +33,13 @@ function Register({ error, handleRegister }) {
                 <div className='register-form__content_align'>
                     <div className='register-form__fields'>
                         <FormField label='Имя'>
-                            <FormInput onChange={handleChange} error={error} type='text' name='name' value={registerState.name} minLength='2' maxLength='30' />
+                            <FormInput onChange={handleChange} error={errors.name} type='text' name='name' minLength='2' maxLength='30' />
                         </FormField>
                         <FormField label='E-mail'>
-                            <FormInput onChange={handleChange} error={error} type='email' name='email' value={registerState.email} minLength='2' maxLength='30' />
+                            <FormInput onChange={handleChange} error={errors.email} type='email' name='email' minLength='2' maxLength='30' />
                         </FormField>
                         <FormField label='Пароль'>
-                            <FormInput onChange={handleChange} error={error} type='password' name='password' value={registerState.password} minLength='2' maxLength='30' />
+                            <FormInput onChange={handleChange} error={errors.password} type='password' name='password' minLength='2' maxLength='30' />
                         </FormField>
                     </div>
                     <div className='register-form__button-container'>
