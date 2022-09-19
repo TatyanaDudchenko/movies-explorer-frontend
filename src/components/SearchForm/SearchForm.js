@@ -41,7 +41,7 @@ function SearchForm({
 
             localStorage.setItem('toggleState', JSON.stringify(onToggleClickState)); // сохраняем состояние чекбокса в локальное хранилище
         } else {
-            setTooltipMessage('Для выполнения поиска введите текст в поисковую строку');
+            setTooltipMessage('Нужно ввести ключевое слово');
             handleInfoTooltipOpen();
         }
     }
