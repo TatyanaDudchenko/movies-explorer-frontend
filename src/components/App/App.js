@@ -104,7 +104,7 @@ function App() {
         localStorage.setItem('jwt', data.token);
         setSignedIn(true);
 
-        history.push('/');
+        history.push('/movies');
       })
       .catch((err) => {
         console.log(err);
