@@ -33,9 +33,6 @@ function SavedMovies({ savedMovies, moviesUrl, onGetFoundMovies, onToggleClick, 
         // сохраняем фильмы в локальное хранилище для последующего использования в функциональности переключения чекбокса короткометражек в неактивное состояние
         localStorage.setItem('savedMovies', JSON.stringify(findMoviesInSaved));
 
-        // обновляем результат поиска фильмов для отрисовки на странице в локальном хранилище
-        setSavedMoviesSearchResult(JSON.parse(localStorage.getItem('savedMovies')));
-
         return findMoviesInSaved;
     }
 
@@ -46,11 +43,13 @@ function SavedMovies({ savedMovies, moviesUrl, onGetFoundMovies, onToggleClick, 
             // сохраняем фильмы в локальное хранилище для последующего использования в функциональности переключения чекбокса короткометражек в активное состояние
             localStorage.setItem('filteredSavedMovies', JSON.stringify(savedMoviesSearchResult.filter((item) => item.duration <= 40)));
         } else {
+            // загружаем фильмы из локального хранилища для использования в функциональности переключения чекбокса в неактивное состояние
             setSavedMoviesSearchResult(JSON.parse(localStorage.getItem('savedMovies'))); //
             //   // ничего не найдено
         }
     }
 
+    // используем фильмы из локального хранилища для выполнения функциональности переключения чекбокса короткометражек
     useEffect(() => {
         if (isSavedMoviesToggleClick === true) {
             const localStorageFilteredSavedMovies = JSON.parse(localStorage.getItem('filteredSavedMovies'));
