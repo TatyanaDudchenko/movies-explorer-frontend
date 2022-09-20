@@ -301,18 +301,6 @@ function App() {
       if (item.nameRU?.toLowerCase().indexOf(searchText.toLowerCase()) > -1) {
         findMovies.push(item)
       }
-      else if (item.nameEN?.toLowerCase().indexOf(searchText.toLowerCase()) > -1) {
-        findMovies.push(item)
-      }
-      else if (item.description?.toLowerCase().indexOf(searchText.toLowerCase()) > -1) {
-        findMovies.push(item)
-      }
-      else if (item.year?.toLowerCase().indexOf(searchText.toLowerCase()) > -1) {
-        findMovies.push(item)
-      }
-      else if (item.country?.toLowerCase().indexOf(searchText.toLowerCase()) > -1) {
-        findMovies.push(item)
-      }
     });
 
     if (findMovies.length === 0) {

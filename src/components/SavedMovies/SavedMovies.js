@@ -21,18 +21,6 @@ function SavedMovies({ savedMovies, moviesUrl, onGetFoundMovies, onToggleClick, 
             if (item.nameRU?.toLowerCase().indexOf(savedMoviesSearchText.toLowerCase()) > -1) {
                 findMoviesInSaved.push(item)
             }
-            else if (item.nameEN?.toLowerCase().indexOf(savedMoviesSearchText.toLowerCase()) > -1) {
-                findMoviesInSaved.push(item)
-            }
-            else if (item.description?.toLowerCase().indexOf(savedMoviesSearchText.toLowerCase()) > -1) {
-                findMoviesInSaved.push(item)
-            }
-            else if (item.year?.toLowerCase().indexOf(savedMoviesSearchText.toLowerCase()) > -1) {
-                findMoviesInSaved.push(item)
-            }
-            else if (item.country?.toLowerCase().indexOf(savedMoviesSearchText.toLowerCase()) > -1) {
-                findMoviesInSaved.push(item)
-            }
         });
 
         if (findMoviesInSaved.length === 0) {
