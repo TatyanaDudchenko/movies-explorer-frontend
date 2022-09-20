@@ -3,7 +3,6 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import { useState, useEffect } from 'react';
 
-
 function SavedMovies({ savedMovies, moviesUrl, onGetFoundMovies, onToggleClick, onToggleClickState, onLikeClickState, onMovieLikeDelete, setTooltipMessage, handleInfoTooltipOpen }) {
 
     const [savedMoviesSearchResult, setSavedMoviesSearchResult] = useState([] || savedMovies);
@@ -35,7 +34,7 @@ function SavedMovies({ savedMovies, moviesUrl, onGetFoundMovies, onToggleClick, 
                 findMoviesInSaved.push(item)
             }
         });
-        
+
         if (findMoviesInSaved.length === 0) {
           setTooltipMessage('Ничего не найдено');
           handleInfoTooltipOpen();

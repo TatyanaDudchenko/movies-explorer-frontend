@@ -137,6 +137,17 @@ function App() {
   function signout() {
     setSignedIn(false);
     localStorage.removeItem('jwt');
+    if(localStorage.getItem('foundMovies')) {
+      localStorage.removeItem('foundMovies');
+    }
+    if(localStorage.getItem('searchText')) {
+      localStorage.removeItem('searchText');
+    }
+    if(localStorage.getItem('toggleState')) {
+      localStorage.removeItem('toggleState');
+    }
+    
+    localStorage.removeItem('jwt');
     history.push('/');
   }
 
