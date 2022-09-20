@@ -31,10 +31,6 @@ function SearchForm({
 
         if (e.target[0].value.length !== 0) {
 
-            if (onToggleClickState === true) {
-                onSetIsToggleClick(false);
-            }
-
             onGetFoundMovies(); // получаем фильмы с MoviesApi
             // вызываем функцию поиска с переданными параметрами и сохраняем результат (массив с найденными фильмами)
             onSearchAndFilterFunction(searchTextQuery, movArr, onToggleClickState);
