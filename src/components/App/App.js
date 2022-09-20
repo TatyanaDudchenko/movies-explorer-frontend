@@ -79,13 +79,13 @@ function App() {
     setIsPreloaderOpen(true);
   }
 
-  function handleRegister(registerState) {
+  function handleRegister(values) {
     MainApi
-      .register(registerState.name, registerState.email, registerState.password)
+      .register(values.name, values.email, values.password)
       .then(() => {
         setTooltipMessage('Вы успешно зарегистрировались!');
         handleInfoTooltipOpen();
-        handleLogin(registerState);
+        handleLogin(values);
       })
       .catch((err) => {
         console.log(err);
@@ -95,7 +95,6 @@ function App() {
   }
 
   function handleLogin(values) {
-    // function handleLogin(loginState) {
     MainApi
       .authorize(values.email, values.password)
       .then((data) => {
