@@ -25,7 +25,7 @@ import ProtectedRoute from '../ProtectedRoute';
 function App() {
   const [shouldHideHeaderAndFooter, setShouldHideHeaderAndFooter] = useState(false);
   const [isMenuPopupOpen, setIsMenuPopupOpen] = useState(false);
-  const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState(JSON.parse(localStorage.getItem('allMovies')));
   const [savedMovies, setSavedMovies] = useState([]);
   const [isToggleClick, setIsToggleClick] = useState(false);
   const [signedIn, setSignedIn] = useState(false);
@@ -136,16 +136,16 @@ function App() {
   function signout() {
     setSignedIn(false);
     localStorage.removeItem('jwt');
-    if(localStorage.getItem('foundMovies')) {
+    if (localStorage.getItem('foundMovies')) {
       localStorage.removeItem('foundMovies');
     }
-    if(localStorage.getItem('searchText')) {
+    if (localStorage.getItem('searchText')) {
       localStorage.removeItem('searchText');
     }
-    if(localStorage.getItem('toggleState')) {
+    if (localStorage.getItem('toggleState')) {
       localStorage.removeItem('toggleState');
     }
-    
+
     localStorage.removeItem('jwt');
     history.push('/');
   }
@@ -179,19 +179,15 @@ function App() {
     }
   }
 
-  function handleGetFoundMovies() {
-
-    handlePreloaderOpen(); //запускаем прелоадер
-
+  useEffect(() => {
     MoviesApi.getFoundMovies()
       .then((movies) => {
-        setIsPreloaderOpen(false); // выключаем прелоадер
-        setMovies(movies);
+        localStorage.setItem('allMovies', JSON.stringify(movies)); // сохраняем массив с найденными фильмами в локальное хранилище
       })
       .catch((err) => {
         console.log(err);
       });
-  }
+  }, []);
 
   // обработчик удаления фильма из списка сохраненных
   function handleMovieLikeDelete(movie, savedMovies) {
@@ -295,6 +291,8 @@ function App() {
   }
 
   function searchAndFilterMovies(searchText, movies, isToggleClick) {
+    // handlePreloaderOpen(); //запускаем прелоадер
+
     let findMovies = [];
 
     movies.forEach((item) => {
@@ -313,6 +311,9 @@ function App() {
     setMoviesSearchResult(JSON.parse(localStorage.getItem('foundMovies')));
 
     localStorage.setItem('searchText', searchText);
+
+    // setIsPreloaderOpen(false); // выключаем прелоадер
+
 
     return findMovies;
 
@@ -350,7 +351,7 @@ function App() {
               moviesSearchResult={moviesSearchResult}
               onSetIsToggleClick={setIsToggleClick}
               savedMovies={savedMovies}
-              onGetFoundMovies={handleGetFoundMovies}
+              // onGetFoundMovies={handleGetFoundMovies}
               onToggleClick={handleToggleClick}
               onToggleClickState={isToggleClick}
               onMovieLike={handleMovieLike}
@@ -363,7 +364,7 @@ function App() {
               moviesUrl={moviesUrl}
               savedMovies={savedMovies}
               onMovieLikeDelete={handleMovieLikeDelete}
-              onGetFoundMovies={handleGetFoundMovies}
+              // onGetFoundMovies={handleGetFoundMovies}
               onToggleClick={handleToggleClick}
               onToggleClickState={isToggleClick}
               setTooltipMessage={setTooltipMessage}

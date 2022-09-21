@@ -3,7 +3,7 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import { useState, useEffect } from 'react';
 
-function SavedMovies({ savedMovies, moviesUrl, onGetFoundMovies, onToggleClick, onToggleClickState, onLikeClickState, onMovieLikeDelete, setTooltipMessage, handleInfoTooltipOpen }) {
+function SavedMovies({ savedMovies, moviesUrl, onLikeClickState, onMovieLikeDelete, setTooltipMessage, handleInfoTooltipOpen }) {
 
     const [savedMoviesSearchResult, setSavedMoviesSearchResult] = useState([] || savedMovies);
     const [savedMoviesSearchText, setSavedMoviesSearchText] = useState('');
@@ -75,7 +75,6 @@ function SavedMovies({ savedMovies, moviesUrl, onGetFoundMovies, onToggleClick, 
     return (
         <div className='saved-movies-container'>
             <SearchForm
-                onGetFoundMovies={onGetFoundMovies}
                 onSearchAndFilterFunction={searchAndFilterSavedMovies}
                 searchTextQuery={savedMoviesSearchText}
                 setSearchTextQuery={setSavedMoviesSearchText}

@@ -1,22 +1,12 @@
 import './SearchForm.css';
 
 function SearchForm({
-    onGetFoundMovies,
     onToggleClick,
     onToggleClickState,
-    onSetIsToggleClick,
-    // onSearchAndFilterMovies,
-    // onSearchAndFilterSavedMovies,
     onSearchAndFilterFunction,
-    // movies,
-    // savedMovies,
     movArr,
-    setMoviesSearchResult,
-    // savedMoviesSearchText,
-    setSavedMoviesSearchText,
     searchTextQuery,
     setSearchTextQuery,
-    keyInStorageSearchText,
     setTooltipMessage,
     handleInfoTooltipOpen,
 }) {
@@ -31,7 +21,6 @@ function SearchForm({
 
         if (e.target[0].value.length !== 0) {
 
-            onGetFoundMovies(); // получаем фильмы с MoviesApi
             // вызываем функцию поиска с переданными параметрами и сохраняем результат (массив с найденными фильмами)
             onSearchAndFilterFunction(searchTextQuery, movArr, onToggleClickState);
 
@@ -40,6 +29,7 @@ function SearchForm({
             setTooltipMessage('Нужно ввести ключевое слово');
             handleInfoTooltipOpen();
         }
+
     }
 
     function handleChange(e) {

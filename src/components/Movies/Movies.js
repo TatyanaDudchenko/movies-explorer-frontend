@@ -10,7 +10,6 @@ function Movies({
     setMoviesSearchResult,
     savedMovies,
     moviesUrl,
-    onGetFoundMovies,
     onToggleClick,
     onToggleClickState,
     onSetIsToggleClick,
@@ -95,7 +94,6 @@ function Movies({
     return (
         <div className='movies-container'>
             <SearchForm
-                onGetFoundMovies={onGetFoundMovies}
                 onToggleClick={onToggleClick}
                 onToggleClickState={onToggleClickState}
                 movArr={movies}
