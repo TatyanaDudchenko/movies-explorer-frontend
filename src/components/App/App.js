@@ -25,7 +25,7 @@ import ProtectedRoute from '../ProtectedRoute';
 function App() {
   const [shouldHideHeaderAndFooter, setShouldHideHeaderAndFooter] = useState(false);
   const [isMenuPopupOpen, setIsMenuPopupOpen] = useState(false);
-  const [movies, setMovies] = useState(JSON.parse(localStorage.getItem('allMovies')));
+  const [movies, setMovies] = useState();
   const [savedMovies, setSavedMovies] = useState([]);
   const [isToggleClick, setIsToggleClick] = useState(false);
   const [signedIn, setSignedIn] = useState(false);
@@ -183,6 +183,7 @@ function App() {
     MoviesApi.getFoundMovies()
       .then((movies) => {
         localStorage.setItem('allMovies', JSON.stringify(movies)); // сохраняем массив с найденными фильмами в локальное хранилище
+        setMovies(JSON.parse(localStorage.getItem('allMovies')))
       })
       .catch((err) => {
         console.log(err);
