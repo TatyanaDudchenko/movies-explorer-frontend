@@ -285,6 +285,13 @@ function App() {
     setIsToggleClick(localStorageToggleState);
   }, []);
 
+  useEffect(() => {
+    if (isToggleClick === true) {
+      const localStorageMovies = JSON.parse(localStorage.getItem('filteredMovies'));
+      if (!localStorage.getItem('filteredMovies')) return;
+      setMoviesSearchResult(localStorageMovies);
+    }
+  }, []);
 
   function handleToggleClick() {
     setIsToggleClick(!isToggleClick);
@@ -318,7 +325,7 @@ function App() {
       setMoviesSearchResult(moviesSearchResult => [...moviesSearchResult].filter((item) => item.duration <= 40));
 
       // сохраняем фильмы в локальное хранилище для последующего использования в функциональности переключения чекбокса короткометражек в активное состояние
-      localStorage.setItem('filteredMovies', JSON.stringify(moviesSearchResult.filter((item) => item.duration <= 40)));
+      localStorage.setItem('filteredMovies', JSON.stringify(findMovies.filter((item) => item.duration <= 40)));
       localStorage.setItem('toggleState', JSON.stringify(isToggleClick)); // сохраняем состояние чекбокса в локальное хранилище
 
     } else {
