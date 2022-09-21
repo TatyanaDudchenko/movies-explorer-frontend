@@ -285,6 +285,7 @@ function App() {
     setIsToggleClick(localStorageToggleState);
   }, []);
 
+
   function handleToggleClick() {
     setIsToggleClick(!isToggleClick);
     localStorage.setItem('toggleState', JSON.stringify(!isToggleClick));
@@ -312,6 +313,21 @@ function App() {
     setMoviesSearchResult(JSON.parse(localStorage.getItem('foundMovies')));
 
     localStorage.setItem('searchText', searchText);
+
+    if (isToggleClick === true) {
+      setMoviesSearchResult(moviesSearchResult => [...moviesSearchResult].filter((item) => item.duration <= 40));
+
+      // сохраняем фильмы в локальное хранилище для последующего использования в функциональности переключения чекбокса короткометражек в активное состояние
+      localStorage.setItem('filteredMovies', JSON.stringify(moviesSearchResult.filter((item) => item.duration <= 40)));
+      localStorage.setItem('toggleState', JSON.stringify(isToggleClick)); // сохраняем состояние чекбокса в локальное хранилище
+
+    } else {
+      // загружаем фильмы из локального хранилища для использования в функциональности переключения чекбокса в неактивное состояние
+      setMoviesSearchResult(JSON.parse(localStorage.getItem('foundMovies'))); //
+      //   // ничего не найдено
+    }
+
+    localStorage.setItem('toggleState', JSON.stringify(isToggleClick)); // сохраняем состояние чекбокса в локальное хранилище
 
     // setIsPreloaderOpen(false); // выключаем прелоадер
 
