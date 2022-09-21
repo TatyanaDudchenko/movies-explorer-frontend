@@ -25,7 +25,8 @@ function MoviesCardList({ showMovies, moviesUrl, savedMovies, savedMoviesSearchR
                     onClick={onMovieLike}
                 />
             ))}
-            {location.pathname.includes('/saved-movies') && (savedMoviesSearchResult.slice(0, 12)).map((item) => (
+            {location.pathname.includes('/saved-movies') && savedMoviesSearchResult.map((item) => (
+            // {location.pathname.includes('/saved-movies') && (savedMoviesSearchResult.slice(0, 12)).map((item) => (
                 <MoviesCard
                     moviesUrl={moviesUrl}
                     onLikeClickState={onLikeClickState}
