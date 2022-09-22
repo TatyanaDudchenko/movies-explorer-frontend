@@ -1,10 +1,11 @@
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
+import Preloader from '../Preloader/Preloader';
 import { useLocation } from 'react-router-dom';
 // import { useState, useEffect } from 'react';
 
 
-function MoviesCardList({ showMovies, moviesUrl, savedMovies, savedMoviesSearchResult, onLikeClickState, onMovieLike, onMovieLikeDelete, filteredMovies, onToggleClickState }) {
+function MoviesCardList({ showMovies, moviesUrl, savedMovies, savedMoviesSearchResult, onLikeClickState, onMovieLike, onMovieLikeDelete, isPreloaderOpen }) {
 
     let location = useLocation();
 
@@ -13,7 +14,10 @@ function MoviesCardList({ showMovies, moviesUrl, savedMovies, savedMoviesSearchR
 
     return (
         <div className='movies-card-list'>
-                {location.pathname.includes('/movies') && showMovies.map((item) => (
+            <Preloader
+                isOpen={isPreloaderOpen}
+            />
+            {location.pathname.includes('/movies') && showMovies.map((item) => (
                 //  {location.pathname.includes('/movies') && (moviesSearchResult.slice(0, 12)).map((item) => (
                 <MoviesCard
                     savedMovies={savedMovies}
@@ -26,7 +30,7 @@ function MoviesCardList({ showMovies, moviesUrl, savedMovies, savedMoviesSearchR
                 />
             ))}
             {location.pathname.includes('/saved-movies') && savedMoviesSearchResult.map((item) => (
-            // {location.pathname.includes('/saved-movies') && (savedMoviesSearchResult.slice(0, 12)).map((item) => (
+                // {location.pathname.includes('/saved-movies') && (savedMoviesSearchResult.slice(0, 12)).map((item) => (
                 <MoviesCard
                     moviesUrl={moviesUrl}
                     onLikeClickState={onLikeClickState}

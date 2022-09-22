@@ -3,7 +3,7 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import { useState, useEffect } from 'react';
 
-function SavedMovies({ savedMovies, moviesUrl, onLikeClickState, onMovieLikeDelete, setTooltipMessage, handleInfoTooltipOpen }) {
+function SavedMovies({ savedMovies, moviesUrl, onLikeClickState, onMovieLikeDelete, setTooltipMessage, handleInfoTooltipOpen, handlePreloaderOpen, setIsPreloaderOpen }) {
 
     const [savedMoviesSearchResult, setSavedMoviesSearchResult] = useState([] || savedMovies);
     const [savedMoviesSearchText, setSavedMoviesSearchText] = useState('');
@@ -15,38 +15,44 @@ function SavedMovies({ savedMovies, moviesUrl, onLikeClickState, onMovieLikeDele
     }, [savedMovies]);
 
     function searchAndFilterSavedMovies(savedMoviesSearchText, savedMovies, isToggleClick) {
-        let findMoviesInSaved = [];
+        handlePreloaderOpen(); //запускаем прелоадер
 
-        savedMovies.forEach((item) => {
-            if (item.nameRU?.toLowerCase().indexOf(savedMoviesSearchText.toLowerCase()) > -1) {
-                findMoviesInSaved.push(item)
+        const delay = setTimeout(() => {
+            let findMoviesInSaved = [];
+
+            savedMovies.forEach((item) => {
+                if (item.nameRU?.toLowerCase().indexOf(savedMoviesSearchText.toLowerCase()) > -1) {
+                    findMoviesInSaved.push(item)
+                }
+            });
+
+            if (findMoviesInSaved.length === 0) {
+                setTooltipMessage('Ничего не найдено');
+                handleInfoTooltipOpen();
             }
-        });
 
-        if (findMoviesInSaved.length === 0) {
-          setTooltipMessage('Ничего не найдено');
-          handleInfoTooltipOpen();
-        }
+            setSavedMoviesSearchResult(findMoviesInSaved); // сохраняем массив с найденными фильмами
 
-        setSavedMoviesSearchResult(findMoviesInSaved); // сохраняем массив с найденными фильмами
+            // сохраняем фильмы в локальное хранилище для последующего использования в функциональности переключения чекбокса короткометражек в неактивное состояние
+            localStorage.setItem('savedMovies', JSON.stringify(findMoviesInSaved));
 
-        // сохраняем фильмы в локальное хранилище для последующего использования в функциональности переключения чекбокса короткометражек в неактивное состояние
-        localStorage.setItem('savedMovies', JSON.stringify(findMoviesInSaved));
+            if (isSavedMoviesToggleClick === true) {
+                setSavedMoviesSearchResult(savedMoviesSearchResult => [...savedMoviesSearchResult].filter((item) => item.duration <= 40));
 
-        if (isSavedMoviesToggleClick === true) {
-            setSavedMoviesSearchResult(savedMoviesSearchResult => [...savedMoviesSearchResult].filter((item) => item.duration <= 40));
-      
-            // сохраняем фильмы в локальное хранилище для последующего использования в функциональности переключения чекбокса короткометражек в активное состояние
-            localStorage.setItem('filteredSavedMovies', JSON.stringify(findMoviesInSaved.filter((item) => item.duration <= 40)));
-            localStorage.setItem('toggleSavedMoviesState', JSON.stringify(isSavedMoviesToggleClick)); // сохраняем состояние чекбокса в локальное хранилище
-      
-          } else {
-            // загружаем фильмы из локального хранилища для использования в функциональности переключения чекбокса в неактивное состояние
-            setSavedMoviesSearchResult(JSON.parse(localStorage.getItem('savedMovies'))); //
-            //   // ничего не найдено
-          }
+                // сохраняем фильмы в локальное хранилище для последующего использования в функциональности переключения чекбокса короткометражек в активное состояние
+                localStorage.setItem('filteredSavedMovies', JSON.stringify(findMoviesInSaved.filter((item) => item.duration <= 40)));
+                localStorage.setItem('toggleSavedMoviesState', JSON.stringify(isSavedMoviesToggleClick)); // сохраняем состояние чекбокса в локальное хранилище
 
-        return findMoviesInSaved;
+            } else {
+                // загружаем фильмы из локального хранилища для использования в функциональности переключения чекбокса в неактивное состояние
+                setSavedMoviesSearchResult(JSON.parse(localStorage.getItem('savedMovies'))); //
+                //   // ничего не найдено
+            }
+
+            setIsPreloaderOpen(false); // выключаем прелоадер
+
+            clearTimeout(delay);
+        }, 500);
     }
 
     function filterShotSavedMovies(isSavedMoviesToggleClick) {
