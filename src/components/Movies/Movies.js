@@ -82,7 +82,7 @@ function Movies({
         if (windowWidth >= SIZE_DESKTOP) {
             setnumberOfMoviesToShow(12);
             setNumberOfMoviesToShowAdd(3);
-        } else if (windowWidth < SIZE_DESKTOP && windowWidth > SIZE_TABLET) {
+        } else if (windowWidth < SIZE_DESKTOP && windowWidth >= SIZE_TABLET) {
             setnumberOfMoviesToShow(8);
             setNumberOfMoviesToShowAdd(2);
         } else {
