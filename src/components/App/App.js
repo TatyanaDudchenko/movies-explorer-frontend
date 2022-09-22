@@ -44,14 +44,18 @@ function App() {
       Promise.all([MainApi.getUserInfo(), MainApi.getMovies()])
         .then(([userData, savedMovies]) => {
           setСurrentUser(userData);
-          setSavedMovies(savedMovies);
+    const ownSavedMovies = savedMovies.filter((item) => item.owner === currentUser._id);
+
+          setSavedMovies(ownSavedMovies);
+          // setSavedMovies(savedMovies);
+
 
         })
         .catch((err) => {
           console.log(err);
         });
     }
-  }, [signedIn]);
+  }, [signedIn, currentUser._id]);
 
   function handleHideHeaderAndFooter(props) {
     setShouldHideHeaderAndFooter(props);
@@ -209,16 +213,18 @@ function App() {
     MainApi
       .deleteMovieFromSaved(likedMovieId, moviesUrl)
       .then((deletedMovie) => {
-        setMovies((movies) =>
-          movies.map((item) => (item._id === movie._id ? deletedMovie : item))); // обновляем состояние карточки, которую удалили
-        setSavedMovies(savedMovies => [...savedMovies].filter((item) => item._id !== movie._id)) // обновляем массив со списком сохраненных фильмов
+        // setMovies((movies) =>
+        //   movies.map((item) => (item._id === movie._id ? deletedMovie : item))); // обновляем состояние карточки, которую удалили
+        setSavedMovies(savedMovies => [...savedMovies].filter((item) => item._id !== deletedMovie._id)) // обновляем массив со списком сохраненных фильмов (от которого также зависит состояние иконки лайка)
       })
       .catch((err) => {
         console.log(err);
       });
     MainApi.getMovies()
       .then((savedMovies) => {
-        setSavedMovies(savedMovies)
+        // setSavedMovies(savedMovies)
+        const ownSavedMovies = savedMovies.filter((item) => item.owner === currentUser._id);
+        setSavedMovies(ownSavedMovies);
       })
       .catch((err) => {
         console.log(err);
@@ -235,16 +241,19 @@ function App() {
       MainApi
         .putMovieInSaved(movie, moviesUrl)
         .then((likedMovie) => {
-          setMovies((movies) =>
-            movies.map((item) => (item.movieId === movie.id ? likedMovie : item))); // обновляем состояние карточки, которую лайкнули (чтобы обновилась кнопка лайка)
-          setSavedMovies(prev => [...prev, movie]) // обновляем массив со списком сохраненных фильмов
+          // setMovies((movies) =>
+          //   movies.map((item) => (item.movieId === movie.id ? likedMovie : item))); // обновляем состояние карточки, которую лайкнули (чтобы обновилась кнопка лайка)
+          setSavedMovies(savedMovies => [...savedMovies, likedMovie]) // обновляем массив со списком сохраненных фильмов (от которого также зависит состояние иконки лайка)
         })
         .catch((err) => {
           console.log(err);
         });
       MainApi.getMovies()
         .then((savedMovies) => {
-          setSavedMovies(savedMovies)
+          // setSavedMovies(savedMovies)
+          const ownSavedMovies = savedMovies.filter((item) => item.owner === currentUser._id);
+
+          setSavedMovies(ownSavedMovies);
         })
         .catch((err) => {
           console.log(err);
@@ -263,7 +272,10 @@ function App() {
         });
       MainApi.getMovies()
         .then((savedMovies) => {
-          setSavedMovies(savedMovies)
+          // setSavedMovies(savedMovies)
+          const ownSavedMovies = savedMovies.filter((item) => item.owner === currentUser._id);
+
+          setSavedMovies(ownSavedMovies);
         })
         .catch((err) => {
           console.log(err);

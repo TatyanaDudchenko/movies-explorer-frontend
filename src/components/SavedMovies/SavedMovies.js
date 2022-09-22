@@ -2,12 +2,19 @@ import './SavedMovies.css';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import { useState, useEffect } from 'react';
+import { useContext } from "react";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function SavedMovies({ savedMovies, moviesUrl, onLikeClickState, onMovieLikeDelete, setTooltipMessage, handleInfoTooltipOpen, handlePreloaderOpen, setIsPreloaderOpen }) {
+    const currentUser = useContext(CurrentUserContext);
 
     const [savedMoviesSearchResult, setSavedMoviesSearchResult] = useState([] || savedMovies);
     const [savedMoviesSearchText, setSavedMoviesSearchText] = useState('');
     const [isSavedMoviesToggleClick, setIsSavedMoviesToggleClick] = useState(false);
+
+    // определяем, являемся ли мы владельцем текущего фильма
+    const ownSavedMovies = savedMovies.filter((item) => item.owner === currentUser._id);
+    console.log(ownSavedMovies)
 
     // сохраняем фильмы в локальное хранилище для последующего использования в функциональности переключения чекбокса короткометражек в неактивное состояние
     useEffect(() => {
@@ -46,7 +53,6 @@ function SavedMovies({ savedMovies, moviesUrl, onLikeClickState, onMovieLikeDele
             } else {
                 // загружаем фильмы из локального хранилища для использования в функциональности переключения чекбокса в неактивное состояние
                 setSavedMoviesSearchResult(JSON.parse(localStorage.getItem('savedMovies'))); //
-                //   // ничего не найдено
             }
 
             setIsPreloaderOpen(false); // выключаем прелоадер
