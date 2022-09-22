@@ -317,7 +317,7 @@ function App() {
       if (!localStorage.getItem('filteredMovies')) return;
       setMoviesSearchResult(localStorageMovies);
     }
-  }, []);
+  }, [isToggleClick]);
 
   function handleToggleClick() {
     setIsToggleClick(!isToggleClick);
