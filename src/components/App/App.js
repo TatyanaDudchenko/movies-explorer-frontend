@@ -145,6 +145,18 @@ function App() {
     if (localStorage.getItem('toggleState')) {
       localStorage.removeItem('toggleState');
     }
+    if (localStorage.getItem('filteredSavedMovies')) {
+      localStorage.removeItem('filteredSavedMovies');
+    }
+    if (localStorage.getItem('toggleSavedMoviesState')) {
+      localStorage.removeItem('toggleSavedMoviesState');
+    }
+    if (localStorage.getItem('filteredMovies')) {
+      localStorage.removeItem('filteredMovies');
+    }
+    if (localStorage.getItem('allMovies')) {
+      localStorage.removeItem('allMovies');
+    }
 
     localStorage.removeItem('jwt');
     history.push('/');
@@ -180,6 +192,7 @@ function App() {
   }
 
   useEffect(() => {
+    if (location.pathname.includes('/movies'))
     MoviesApi.getFoundMovies()
       .then((movies) => {
         localStorage.setItem('allMovies', JSON.stringify(movies)); // сохраняем массив с найденными фильмами в локальное хранилище
@@ -188,7 +201,7 @@ function App() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [location]);
 
   // обработчик удаления фильма из списка сохраненных
   function handleMovieLikeDelete(movie, savedMovies) {
