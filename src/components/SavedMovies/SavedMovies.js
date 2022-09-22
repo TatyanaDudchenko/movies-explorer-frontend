@@ -33,6 +33,19 @@ function SavedMovies({ savedMovies, moviesUrl, onLikeClickState, onMovieLikeDele
         // сохраняем фильмы в локальное хранилище для последующего использования в функциональности переключения чекбокса короткометражек в неактивное состояние
         localStorage.setItem('savedMovies', JSON.stringify(findMoviesInSaved));
 
+        if (isSavedMoviesToggleClick === true) {
+            setSavedMoviesSearchResult(savedMoviesSearchResult => [...savedMoviesSearchResult].filter((item) => item.duration <= 40));
+      
+            // сохраняем фильмы в локальное хранилище для последующего использования в функциональности переключения чекбокса короткометражек в активное состояние
+            localStorage.setItem('filteredSavedMovies', JSON.stringify(findMoviesInSaved.filter((item) => item.duration <= 40)));
+            localStorage.setItem('toggleSavedMoviesState', JSON.stringify(isSavedMoviesToggleClick)); // сохраняем состояние чекбокса в локальное хранилище
+      
+          } else {
+            // загружаем фильмы из локального хранилища для использования в функциональности переключения чекбокса в неактивное состояние
+            setSavedMoviesSearchResult(JSON.parse(localStorage.getItem('savedMovies'))); //
+            //   // ничего не найдено
+          }
+
         return findMoviesInSaved;
     }
 
