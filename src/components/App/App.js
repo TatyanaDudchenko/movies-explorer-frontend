@@ -288,6 +288,7 @@ function App() {
       setMoviesSearchResult(moviesSearchResult => [...moviesSearchResult].filter((item) => item.duration <= 40))
       localStorage.setItem('filteredMovies', JSON.stringify(moviesSearchResult.filter((item) => item.duration <= 40)));
     } else {
+      if (!localStorage.getItem('foundMovies')) return;
       setMoviesSearchResult(JSON.parse(localStorage.getItem('foundMovies')));
     }
   }
