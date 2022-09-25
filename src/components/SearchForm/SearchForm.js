@@ -1,24 +1,58 @@
 import './SearchForm.css';
 
+function SearchForm({
+    onToggleClick,
+    onToggleClickState,
+    onSearchAndFilterFunction,
+    movArr,
+    searchTextQuery,
+    setSearchTextQuery,
+    setTooltipMessage,
+    handleInfoTooltipOpen,
+}) {
 
-function SearchForm() {
+    // Создаём переменную, которую после зададим в `className` для состояния кнопки переключения короткометражек
+    const toggleIconButtonStateClassName = (
+        `${onToggleClickState && 'search-form__toggle-icon_active'}`
+    );
+
+    function handleSubmit(e) {
+        e.preventDefault();
+
+        if (e.target[0].value.length !== 0) {
+
+            // вызываем функцию поиска с переданными параметрами и сохраняем результат (массив с найденными фильмами)
+            onSearchAndFilterFunction(searchTextQuery, movArr, onToggleClickState);
+
+            localStorage.setItem('toggleState', JSON.stringify(onToggleClickState)); // сохраняем состояние чекбокса в локальное хранилище
+        } else {
+            setTooltipMessage('Нужно ввести ключевое слово');
+            handleInfoTooltipOpen();
+        }
+
+    }
+
+    function handleChange(e) {
+        setSearchTextQuery(e.target.value);
+    }
+
     return (
         <div className='search-form-container'>
-            <form className='search-form'>
+            <form onSubmit={handleSubmit} className='search-form'>
                 <input className='search-form__input'
+                    onChange={handleChange}
+                    value={searchTextQuery}
                     type='text'
                     name='find'
                     placeholder='Фильм'
-                    required
                 />
                 <button type='submit' className='search-form__button search-form__submit-button'></button>
             </form>
             <div className='search-form__toggle-container'>
-                <button type='switch' className='search-form__button search-form__toggle-icon'></button>
+                <button onClick={onToggleClick} type='switch' className={`search-form__button search-form__toggle-icon ${toggleIconButtonStateClassName}`}></button>
                 <p className='search-form__toggle-text'>Короткометражки</p>
             </div>
         </div>
-
     )
 }
 

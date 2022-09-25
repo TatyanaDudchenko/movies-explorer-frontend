@@ -41,6 +41,11 @@
     align-items: center;
 }
 
+
+.header__navbar_item_inactive {
+    cursor: default;
+}
+
 .header__navbar_item-movies {
     background-color: unset;
     font-weight: 400;

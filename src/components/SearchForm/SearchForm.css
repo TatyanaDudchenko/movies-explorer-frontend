@@ -59,7 +59,11 @@
   .search-form__toggle-icon {
     width: 34px;
     height: 14px;
-    background-image: url(../../images/icon-toggle.svg);
+    background-image: url(../../images/icon-toggle-inactive.svg);
+  }
+
+  .search-form__toggle-icon_active {
+    background-image: url(../../images/icon-toggle-active.svg);
   }
 
   .search-form__toggle-text {

@@ -13,9 +13,9 @@ function MenuPopup({ isOpen, onClose }) {
                 </div>
                 <nav className='popup__navbar'>
                     <div className='popup__navbar_item-group'>
-                        <NavLink exact to='/profile' onClick={onClose}
+                        <NavLink exact to='/' onClick={onClose}
                             className={`popup__navbar_item popup__navbar_item_margin
-                            ${location.pathname.includes('/profile') && 'popup__navbar_item_current'}`}>
+                            ${location.pathname.includes('/') && 'popup__navbar_item_current'}`}>
                             Главная
                         </NavLink>
                         <NavLink to='/movies' onClick={onClose}
@@ -29,7 +29,7 @@ function MenuPopup({ isOpen, onClose }) {
                             Сохранённые фильмы
                         </NavLink>
                     </div>
-                    <NavLink exact to='/' onClick={onClose} className='popup__navbar_item-account'>Аккаунт</NavLink>
+                    <NavLink to='/profile' onClick={onClose} className='popup__navbar_item-account'>Аккаунт</NavLink>
                 </nav>
 
             </div>

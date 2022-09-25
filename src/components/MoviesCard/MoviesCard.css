@@ -20,6 +20,15 @@
   margin-top: 0; /*сброшены стандартные отступы*/
   margin-bottom: 0; /*сброшены стандартные отступы*/
   color: #fff;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 280px;
+}
+
+.movies-card__about-name:hover {
+  text-overflow: initial;
+  white-space: initial;
 }
 
 .movies-card__about-duration {
@@ -57,7 +66,22 @@
   opacity: 0.5;
 }
 
+.movies-card__icon-like_active {
+  background-image: url(../../images/icon-saved-active.svg);
+}
+
+.movies-card__icon-like_delete {
+  background-image: url(../../images/icon-delete.svg);
+}
+
 .movies-card__image {
   max-width: 100%;
-  max-height: 100%;
+  max-height: 203px;
+}
+
+
+@media screen and (max-width: 1279px) {
+  .movies-card__about-name {
+    max-width: 230px;
+  }
 }

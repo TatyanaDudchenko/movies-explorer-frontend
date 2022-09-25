@@ -1,74 +1,49 @@
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
-import moviesCardImage01 from '../../images/image-movies-card-example-01.png'; // тестовый пример
-import moviesCardImage02 from '../../images/image-movies-card-example-02.png'; // тестовый пример
-import moviesCardImage03 from '../../images/image-movies-card-example-03.png'; // тестовый пример
-import moviesCardImage04 from '../../images/image-movies-card-example-04.png'; // тестовый пример
-import moviesCardImage05 from '../../images/image-movies-card-example-05.png'; // тестовый пример
-import moviesCardImage06 from '../../images/image-movies-card-example-06.png'; // тестовый пример
-import moviesCardImage07 from '../../images/image-movies-card-example-07.png'; // тестовый пример
-import moviesCardImage08 from '../../images/image-movies-card-example-08.png'; // тестовый пример
-import moviesCardImage09 from '../../images/image-movies-card-example-09.png'; // тестовый пример
-import moviesCardImage10 from '../../images/image-movies-card-example-10.png'; // тестовый пример
-import moviesCardImage11 from '../../images/image-movies-card-example-11.png'; // тестовый пример
-import moviesCardImage12 from '../../images/image-movies-card-example-12.png'; // тестовый пример
+import Preloader from '../Preloader/Preloader';
+import { useLocation } from 'react-router-dom';
+// import { useState, useEffect } from 'react';
 
-function MoviesCardList() {
 
-    const moviesCardsArray = [
-        {
-            name: '33 слова о дизайне',
-            link: moviesCardImage01
-        },
-        {
-            name: '33 слова о дизайне',
-            link: moviesCardImage02
-        },
-        {
-            name: '33 слова о дизайне',
-            link: moviesCardImage03
-        },
-        {
-            name: '33 слова о дизайне',
-            link: moviesCardImage04
-        },
-        {
-            name: '33 слова о дизайне',
-            link: moviesCardImage05
-        },
-        {
-            name: '33 слова о дизайне',
-            link: moviesCardImage06
-        },
-        {
-            name: '33 слова о дизайне',
-            link: moviesCardImage07
-        },
-        {
-            name: '33 слова о дизайне',
-            link: moviesCardImage08
-        },
-        {
-            name: '33 слова о дизайне',
-            link: moviesCardImage09
-        },
-        {
-            name: '33 слова о дизайне',
-            link: moviesCardImage10
-        },
-        {
-            name: '33 слова о дизайне',
-            link: moviesCardImage11
-        },
-        {
-            name: '33 слова о дизайне',
-            link: moviesCardImage12
-        }
-    ];
+function MoviesCardList({ showMovies, moviesUrl, savedMovies, savedMoviesSearchResult, onLikeClickState, onMovieLike, onMovieLikeDelete, isPreloaderOpen }) {
+
+    let location = useLocation();
+
+    // Создаём переменную, которую после зададим в `className` для состояния кнопки лайка
+    const likeButtonDelete = 'movies-card__icon-like_delete';
 
     return (
         <div className='movies-card-list'>
-            {moviesCardsArray.map((item, index)=> (<MoviesCard key={index} {...item} moviesCard={item} />))}
+            <Preloader
+                isOpen={isPreloaderOpen}
+            />
+            {location.pathname.includes('/movies') && showMovies.map((item) => (
+                //  {location.pathname.includes('/movies') && (moviesSearchResult.slice(0, 12)).map((item) => (
+                <MoviesCard
+                    savedMovies={savedMovies}
+                    moviesUrl={moviesUrl}
+                    onLikeClickState={onLikeClickState}
+                    key={item.id} {...item} movie={item}
+                    imageUrl={`${moviesUrl}${item.image.url}`}
+                    imageAlt={`${item.nameRU}`}
+                    onClick={onMovieLike}
+                />
+            ))}
+            {location.pathname.includes('/saved-movies') && savedMoviesSearchResult.map((item) => (
+                // {location.pathname.includes('/saved-movies') && (savedMoviesSearchResult.slice(0, 12)).map((item) => (
+                <MoviesCard
+                    moviesUrl={moviesUrl}
+                    onLikeClickState={onLikeClickState}
+                    likeButtonDelete={likeButtonDelete}
+                    movie={item}
+                    savedMovies={savedMovies}
+                    onMovieLike={onMovieLike}
+                    key={item._id} {...item}
+                    imageUrl={`${item.image}`}
+                    imageAlt={item.nameRU}
+                    onClick={onMovieLikeDelete}
+                />
+            ))}
         </div>
     )
 }
